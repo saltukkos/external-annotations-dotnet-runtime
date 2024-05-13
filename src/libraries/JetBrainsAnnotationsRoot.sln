@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Private.CoreLib", "..\coreclr\System.Private.CoreLib\System.Private.CoreLib.csproj", "{CEDB81BB-E627-4385-85A6-935212FA6C25}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "System.Private.CoreLib.Shared", "System.Private.CoreLib\src\System.Private.CoreLib.Shared.shproj", "{97E4882F-A9D2-4FCE-B6FF-0566020BCF75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Private.CoreLib.Generators", "System.Private.CoreLib\gen\System.Private.CoreLib.Generators.csproj", "{C6F4837B-74A1-4542-B431-F6EEEB030980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Collections.Concurrent", "System.Collections.Concurrent\src\System.Collections.Concurrent.csproj", "{75BF49CA-0B4D-47FA-A7DF-D76BD8DCC356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Collections.Immutable", "System.Collections.Immutable\src\System.Collections.Immutable.csproj", "{A8572AA4-6614-4746-945E-6528A8335695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Collections", "System.Collections\src\System.Collections.csproj", "{8A0C4A78-37F5-4959-A068-44934D1DB50B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Collections.NonGeneric", "System.Collections.NonGeneric\src\System.Collections.NonGeneric.csproj", "{BCA2DFB2-9025-4E61-964E-BC41D2649E55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Collections.Specialized", "System.Collections.Specialized\src\System.Collections.Specialized.csproj", "{B190C896-9C93-4AA9-85E0-9784F74741B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq", "System.Linq\src\System.Linq.csproj", "{C689D4D7-A78D-4CCE-9778-E812DD4DD9C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions", "System.Linq.Expressions\src\System.Linq.Expressions.csproj", "{5CCC06F3-4C7F-4EE8-BE55-8C0BE5535106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Parallel", "System.Linq.Parallel\src\System.Linq.Parallel.csproj", "{A604F4DB-F386-4CE9-A3DC-903C602275CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Queryable", "System.Linq.Queryable\src\System.Linq.Queryable.csproj", "{1728E766-2FCA-4E83-8187-530B110EBFF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ComponentModel.Primitives", "System.ComponentModel.Primitives\src\System.ComponentModel.Primitives.csproj", "{B94DF97B-0082-4B69-BB68-019D86CAB427}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ComponentModel", "System.ComponentModel\src\System.ComponentModel.csproj", "{AAEB8C75-2C27-4505-9AC6-DCA2612D907A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ComponentModel.Annotations", "System.ComponentModel.Annotations\src\System.ComponentModel.Annotations.csproj", "{7C440914-A6F1-4DB8-B839-3BD34099B03D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ObjectModel", "System.ObjectModel\src\System.ObjectModel.csproj", "{6F245BE9-F5FB-4EAD-B315-C57CECE8C4BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Threading", "System.Threading\src\System.Threading.csproj", "{2E747DA4-41A5-401B-AA67-40A21DBC1E4C}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{CEDB81BB-E627-4385-85A6-935212FA6C25}*SharedItemsImports = 5
+		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{97E4882F-A9D2-4FCE-B6FF-0566020BCF75}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+EndGlobal

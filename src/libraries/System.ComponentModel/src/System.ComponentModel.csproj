@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Runtime" />
+    <ProjectReference Include="$(CoreLibProject)" />
   </ItemGroup>
 
 </Project>
