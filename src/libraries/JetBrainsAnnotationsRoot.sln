@@ -34,11 +34,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ObjectModel", "Syste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Threading", "System.Threading\src\System.Threading.csproj", "{2E747DA4-41A5-401B-AA67-40A21DBC1E4C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryImportGenerator", "System.Runtime.InteropServices\gen\LibraryImportGenerator\LibraryImportGenerator.csproj", "{3FE912EA-3C5A-4E0D-9305-7B1BE8BB4025}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Interop.SourceGeneration", "System.Runtime.InteropServices\gen\Microsoft.Interop.SourceGeneration\Microsoft.Interop.SourceGeneration.csproj", "{2989011D-9B52-4F7B-A986-BBA7C34A94CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gen", "gen", "{4EA2B193-176C-41BD-ACAA-540361DD0F58}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{CEDB81BB-E627-4385-85A6-935212FA6C25}*SharedItemsImports = 5
 		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{97E4882F-A9D2-4FCE-B6FF-0566020BCF75}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FE912EA-3C5A-4E0D-9305-7B1BE8BB4025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE912EA-3C5A-4E0D-9305-7B1BE8BB4025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2989011D-9B52-4F7B-A986-BBA7C34A94CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2989011D-9B52-4F7B-A986-BBA7C34A94CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F4837B-74A1-4542-B431-F6EEEB030980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F4837B-74A1-4542-B431-F6EEEB030980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FE912EA-3C5A-4E0D-9305-7B1BE8BB4025} = {4EA2B193-176C-41BD-ACAA-540361DD0F58}
+		{2989011D-9B52-4F7B-A986-BBA7C34A94CC} = {4EA2B193-176C-41BD-ACAA-540361DD0F58}
+		{C6F4837B-74A1-4542-B431-F6EEEB030980} = {4EA2B193-176C-41BD-ACAA-540361DD0F58}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
