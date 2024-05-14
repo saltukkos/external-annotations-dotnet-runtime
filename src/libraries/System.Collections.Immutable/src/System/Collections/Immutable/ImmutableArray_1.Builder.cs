@@ -495,7 +495,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="element">The element.</param>
             /// <returns>A value indicating whether the specified element was found and removed from the collection.</returns>
-            public bool Remove(T element)
+            public bool Remove([DefaultEqualityUsage] T element)
             {
                 int index = this.IndexOf(element);
                 if (index >= 0)
@@ -517,7 +517,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>A value indicating whether the specified element was found and removed from the collection.</returns>
-            public bool Remove(T element, IEqualityComparer<T>? equalityComparer)
+            public bool Remove([DefaultEqualityUsage] T element, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(element, 0, _count, equalityComparer);
 
@@ -605,6 +605,8 @@ namespace System.Collections.Immutable
             /// Removes the specified values from this list.
             /// </summary>
             /// <param name="items">The items to remove if matches are found in this list.</param>
+            // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+            [DefaultEqualityUsageInternal(nameof(T))]
             public void RemoveRange(IEnumerable<T> items)
             {
                 this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -618,6 +620,8 @@ namespace System.Collections.Immutable
             /// The equality comparer to use in the search.
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
+            // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+            [DefaultEqualityUsageInternal(nameof(T))]
             public void RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.NotNull(items, nameof(items));
@@ -640,7 +644,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="oldValue">The element to replace.</param>
             /// <param name="newValue">The element to replace the old element with.</param>
-            public void Replace(T oldValue, T newValue)
+            public void Replace([DefaultEqualityUsage] T oldValue, T newValue)
             {
                 this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
             }
@@ -654,7 +658,7 @@ namespace System.Collections.Immutable
             /// The equality comparer to use in the search.
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
-            public void Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
+            public void Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(oldValue, 0, _count, equalityComparer);
 
@@ -671,7 +675,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// true if <paramref name="item"/> is found in the <see cref="ICollection{T}"/>; otherwise, false.
             /// </returns>
-            public bool Contains(T item)
+            public bool Contains([DefaultEqualityUsage] T item)
             {
                 return this.IndexOf(item) >= 0;
             }
@@ -760,7 +764,7 @@ namespace System.Collections.Immutable
             /// <param name="item">The item to search for.</param>
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int IndexOf(T item, int startIndex)
+            public int IndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 return this.IndexOf(item, startIndex, this.Count - startIndex, EqualityComparer<T>.Default);
             }
@@ -772,7 +776,7 @@ namespace System.Collections.Immutable
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <param name="count">The number of elements to search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int IndexOf(T item, int startIndex, int count)
+            public int IndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
             {
                 return this.IndexOf(item, startIndex, count, EqualityComparer<T>.Default);
             }
@@ -788,7 +792,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int IndexOf(T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
+            public int IndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
             {
                 if (count == 0 && startIndex == 0)
                 {
@@ -827,7 +831,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int IndexOf(T item, int startIndex, IEqualityComparer<T>? equalityComparer)
+            public int IndexOf([DefaultEqualityUsage] T item, int startIndex, IEqualityComparer<T>? equalityComparer)
             {
                 return this.IndexOf(item, startIndex, this.Count - startIndex, equalityComparer);
             }
@@ -837,7 +841,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="item">The item to search for.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int LastIndexOf(T item)
+            public int LastIndexOf([DefaultEqualityUsage] T item)
             {
                 if (this.Count == 0)
                 {
@@ -853,7 +857,7 @@ namespace System.Collections.Immutable
             /// <param name="item">The item to search for.</param>
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int LastIndexOf(T item, int startIndex)
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 if (this.Count == 0 && startIndex == 0)
                 {
@@ -872,7 +876,7 @@ namespace System.Collections.Immutable
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <param name="count">The number of elements to search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int LastIndexOf(T item, int startIndex, int count)
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
             {
                 return this.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);
             }
@@ -885,7 +889,7 @@ namespace System.Collections.Immutable
             /// <param name="count">The number of elements to search.</param>
             /// <param name="equalityComparer">The equality comparer to use in the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-            public int LastIndexOf(T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
             {
                 if (count == 0 && startIndex == 0)
                 {

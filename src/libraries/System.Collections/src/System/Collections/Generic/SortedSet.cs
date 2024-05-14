@@ -772,11 +772,15 @@ namespace System.Collections.Generic
         /// <summary>
         /// Returns an <see cref="IEqualityComparer{T}"/> object that can be used to create a collection that contains individual sets.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public static IEqualityComparer<SortedSet<T>> CreateSetComparer() => CreateSetComparer(memberEqualityComparer: null);
 
         /// <summary>
         /// Returns an <see cref="IEqualityComparer{T}"/> object, according to a specified comparer, that can be used to create a collection that contains individual sets.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public static IEqualityComparer<SortedSet<T>> CreateSetComparer(IEqualityComparer<T>? memberEqualityComparer)
         {
             return new SortedSetEqualityComparer<T>(memberEqualityComparer);

@@ -162,7 +162,7 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static string? GetName<TStorage>(EnumInfo<TStorage> enumInfo, TStorage value)
+        private static string? GetName<[DefaultEqualityUsage] TStorage>(EnumInfo<TStorage> enumInfo, TStorage value)
             where TStorage : struct, INumber<TStorage> =>
             GetNameInlined(enumInfo, value);
 
@@ -172,7 +172,7 @@ namespace System
         /// <param name="value">The underlying value for which we're searching.</param>
         /// <returns>The name of the value if found; otherwise, <see langword="null"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static string? GetNameInlined<TStorage>(EnumInfo<TStorage> enumInfo, TStorage value)
+        private static string? GetNameInlined<[DefaultEqualityUsage] TStorage>(EnumInfo<TStorage> enumInfo, TStorage value)
             where TStorage : struct, INumber<TStorage>
         {
             string[] names = enumInfo.Names;
@@ -491,7 +491,7 @@ namespace System
         }
 
         /// <summary>Gets whether the specified individual value is defined in the specified enum.</summary>
-        internal static bool IsDefinedPrimitive<TStorage>(RuntimeType enumType, TStorage value)
+        internal static bool IsDefinedPrimitive<[DefaultEqualityUsage] TStorage>(RuntimeType enumType, TStorage value)
             where TStorage : struct, INumber<TStorage>
         {
             EnumInfo<TStorage> enumInfo = GetEnumInfo<TStorage>(enumType, getNames: false);
@@ -525,7 +525,7 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int FindDefinedIndex<TStorage>(TStorage[] values, TStorage value)
+        private static int FindDefinedIndex<[DefaultEqualityUsage] TStorage>(TStorage[] values, TStorage value)
             where TStorage : struct, IEquatable<TStorage>, IComparable<TStorage>
         {
             // Binary searching has a higher constant overhead than linear searching.
@@ -1450,7 +1450,7 @@ namespace System
             ToString(format);
 
         [MethodImpl(MethodImplOptions.NoInlining)] // avoid bloating call sites for underlying types and/or call sites that aren't perf critical
-        private static string ToString<TUnderlying, TStorage>(RuntimeType enumType, ref byte rawData)
+        private static string ToString<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, ref byte rawData)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage> =>
             ToStringInlined<TUnderlying, TStorage>(enumType, ref rawData);
@@ -1462,7 +1462,7 @@ namespace System
         /// <param name="rawData">A reference to the enum's value.</param>
         /// <returns>The string representation of the value of this instance.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)] // used for most important types at most important call sites
-        private static string ToStringInlined<TUnderlying, TStorage>(RuntimeType enumType, ref byte rawData)
+        private static string ToStringInlined<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, ref byte rawData)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage>
         {
@@ -1479,7 +1479,7 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)] // avoid bloating call sites for underlying types and/or call sites that aren't perf critical
-        private static string ToString<TUnderlying, TStorage>(RuntimeType enumType, char format, ref byte rawData)
+        private static string ToString<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, char format, ref byte rawData)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>, IMinMaxValue<TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage>, IMinMaxValue<TStorage> =>
             ToStringInlined<TUnderlying, TStorage>(enumType, format, ref rawData);
@@ -1492,7 +1492,7 @@ namespace System
         /// <param name="rawData">A reference to the enum's value.</param>
         /// <returns>The string representation of the value of this instance as specified by <paramref name="format"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)] // used for most important types at most important call sites
-        private static string ToStringInlined<TUnderlying, TStorage>(RuntimeType enumType, char format, ref byte rawData)
+        private static string ToStringInlined<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, char format, ref byte rawData)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>, IMinMaxValue<TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage>, IMinMaxValue<TStorage>
         {
@@ -1855,7 +1855,7 @@ namespace System
         }
 
         /// <summary>Core implementation for  <see cref="TryFormat"/> when no format specifier was provided.</summary>
-        private static bool TryFormatPrimitiveDefault<TUnderlying, TStorage>(RuntimeType enumType, TUnderlying value, Span<char> destination, out int charsWritten)
+        private static bool TryFormatPrimitiveDefault<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, TUnderlying value, Span<char> destination, out int charsWritten)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>, IMinMaxValue<TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage>, IMinMaxValue<TStorage>
         {
@@ -1890,7 +1890,7 @@ namespace System
         }
 
         /// <summary>Core implementation for  <see cref="TryFormat"/> when a format specifier was provided.</summary>
-        private static bool TryFormatPrimitiveNonDefault<TUnderlying, TStorage>(RuntimeType enumType, TUnderlying value, Span<char> destination, out int charsWritten, ReadOnlySpan<char> format)
+        private static bool TryFormatPrimitiveNonDefault<TUnderlying, [DefaultEqualityUsage] TStorage>(RuntimeType enumType, TUnderlying value, Span<char> destination, out int charsWritten, ReadOnlySpan<char> format)
             where TUnderlying : struct, INumber<TUnderlying>, IBitwiseOperators<TUnderlying, TUnderlying, TUnderlying>, IMinMaxValue<TUnderlying>
             where TStorage : struct, INumber<TStorage>, IBitwiseOperators<TStorage, TStorage, TStorage>, IMinMaxValue<TStorage>
         {

@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
+// ReSharper disable InternalAttributeOnPublicApi - special handling for value tuples is implemented
 namespace System
 {
     /// <summary>
@@ -290,6 +291,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1> tuple && Equals(tuple);
@@ -305,6 +307,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its field
         /// is equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1))]
         public bool Equals(ValueTuple<T1> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1);
@@ -361,6 +364,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1))]
         public override int GetHashCode()
         {
             return Item1?.GetHashCode() ?? 0;
@@ -462,6 +466,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2> tuple && Equals(tuple);
@@ -476,6 +481,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2))]
         public bool Equals(ValueTuple<T1, T2> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -558,6 +564,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -668,6 +675,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3> tuple && Equals(tuple);
@@ -683,6 +691,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3))]
         public bool Equals(ValueTuple<T1, T2, T3> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -755,6 +764,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -873,6 +883,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3, T4> tuple && Equals(tuple);
@@ -888,6 +899,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4))]
         public bool Equals(ValueTuple<T1, T2, T3, T4> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -968,6 +980,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3, T4}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -1096,6 +1109,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3, T4, T5> tuple && Equals(tuple);
@@ -1111,6 +1125,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5))]
         public bool Equals(ValueTuple<T1, T2, T3, T4, T5> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -1199,6 +1214,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3, T4, T5}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -1337,6 +1353,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3, T4, T5, T6> tuple && Equals(tuple);
@@ -1352,6 +1369,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6))]
         public bool Equals(ValueTuple<T1, T2, T3, T4, T5, T6> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -1448,6 +1466,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -1596,6 +1615,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7> tuple && Equals(tuple);
@@ -1611,6 +1631,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7))]
         public bool Equals(ValueTuple<T1, T2, T3, T4, T5, T6, T7> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -1715,6 +1736,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7))]
         public override int GetHashCode()
         {
             return HashCode.Combine(Item1?.GetHashCode() ?? 0,
@@ -1879,6 +1901,7 @@ namespace System
         ///     <item><description>Its components are equal to those of the current instance. Equality is determined by the default object equality comparer for each component.</description></item>
         /// </list>
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7), nameof(TRest))]
         public override bool Equals([NotNullWhen(true)] object? obj)
         {
             return obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7, TRest> tuple && Equals(tuple);
@@ -1894,6 +1917,7 @@ namespace System
         /// The <paramref name="other"/> parameter is considered to be equal to the current instance if each of its fields
         /// are equal to that of the current instance, using the default comparer for that field's type.
         /// </remarks>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7), nameof(TRest))]
         public bool Equals(ValueTuple<T1, T2, T3, T4, T5, T6, T7, TRest> other)
         {
             return EqualityComparer<T1>.Default.Equals(Item1, other.Item1)
@@ -2006,6 +2030,7 @@ namespace System
         /// Returns the hash code for the current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, TRest}"/> instance.
         /// </summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
+        [DefaultEqualityUsageInternal(nameof(T1), nameof(T2), nameof(T3), nameof(T4), nameof(T5), nameof(T6), nameof(T7), nameof(TRest))]
         public override int GetHashCode()
         {
             // We want to have a limited hash in this case. We'll use the first 7 elements of the tuple

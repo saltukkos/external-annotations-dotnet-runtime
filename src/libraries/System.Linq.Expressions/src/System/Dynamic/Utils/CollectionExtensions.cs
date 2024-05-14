@@ -80,7 +80,7 @@ namespace System.Dynamic.Utils
         }
 
         // We could probably improve the hashing here
-        public static int ListHashCode<T>(this ReadOnlyCollection<T> list)
+        public static int ListHashCode<[DefaultEqualityUsage] T>(this ReadOnlyCollection<T> list)
         {
             EqualityComparer<T> cmp = EqualityComparer<T>.Default;
             int h = 6551;
@@ -94,7 +94,7 @@ namespace System.Dynamic.Utils
             return h;
         }
 
-        public static bool ListEquals<T>(this ReadOnlyCollection<T> first, ReadOnlyCollection<T> second)
+        public static bool ListEquals<[DefaultEqualityUsage] T>(this ReadOnlyCollection<T> first, ReadOnlyCollection<T> second)
         {
             if (first == second)
             {

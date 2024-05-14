@@ -512,7 +512,7 @@ namespace System.Collections.Generic
         /// If no <paramref name="equalityComparer"/> is specified, <see cref="EqualityComparer{TElement}.Default"/> will be used instead.
         /// </remarks>
         public bool Remove(
-            TElement element,
+            [DefaultEqualityUsage] TElement element,
             [MaybeNullWhen(false)] out TElement removedElement,
             [MaybeNullWhen(false)] out TPriority priority,
             IEqualityComparer<TElement>? equalityComparer = null)
@@ -860,7 +860,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Scans the heap for the first index containing an element equal to the specified parameter.
         /// </summary>
-        private int FindIndex(TElement element, IEqualityComparer<TElement>? equalityComparer)
+        private int FindIndex([DefaultEqualityUsage] TElement element, IEqualityComparer<TElement>? equalityComparer)
         {
             equalityComparer ??= EqualityComparer<TElement>.Default;
             ReadOnlySpan<(TElement Element, TPriority Priority)> nodes = _nodes.AsSpan(0, _size);

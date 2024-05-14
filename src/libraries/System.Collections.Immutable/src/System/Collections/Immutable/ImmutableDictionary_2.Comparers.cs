@@ -23,6 +23,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// The default instance to use when all the comparers used are their default values.
             /// </summary>
+            [DefaultEqualityUsageInternal(nameof(TKey), nameof(TValue))]
             internal static readonly Comparers Default = new Comparers(EqualityComparer<TKey>.Default, EqualityComparer<TValue>.Default);
 
             /// <summary>
@@ -153,9 +154,11 @@ namespace System.Collections.Immutable
                 Requires.NotNull(keyComparer, nameof(keyComparer));
                 Requires.NotNull(valueComparer, nameof(valueComparer));
 
+                // ReSharper disable TypeParameterEqualityUsage - it's ok, always compare with passed parameters
                 return keyComparer == Default.KeyComparer && valueComparer == Default.ValueComparer
                     ? Default
                     : new Comparers(keyComparer, valueComparer);
+                // ReSharper restore DefaultStructEqualityIsUsed
             }
 
             /// <summary>

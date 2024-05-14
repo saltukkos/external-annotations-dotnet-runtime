@@ -7,7 +7,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        private sealed partial class DistinctIterator<TSource>
+        private sealed partial class DistinctIterator<[DefaultEqualityUsage] TSource>
         {
             public override TSource[] ToArray() => ICollectionToArray(new HashSet<TSource>(_source, _comparer));
 

@@ -61,6 +61,7 @@ namespace System.Collections.Generic
             _set.Add(keyValuePair);
         }
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
         {
             TreeSet<KeyValuePair<TKey, TValue>>.Node? node = _set.FindNode(keyValuePair);
@@ -79,6 +80,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair)
         {
             TreeSet<KeyValuePair<TKey, TValue>>.Node? node = _set.FindNode(keyValuePair);
@@ -211,7 +213,7 @@ namespace System.Collections.Generic
             return _set.Contains(new KeyValuePair<TKey, TValue>(key, default(TValue)!));
         }
 
-        public bool ContainsValue(TValue value)
+        public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             bool found = false;
             if (value == null)
@@ -773,7 +775,7 @@ namespace System.Collections.Generic
                 throw new NotSupportedException(SR.NotSupported_ValueCollectionSet);
             }
 
-            bool ICollection<TValue>.Contains(TValue item)
+            bool ICollection<TValue>.Contains([DefaultEqualityUsage] TValue item)
             {
                 return _dictionary.ContainsValue(item);
             }

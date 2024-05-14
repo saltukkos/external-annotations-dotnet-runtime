@@ -154,7 +154,7 @@ namespace System.Linq
                 }
             }
 
-            public bool Contains(TSource item) => IndexOf(item) >= 0;
+            public bool Contains([DefaultEqualityUsage] TSource item) => IndexOf(item) >= 0;
 
             public int IndexOf(TSource item)
             {

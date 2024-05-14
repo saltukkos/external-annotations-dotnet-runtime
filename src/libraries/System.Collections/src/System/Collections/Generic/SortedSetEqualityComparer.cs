@@ -8,7 +8,7 @@ namespace System.Collections.Generic
     /// <summary>
     /// A comparer for two <see cref="SortedSet{T}"/>.
     /// </summary>
-    internal sealed class SortedSetEqualityComparer<T> : IEqualityComparer<SortedSet<T>>
+    internal sealed class SortedSetEqualityComparer<[DefaultEqualityUsage] T> : IEqualityComparer<SortedSet<T>>
     {
         private readonly IComparer<T> _comparer;
         private readonly IEqualityComparer<T> _memberEqualityComparer;

@@ -83,7 +83,7 @@ namespace System.Dynamic.Utils
             throw ContractUtils.Unreachable;
         }
 
-        public bool Contains(T item) => IndexOf(item) != -1;
+        public bool Contains([DefaultEqualityUsage] T item) => IndexOf(item) != -1;
 
         public void CopyTo(T[] array, int index)
         {

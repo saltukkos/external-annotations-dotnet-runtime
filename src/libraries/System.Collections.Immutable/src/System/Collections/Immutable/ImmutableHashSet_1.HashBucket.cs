@@ -136,6 +136,7 @@ namespace System.Collections.Immutable
                     return new HashBucket(value);
                 }
 
+                // ReSharper disable once TypeParameterEqualityUsage - always existing comparer is passed
                 if (valueComparer.Equals(value, _firstValue) || _additionalElements.IndexOf(value, valueComparer) >= 0)
                 {
                     result = OperationResult.NoChangeRequired;
@@ -158,6 +159,7 @@ namespace System.Collections.Immutable
                     return false;
                 }
 
+                // ReSharper disable once TypeParameterEqualityUsage - always existing comparer is passed
                 return valueComparer.Equals(value, _firstValue) || _additionalElements.IndexOf(value, valueComparer) >= 0;
             }
 
@@ -180,6 +182,7 @@ namespace System.Collections.Immutable
                         return true;
                     }
 
+                    // ReSharper disable once TypeParameterEqualityUsage - always existing comparer is passed
                     int index = _additionalElements.IndexOf(value, valueComparer);
                     if (index >= 0)
                     {
@@ -224,6 +227,7 @@ namespace System.Collections.Immutable
                     }
                 }
 
+                // ReSharper disable once TypeParameterEqualityUsage - always existing comparer is passed
                 int index = _additionalElements.IndexOf(value, equalityComparer);
                 if (index < 0)
                 {

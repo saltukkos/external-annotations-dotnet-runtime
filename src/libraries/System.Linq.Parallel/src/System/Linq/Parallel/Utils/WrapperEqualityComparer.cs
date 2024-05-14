@@ -17,7 +17,7 @@ namespace System.Linq.Parallel
     /// wraps the actual comparer for the type being wrapped.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal readonly struct WrapperEqualityComparer<T> : IEqualityComparer<Wrapper<T>>
+    internal readonly struct WrapperEqualityComparer<[DefaultEqualityUsage] T> : IEqualityComparer<Wrapper<T>>
     {
         private readonly IEqualityComparer<T> _comparer;
 

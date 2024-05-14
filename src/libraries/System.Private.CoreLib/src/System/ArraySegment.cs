@@ -235,7 +235,7 @@ namespace System
 
         void ICollection<T>.Clear() => ThrowHelper.ThrowNotSupportedException();
 
-        bool ICollection<T>.Contains(T item)
+        bool ICollection<T>.Contains([DefaultEqualityUsage] T item)
         {
             ThrowInvalidOperationIfDefault();
 

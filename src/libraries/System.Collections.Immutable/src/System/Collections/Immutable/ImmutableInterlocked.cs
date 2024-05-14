@@ -457,7 +457,8 @@ namespace System.Collections.Immutable
         /// <param name="newValue">The new value to set.</param>
         /// <param name="comparisonValue">The value that must already be set in the dictionary in order for the update to succeed.</param>
         /// <returns><c>true</c> if the key and comparison value were present in the dictionary and the update was made; <c>false</c> otherwise.</returns>
-        public static bool TryUpdate<TKey, TValue>(ref ImmutableDictionary<TKey, TValue> location, TKey key, TValue newValue, TValue comparisonValue) where TKey : notnull
+        //TODO: BCL bug? uses Default comparer instead of location.ValueComparer
+        public static bool TryUpdate<TKey, [DefaultEqualityUsage] TValue>(ref ImmutableDictionary<TKey, TValue> location, TKey key, TValue newValue, TValue comparisonValue) where TKey : notnull
         {
             EqualityComparer<TValue> valueComparer = EqualityComparer<TValue>.Default;
             ImmutableDictionary<TKey, TValue> priorCollection = Volatile.Read(ref location);

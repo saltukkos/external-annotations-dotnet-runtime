@@ -281,7 +281,7 @@ namespace System.Text.Unicode
         /// Returns true iff the TVector represents ASCII UTF-16 characters in machine endianness.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool AllCharsInVectorAreAscii<TVector>(TVector vec)
+        internal static bool AllCharsInVectorAreAscii<[DefaultEqualityUsage] TVector>(TVector vec)
             where TVector : struct, ISimdVector<TVector, ushort>
         {
             return (vec & TVector.Create(unchecked((ushort)~0x007F))).Equals(TVector.Zero);

@@ -9,7 +9,7 @@ namespace System.Dynamic.Utils
     // Miscellaneous helpers that don't belong anywhere else
     internal static class Helpers
     {
-        internal static T? CommonNode<T>(T first, T second, Func<T, T> parent) where T : class
+        internal static T? CommonNode<[DefaultEqualityUsage] T>(T first, T second, Func<T, T> parent) where T : class
         {
             EqualityComparer<T> cmp = EqualityComparer<T>.Default;
             if (cmp.Equals(first, second))

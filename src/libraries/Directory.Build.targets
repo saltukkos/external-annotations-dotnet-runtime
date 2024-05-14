@@ -176,6 +176,10 @@
     <Compile Include="$(CoreLibSharedDir)System\Diagnostics\CodeAnalysis\NullableAttributes.cs" Link="System\Diagnostics\CodeAnalysis\NullableAttributes.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="$(CoreLibSharedDir)GlobalUsings.cs" />
+  </ItemGroup>
+
   <!-- If a tfm doesn't target .NETCoreApp but uses the platform support attributes, then we include the
        System.Runtime.Versioning*Platform* annotation attribute classes in the project as internal.
 

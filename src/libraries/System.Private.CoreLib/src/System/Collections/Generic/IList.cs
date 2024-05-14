@@ -30,7 +30,7 @@ namespace System.Collections.Generic
 #if MONO
         [DynamicDependency(nameof(Array.InternalArray__IndexOf) + "``1", typeof(Array))]
 #endif
-        int IndexOf(T item);
+        int IndexOf([DefaultEqualityUsage] T item);
 
         // Inserts value into the list at position index.
         // index must be non-negative and less than or equal to the

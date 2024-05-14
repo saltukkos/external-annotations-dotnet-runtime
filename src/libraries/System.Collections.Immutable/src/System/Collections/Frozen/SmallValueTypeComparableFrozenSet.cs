@@ -20,6 +20,7 @@ namespace System.Collections.Frozen
         private readonly T[] _items;
         private readonly T _max;
 
+        // ReSharper disable once TypeParameterEqualityUsage - it only uses Compare for well-known comparables
         internal SmallValueTypeComparableFrozenSet(HashSet<T> source) : base(EqualityComparer<T>.Default)
         {
             Debug.Assert(default(T) is IComparable<T>);
@@ -27,6 +28,7 @@ namespace System.Collections.Frozen
             Debug.Assert(typeof(T).IsValueType);
 
             Debug.Assert(source.Count != 0);
+            // ReSharper disable once TypeParameterEqualityUsage - it only uses Compare for well-known comparables
             Debug.Assert(ReferenceEquals(source.Comparer, EqualityComparer<T>.Default));
 
             _items = source.ToArray();

@@ -97,7 +97,7 @@ namespace System.Collections.Immutable
         /// <param name="newValue">The element to replace the old element with.</param>
         /// <returns>The new list -- even if the value being replaced is equal to the new value for that position.</returns>
         /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-        public static IImmutableList<T> Replace<T>(this IImmutableList<T> list, T oldValue, T newValue)
+        public static IImmutableList<T> Replace<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T oldValue, T newValue)
         {
             Requires.NotNull(list, nameof(list));
             return list.Replace(oldValue, newValue, EqualityComparer<T>.Default);
@@ -109,7 +109,7 @@ namespace System.Collections.Immutable
         /// <param name="list">The list to search.</param>
         /// <param name="value">The value to remove.</param>
         /// <returns>A new list with the element removed, or this list if the element is not in this list.</returns>
-        public static IImmutableList<T> Remove<T>(this IImmutableList<T> list, T value)
+        public static IImmutableList<T> Remove<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T value)
         {
             Requires.NotNull(list, nameof(list));
             return list.Remove(value, EqualityComparer<T>.Default);
@@ -123,7 +123,7 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
-        public static IImmutableList<T> RemoveRange<T>(this IImmutableList<T> list, IEnumerable<T> items)
+        public static IImmutableList<T> RemoveRange<[DefaultEqualityUsage] T>(this IImmutableList<T> list, IEnumerable<T> items)
         {
             Requires.NotNull(list, nameof(list));
             return list.RemoveRange(items, EqualityComparer<T>.Default);
@@ -143,7 +143,7 @@ namespace System.Collections.Immutable
         /// elements in the <see cref="IImmutableList{T}"/> that extends from index
         /// to the last element, if found; otherwise, -1.
         /// </returns>
-        public static int IndexOf<T>(this IImmutableList<T> list, T item)
+        public static int IndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item)
         {
             Requires.NotNull(list, nameof(list));
             return list.IndexOf(item, 0, list.Count, EqualityComparer<T>.Default);
@@ -164,7 +164,7 @@ namespace System.Collections.Immutable
         /// elements in the <see cref="IImmutableList{T}"/> that extends from index
         /// to the last element, if found; otherwise, -1.
         /// </returns>
-        public static int IndexOf<T>(this IImmutableList<T> list, T item, IEqualityComparer<T>? equalityComparer)
+        public static int IndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, IEqualityComparer<T>? equalityComparer)
         {
             Requires.NotNull(list, nameof(list));
             return list.IndexOf(item, 0, list.Count, equalityComparer);
@@ -189,7 +189,7 @@ namespace System.Collections.Immutable
         /// elements in the <see cref="IImmutableList{T}"/> that extends from index
         /// to the last element, if found; otherwise, -1.
         /// </returns>
-        public static int IndexOf<T>(this IImmutableList<T> list, T item, int startIndex)
+        public static int IndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, int startIndex)
         {
             Requires.NotNull(list, nameof(list));
             return list.IndexOf(item, startIndex, list.Count - startIndex, EqualityComparer<T>.Default);
@@ -217,7 +217,7 @@ namespace System.Collections.Immutable
         /// elements in the <see cref="IImmutableList{T}"/> that extends from index
         /// to the last element, if found; otherwise, -1.
         /// </returns>
-        public static int IndexOf<T>(this IImmutableList<T> list, T item, int startIndex, int count)
+        public static int IndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, int startIndex, int count)
         {
             Requires.NotNull(list, nameof(list));
             return list.IndexOf(item, startIndex, count, EqualityComparer<T>.Default);
@@ -236,7 +236,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the last occurrence of item within the entire the
         /// <see cref="IImmutableList{T}"/>, if found; otherwise, -1.
         /// </returns>
-        public static int LastIndexOf<T>(this IImmutableList<T> list, T item)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item)
         {
             Requires.NotNull(list, nameof(list));
 
@@ -263,7 +263,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the last occurrence of item within the entire the
         /// <see cref="IImmutableList{T}"/>, if found; otherwise, -1.
         /// </returns>
-        public static int LastIndexOf<T>(this IImmutableList<T> list, T item, IEqualityComparer<T>? equalityComparer)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, IEqualityComparer<T>? equalityComparer)
         {
             Requires.NotNull(list, nameof(list));
 
@@ -294,7 +294,7 @@ namespace System.Collections.Immutable
         /// in the <see cref="IImmutableList{T}"/> that extends from the first element
         /// to index, if found; otherwise, -1.
         /// </returns>
-        public static int LastIndexOf<T>(this IImmutableList<T> list, T item, int startIndex)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, int startIndex)
         {
             Requires.NotNull(list, nameof(list));
 
@@ -327,7 +327,7 @@ namespace System.Collections.Immutable
         /// in the <see cref="IImmutableList{T}"/> that extends from the first element
         /// to index, if found; otherwise, -1.
         /// </returns>
-        public static int LastIndexOf<T>(this IImmutableList<T> list, T item, int startIndex, int count)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(this IImmutableList<T> list, T item, int startIndex, int count)
         {
             Requires.NotNull(list, nameof(list));
             return list.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);

@@ -78,7 +78,7 @@ namespace System.Collections.Generic
             _version++;
         }
 
-        public bool Contains(T item)
+        public bool Contains([DefaultEqualityUsage] T item)
         {
             // Compare items using the default equality comparer
 

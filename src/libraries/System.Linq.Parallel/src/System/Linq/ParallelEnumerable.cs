@@ -679,7 +679,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> Join<TOuter, TInner, TKey, TResult>(
+        public static ParallelQuery<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector)
@@ -739,7 +739,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> Join<TOuter, TInner, TKey, TResult>(
+        public static ParallelQuery<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
@@ -811,7 +811,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(
+        public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, IEnumerable<TInner>, TResult> resultSelector)
@@ -873,7 +873,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(
+        public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
@@ -1293,7 +1293,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/>
         /// is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(
+        public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
             return GroupBy<TSource, TKey>(source, keySelector, null);
@@ -1312,7 +1312,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(
+        public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -1339,7 +1339,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(
+        public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
         {
             return GroupBy<TSource, TKey, TElement>(source, keySelector, elementSelector, null);
@@ -1365,7 +1365,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(
+        public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -1404,7 +1404,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupBy<TSource, TKey, TResult>(
+        public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector)
 
         {
@@ -1432,7 +1432,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupBy<TSource, TKey, TResult>(
+        public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             ArgumentNullException.ThrowIfNull(resultSelector);
@@ -1462,7 +1462,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupBy<TSource, TKey, TElement, TResult>(
+        public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector)
         {
             ArgumentNullException.ThrowIfNull(resultSelector);
@@ -1493,7 +1493,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TResult> GroupBy<TSource, TKey, TElement, TResult>(
+        public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             ArgumentNullException.ThrowIfNull(resultSelector);
@@ -4044,7 +4044,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Contains<TSource>(this ParallelQuery<TSource> source, TSource value)
+        public static bool Contains<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> source, TSource value)
         {
             return Contains(source, value, null);
         }
@@ -4069,7 +4069,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Contains<TSource>(this ParallelQuery<TSource> source, TSource value, IEqualityComparer<TSource>? comparer)
+        public static bool Contains<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> source, TSource value, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -4318,7 +4318,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool SequenceEqual<TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
@@ -4368,7 +4368,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool SequenceEqual<TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
@@ -4468,7 +4468,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Distinct<TSource>(
+        public static ParallelQuery<TSource> Distinct<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> source)
         {
             return Distinct(source, null);
@@ -4485,7 +4485,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Distinct<TSource>(
+        public static ParallelQuery<TSource> Distinct<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> source, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4507,7 +4507,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Union<TSource>(
+        public static ParallelQuery<TSource> Union<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             return Union(first, second, null);
@@ -4546,7 +4546,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Union<TSource>(
+        public static ParallelQuery<TSource> Union<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(first);
@@ -4597,7 +4597,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Intersect<TSource>(
+        public static ParallelQuery<TSource> Intersect<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             return Intersect(first, second, null);
@@ -4641,7 +4641,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Intersect<TSource>(
+        public static ParallelQuery<TSource> Intersect<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(first);
@@ -4694,7 +4694,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Except<TSource>(
+        public static ParallelQuery<TSource> Except<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             return Except(first, second, null);
@@ -4737,7 +4737,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
-        public static ParallelQuery<TSource> Except<TSource>(
+        public static ParallelQuery<TSource> Except<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(first);
@@ -4926,7 +4926,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(
+        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return ToDictionary(source, keySelector, EqualityComparer<TKey>.Default);
@@ -4955,7 +4955,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(
+        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5017,7 +5017,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             return ToDictionary(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
@@ -5052,7 +5052,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5109,7 +5109,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static ILookup<TKey, TSource> ToLookup<TSource, TKey>(
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return ToLookup(source, keySelector, EqualityComparer<TKey>.Default);
@@ -5134,7 +5134,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static ILookup<TKey, TSource> ToLookup<TSource, TKey>(
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5188,7 +5188,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             return ToLookup(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
@@ -5220,7 +5220,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);

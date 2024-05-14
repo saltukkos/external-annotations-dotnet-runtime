@@ -20,7 +20,7 @@ namespace System.Linq.Parallel
     /// a single data source as input.
     /// </summary>
     /// <typeparam name="TInputOutput"></typeparam>
-    internal sealed class DistinctQueryOperator<TInputOutput> : UnaryQueryOperator<TInputOutput, TInputOutput>
+    internal sealed class DistinctQueryOperator<[DefaultEqualityUsage] TInputOutput> : UnaryQueryOperator<TInputOutput, TInputOutput>
     {
         private readonly IEqualityComparer<TInputOutput>? _comparer; // An (optional) equality comparer.
 
@@ -116,6 +116,7 @@ namespace System.Linq.Parallel
         // then doesn't return elements it has already seen before.
         //
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class DistinctQueryOperatorEnumerator<TKey> : QueryOperatorEnumerator<TInputOutput, int>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TKey> _source; // The data source.
@@ -188,6 +189,7 @@ namespace System.Linq.Parallel
             return wrappedChild.Distinct(_comparer);
         }
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class OrderedDistinctQueryOperatorEnumerator<TKey> : QueryOperatorEnumerator<TInputOutput, TKey>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TKey> _source; // The data source.

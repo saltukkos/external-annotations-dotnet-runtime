@@ -47,7 +47,7 @@ namespace System.Collections.Immutable
         /// elements in the <see cref="ImmutableList{T}"/> that starts at index and
         /// contains count number of elements, if found; otherwise, -1.
         /// </returns>
-        int IndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer);
+        int IndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer);
 
         /// <summary>
         /// Searches for the specified object and returns the zero-based index of the
@@ -70,7 +70,7 @@ namespace System.Collections.Immutable
         /// in the <see cref="ImmutableList{T}"/> that contains <paramref name="count"/> number of elements
         /// and ends at <paramref name="index"/>, if found; otherwise, -1.
         /// </returns>
-        int LastIndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer);
+        int LastIndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer);
 
         /// <summary>
         /// Adds the specified value to this list.
@@ -111,7 +111,7 @@ namespace System.Collections.Immutable
         /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
         /// </param>
         /// <returns>A new list with the element removed, or this list if the element is not in this list.</returns>
-        IImmutableList<T> Remove(T value, IEqualityComparer<T>? equalityComparer);
+        IImmutableList<T> Remove([DefaultEqualityUsage] T value, IEqualityComparer<T>? equalityComparer);
 
         /// <summary>
         /// Removes all the elements that match the conditions defined by the specified
@@ -137,6 +137,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         IImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer);
 
         /// <summary>
@@ -175,6 +177,6 @@ namespace System.Collections.Immutable
         /// </param>
         /// <returns>The new list -- even if the value being replaced is equal to the new value for that position.</returns>
         /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-        IImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer);
+        IImmutableList<T> Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer);
     }
 }

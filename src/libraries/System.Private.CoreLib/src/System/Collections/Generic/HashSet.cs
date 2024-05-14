@@ -13,7 +13,7 @@ namespace System.Collections.Generic
     [DebuggerDisplay("Count = {Count}")]
     [Serializable]
     [TypeForwardedFrom("System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
-    public class HashSet<T> : ICollection<T>, ISet<T>, IReadOnlyCollection<T>, IReadOnlySet<T>, ISerializable, IDeserializationCallback
+    public class HashSet<[DefaultEqualityUsage] T> : ICollection<T>, ISet<T>, IReadOnlyCollection<T>, IReadOnlySet<T>, ISerializable, IDeserializationCallback
     {
         // This uses the same array-based implementation as Dictionary<TKey, TValue>.
 
@@ -1058,6 +1058,8 @@ namespace System.Collections.Generic
         #region Helper methods
 
         /// <summary>Returns an <see cref="IEqualityComparer"/> object that can be used for equality testing of a <see cref="HashSet{T}"/> object.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public static IEqualityComparer<HashSet<T>> CreateSetComparer() => new HashSetEqualityComparer<T>();
 
         /// <summary>

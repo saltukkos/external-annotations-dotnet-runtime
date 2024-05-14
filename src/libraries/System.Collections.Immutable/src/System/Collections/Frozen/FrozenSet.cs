@@ -19,12 +19,12 @@ namespace System.Collections.Frozen
         /// <param name="comparer">The comparer implementation to use to compare values for equality. If null, <see cref="EqualityComparer{T}.Default"/> is used.</param>
         /// <typeparam name="T">The type of the values in the set.</typeparam>
         /// <returns>A frozen set.</returns>
-        public static FrozenSet<T> ToFrozenSet<T>(this IEnumerable<T> source, IEqualityComparer<T>? comparer = null) =>
+        public static FrozenSet<T> ToFrozenSet<[DefaultEqualityUsage] T>(this IEnumerable<T> source, IEqualityComparer<T>? comparer = null) =>
             GetExistingFrozenOrNewSet(source, comparer, out HashSet<T>? newSet) ??
             CreateFromSet(newSet!);
 
         /// <summary>Extracts from the source either an existing <see cref="FrozenSet{T}"/> instance or a <see cref="HashSet{T}"/> containing the values and the specified <paramref name="comparer"/>.</summary>
-        private static FrozenSet<T>? GetExistingFrozenOrNewSet<T>(IEnumerable<T> source, IEqualityComparer<T>? comparer, out HashSet<T>? newSet)
+        private static FrozenSet<T>? GetExistingFrozenOrNewSet<[DefaultEqualityUsage] T>(IEnumerable<T> source, IEqualityComparer<T>? comparer, out HashSet<T>? newSet)
         {
             ThrowHelper.ThrowIfNull(source);
             comparer ??= EqualityComparer<T>.Default;
@@ -57,7 +57,7 @@ namespace System.Collections.Frozen
             return null;
         }
 
-        private static FrozenSet<T> CreateFromSet<T>(HashSet<T> source)
+        private static FrozenSet<T> CreateFromSet<[DefaultEqualityUsage] T>(HashSet<T> source)
         {
             Debug.Assert(source.Count > 0, "Empty sources should have been filtered out by caller");
 
@@ -212,6 +212,7 @@ namespace System.Collections.Frozen
         private protected FrozenSet(IEqualityComparer<T> comparer) => Comparer = comparer;
 
         /// <summary>Gets an empty <see cref="FrozenSet{T}"/>.</summary>
+        // ReSharper disable once TypeParameterEqualityUsage - always empty
         public static FrozenSet<T> Empty { get; } = new EmptyFrozenSet<T>(EqualityComparer<T>.Default);
 
         /// <summary>Gets the comparer used by this set.</summary>

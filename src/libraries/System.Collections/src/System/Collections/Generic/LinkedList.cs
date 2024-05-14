@@ -186,7 +186,7 @@ namespace System.Collections.Generic
             version++;
         }
 
-        public bool Contains(T value)
+        public bool Contains([DefaultEqualityUsage] T value)
         {
             return Find(value) != null;
         }
@@ -218,7 +218,7 @@ namespace System.Collections.Generic
             }
         }
 
-        public LinkedListNode<T>? Find(T value)
+        public LinkedListNode<T>? Find([DefaultEqualityUsage] T value)
         {
             LinkedListNode<T>? node = head;
             EqualityComparer<T> c = EqualityComparer<T>.Default;
@@ -250,7 +250,7 @@ namespace System.Collections.Generic
             return null;
         }
 
-        public LinkedListNode<T>? FindLast(T value)
+        public LinkedListNode<T>? FindLast([DefaultEqualityUsage] T value)
         {
             if (head == null) return null;
 
@@ -292,7 +292,7 @@ namespace System.Collections.Generic
             Count == 0 ? EnumerableHelpers.GetEmptyEnumerator<T>() :
             GetEnumerator();
 
-        public bool Remove(T value)
+        public bool Remove([DefaultEqualityUsage] T value)
         {
             LinkedListNode<T>? node = Find(value);
             if (node != null)

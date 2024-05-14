@@ -16,11 +16,13 @@ namespace System.Collections.Immutable
     /// <typeparam name="TValue">The type of the value.</typeparam>
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(ImmutableDictionaryDebuggerProxy<,>))]
-    public sealed partial class ImmutableSortedDictionary<TKey, TValue> : IImmutableDictionary<TKey, TValue>, ISortKeyCollection<TKey>, IDictionary<TKey, TValue>, IDictionary
+    public sealed partial class ImmutableSortedDictionary<TKey, [DefaultEqualityUsage] TValue> : IImmutableDictionary<TKey, TValue>, ISortKeyCollection<TKey>, IDictionary<TKey, TValue>, IDictionary
     {
         /// <summary>
         /// An empty sorted dictionary with default sort and equality comparers.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - it could to be used only as Empty, without further '.Add()', and we also can't annotate it for now
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         public static readonly ImmutableSortedDictionary<TKey, TValue> Empty = new ImmutableSortedDictionary<TKey, TValue>();
 
         /// <summary>
@@ -746,9 +748,11 @@ namespace System.Collections.Immutable
         /// <returns>The immutable sorted set instance.</returns>
         private static ImmutableSortedDictionary<TKey, TValue> Wrap(Node root, int count, IComparer<TKey> keyComparer, IEqualityComparer<TValue> valueComparer)
         {
+            // ReSharper disable TypeParameterEqualityUsage - comparer always exist
             return root.IsEmpty
                 ? Empty.WithComparers(keyComparer, valueComparer)
                 : new ImmutableSortedDictionary<TKey, TValue>(root, count, keyComparer, valueComparer);
+            // ReSharper restore TypeParameterEqualityUsage
         }
 
         /// <summary>

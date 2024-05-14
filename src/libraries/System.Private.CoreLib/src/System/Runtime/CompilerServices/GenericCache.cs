@@ -40,7 +40,7 @@ namespace System.Runtime.CompilerServices
 
     // NOTE: It is ok if TKey contains references, but we want it to be a struct,
     //       so that equality is devirtualized.
-    internal unsafe struct GenericCache<TKey, TValue>
+    internal unsafe struct GenericCache<[DefaultEqualityUsage] TKey, TValue>
         where TKey : struct, IEquatable<TKey>
     {
         private struct Entry

@@ -26,7 +26,7 @@ namespace System.Collections.Frozen
         /// <see cref="M:System.Linq.Enumerable.ToDictionary"/>, with which multiple duplicate keys will result in an exception.
         /// </remarks>
         /// <returns>A <see cref="FrozenDictionary{TKey, TValue}"/> that contains the specified keys and values.</returns>
-        public static FrozenDictionary<TKey, TValue> ToFrozenDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey>? comparer = null)
+        public static FrozenDictionary<TKey, TValue> ToFrozenDictionary<[DefaultEqualityUsage] TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey>? comparer = null)
             where TKey : notnull =>
             GetExistingFrozenOrNewDictionary(source, comparer, out Dictionary<TKey, TValue>? uniqueValues) ??
             CreateFromDictionary(uniqueValues!);
@@ -38,7 +38,7 @@ namespace System.Collections.Frozen
         /// <param name="keySelector">A function to extract a key from each element.</param>
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}"/> to compare keys.</param>
         /// <returns>A <see cref="FrozenDictionary{TKey, TElement}"/> that contains the keys and values selected from the input sequence.</returns>
-        public static FrozenDictionary<TKey, TSource> ToFrozenDictionary<TSource, TKey>(
+        public static FrozenDictionary<TKey, TSource> ToFrozenDictionary<TSource, [DefaultEqualityUsage] TKey>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer = null)
             where TKey : notnull =>
             source.ToDictionary(keySelector, comparer).ToFrozenDictionary(comparer);
@@ -52,7 +52,7 @@ namespace System.Collections.Frozen
         /// <param name="elementSelector">A transform function to produce a result element value from each element.</param>
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}"/> to compare keys.</param>
         /// <returns>A <see cref="FrozenDictionary{TKey, TElement}"/> that contains the keys and values selected from the input sequence.</returns>
-        public static FrozenDictionary<TKey, TElement> ToFrozenDictionary<TSource, TKey, TElement>(
+        public static FrozenDictionary<TKey, TElement> ToFrozenDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer = null)
             where TKey : notnull =>
             source.ToDictionary(keySelector, elementSelector, comparer).ToFrozenDictionary(comparer);
@@ -67,7 +67,7 @@ namespace System.Collections.Frozen
         /// Otherwise, returns null, and <paramref name="newDictionary"/> is set to a dictionary containing the keys/values from <paramref name="source"/> and
         /// specified <paramref name="comparer"/>.
         /// </returns>
-        private static FrozenDictionary<TKey, TValue>? GetExistingFrozenOrNewDictionary<TKey, TValue>(
+        private static FrozenDictionary<TKey, TValue>? GetExistingFrozenOrNewDictionary<[DefaultEqualityUsage] TKey, TValue>(
             IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey>? comparer,
             out Dictionary<TKey, TValue>? newDictionary)
             where TKey : notnull
@@ -110,7 +110,7 @@ namespace System.Collections.Frozen
         }
 
         /// <summary>Constructs a frozen dictionary, optimizing for the speed of reads on the created instance.</summary>
-        private static FrozenDictionary<TKey, TValue> CreateFromDictionary<TKey, TValue>(Dictionary<TKey, TValue> source)
+        private static FrozenDictionary<TKey, TValue> CreateFromDictionary<[DefaultEqualityUsage] TKey, TValue>(Dictionary<TKey, TValue> source)
             where TKey : notnull
         {
             Debug.Assert(source.Count > 0, "Empty sources should have been filtered out by caller");
@@ -262,6 +262,7 @@ namespace System.Collections.Frozen
         private protected FrozenDictionary(IEqualityComparer<TKey> comparer) => Comparer = comparer;
 
         /// <summary>Gets an empty <see cref="FrozenDictionary{TKey, TValue}"/>.</summary>
+        // ReSharper disable once TypeParameterEqualityUsage - always empty
         public static FrozenDictionary<TKey, TValue> Empty { get; } = new EmptyFrozenDictionary<TKey, TValue>(EqualityComparer<TKey>.Default);
 
         /// <summary>Gets the comparer used by this dictionary.</summary>
@@ -493,6 +494,7 @@ namespace System.Collections.Frozen
         }
 
         /// <inheritdoc />
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item) =>
             TryGetValue(item.Key, out TValue? value) &&
             EqualityComparer<TValue>.Default.Equals(value, item.Value);

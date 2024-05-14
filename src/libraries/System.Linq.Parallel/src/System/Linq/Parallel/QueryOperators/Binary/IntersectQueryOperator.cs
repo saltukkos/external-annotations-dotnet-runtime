@@ -18,7 +18,7 @@ namespace System.Linq.Parallel
     /// Operator that yields the intersection of two data sources.
     /// </summary>
     /// <typeparam name="TInputOutput"></typeparam>
-    internal sealed class IntersectQueryOperator<TInputOutput> :
+    internal sealed class IntersectQueryOperator<[DefaultEqualityUsage] TInputOutput> :
         BinaryQueryOperator<TInputOutput, TInputOutput, TInputOutput>
     {
         private readonly IEqualityComparer<TInputOutput>? _comparer; // An equality comparer.
@@ -123,6 +123,7 @@ namespace System.Linq.Parallel
         // only returns elements that are seen twice (returning each one only once).
         //
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class IntersectQueryOperatorEnumerator<TLeftKey> : QueryOperatorEnumerator<TInputOutput, int>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey> _leftSource; // Left data source.
@@ -225,6 +226,7 @@ namespace System.Linq.Parallel
         }
 
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class OrderedIntersectQueryOperatorEnumerator<TLeftKey> : QueryOperatorEnumerator<TInputOutput, TLeftKey>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey> _leftSource; // Left data source.

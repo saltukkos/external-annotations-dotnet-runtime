@@ -19,12 +19,14 @@ namespace System.Collections.Immutable
             /// <summary>
             /// The instance to use when the value comparer is <see cref="EqualityComparer{T}.Default"/>.
             /// </summary>
+            [DefaultEqualityUsageInternal(nameof(T))]
             private static readonly IEqualityComparer<HashBucket> s_defaultInstance = new HashBucketByValueEqualityComparer(EqualityComparer<T>.Default);
 
             /// <summary>
             /// Gets the instance to use when the value comparer is
             /// <see cref="EqualityComparer{T}.Default"/>.
             /// </summary>
+            [DefaultEqualityUsageInternal(nameof(T))]
             internal static IEqualityComparer<HashBucket> DefaultInstance => s_defaultInstance;
 
             /// <summary>

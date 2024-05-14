@@ -4252,8 +4252,9 @@ namespace System.Reflection
     // Reliable hashtable thread safe for multiple readers and single writer. Note that the reliability goes together with thread
     // safety. Thread safety for multiple readers requires atomic update of the state that also makes the table
     // reliable in the presence of asynchronous exceptions.
-    internal struct CerHashtable<K, V> where K : class
+    internal struct CerHashtable<[DefaultEqualityUsage] K, V> where K : class
     {
+        [DefaultEqualityUsageInternal(nameof(K))]
         private sealed class Table
         {
             // Note that m_keys and m_values arrays are immutable to allow lock-free reads. A new instance
@@ -4311,7 +4312,7 @@ namespace System.Reflection
 
         private const int MinSize = 7;
 
-        private static int GetHashCodeHelper(K key)
+        private static int GetHashCodeHelper([DefaultEqualityUsage] K key)
         {
             // For strings we don't want the key to differ across domains as CerHashtable might be shared.
             if (!(key is string sKey))

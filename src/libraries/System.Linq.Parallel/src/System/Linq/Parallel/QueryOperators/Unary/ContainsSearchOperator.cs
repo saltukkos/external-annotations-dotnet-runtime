@@ -20,7 +20,7 @@ namespace System.Linq.Parallel
     /// of the partitions to stop searching.
     /// </summary>
     /// <typeparam name="TInput"></typeparam>
-    internal sealed class ContainsSearchOperator<TInput> : UnaryQueryOperator<TInput, bool>
+    internal sealed class ContainsSearchOperator<[DefaultEqualityUsage] TInput> : UnaryQueryOperator<TInput, bool>
     {
         private readonly TInput _searchValue; // The value for which we are searching.
         private readonly IEqualityComparer<TInput> _comparer; // The comparer to use for equality tests.

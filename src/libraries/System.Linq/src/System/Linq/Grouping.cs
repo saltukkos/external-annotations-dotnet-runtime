@@ -9,10 +9,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
+        public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
             GroupBy(source, keySelector, comparer: null);
 
-        public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -32,10 +32,10 @@ namespace System.Linq
             return new GroupByIterator<TSource, TKey>(source, keySelector, comparer);
         }
 
-        public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
+        public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
             GroupBy(source, keySelector, elementSelector, comparer: null);
 
-        public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -60,10 +60,10 @@ namespace System.Linq
             return new GroupByIterator<TSource, TKey, TElement>(source, keySelector, elementSelector, comparer);
         }
 
-        public static IEnumerable<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) =>
+        public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) =>
             GroupBy(source, keySelector, resultSelector, comparer: null);
 
-        public static IEnumerable<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -88,10 +88,10 @@ namespace System.Linq
             return new GroupByResultIterator<TSource, TKey, TResult>(source, keySelector, resultSelector, comparer);
         }
 
-        public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) =>
+        public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) =>
             GroupBy(source, keySelector, elementSelector, resultSelector, comparer: null);
 
-        public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
+        public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -121,7 +121,7 @@ namespace System.Linq
             return new GroupByResultIterator<TSource, TKey, TElement, TResult>(source, keySelector, elementSelector, resultSelector, comparer);
         }
 
-        private sealed partial class GroupByResultIterator<TSource, TKey, TElement, TResult> : Iterator<TResult>
+        private sealed partial class GroupByResultIterator<TSource, [DefaultEqualityUsage] TKey, TElement, TResult> : Iterator<TResult>
         {
             private readonly IEnumerable<TSource> _source;
             private readonly Func<TSource, TKey> _keySelector;
@@ -179,7 +179,7 @@ namespace System.Linq
             }
         }
 
-        private sealed partial class GroupByResultIterator<TSource, TKey, TResult> : Iterator<TResult>
+        private sealed partial class GroupByResultIterator<TSource, [DefaultEqualityUsage] TKey, TResult> : Iterator<TResult>
         {
             private readonly IEnumerable<TSource> _source;
             private readonly Func<TSource, TKey> _keySelector;
@@ -235,7 +235,7 @@ namespace System.Linq
             }
         }
 
-        private sealed partial class GroupByIterator<TSource, TKey, TElement> : Iterator<IGrouping<TKey, TElement>>
+        private sealed partial class GroupByIterator<TSource, [DefaultEqualityUsage] TKey, TElement> : Iterator<IGrouping<TKey, TElement>>
         {
             private readonly IEnumerable<TSource> _source;
             private readonly Func<TSource, TKey> _keySelector;
@@ -290,7 +290,7 @@ namespace System.Linq
             }
         }
 
-        private sealed partial class GroupByIterator<TSource, TKey> : Iterator<IGrouping<TKey, TSource>>
+        private sealed partial class GroupByIterator<TSource, [DefaultEqualityUsage] TKey> : Iterator<IGrouping<TKey, TSource>>
         {
             private readonly IEnumerable<TSource> _source;
             private readonly Func<TSource, TKey> _keySelector;
@@ -404,14 +404,14 @@ namespace System.Linq
 
         void ICollection<TElement>.Clear() => ThrowHelper.ThrowNotSupportedException();
 
-        bool ICollection<TElement>.Contains(TElement item) => Array.IndexOf(_elements, item, 0, _count) >= 0;
+        bool ICollection<TElement>.Contains([DefaultEqualityUsage] TElement item) => Array.IndexOf(_elements, item, 0, _count) >= 0;
 
         void ICollection<TElement>.CopyTo(TElement[] array, int arrayIndex) =>
             Array.Copy(_elements, 0, array, arrayIndex, _count);
 
         bool ICollection<TElement>.Remove(TElement item) => ThrowHelper.ThrowNotSupportedException_Boolean();
 
-        int IList<TElement>.IndexOf(TElement item) => Array.IndexOf(_elements, item, 0, _count);
+        int IList<TElement>.IndexOf([DefaultEqualityUsage] TElement item) => Array.IndexOf(_elements, item, 0, _count);
 
         void IList<TElement>.Insert(int index, TElement item) => ThrowHelper.ThrowNotSupportedException();
 

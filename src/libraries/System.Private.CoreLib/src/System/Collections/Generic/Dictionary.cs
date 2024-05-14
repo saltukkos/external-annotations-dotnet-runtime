@@ -15,7 +15,7 @@ namespace System.Collections.Generic
     [DebuggerDisplay("Count = {Count}")]
     [Serializable]
     [TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
-    public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue>, ISerializable, IDeserializationCallback where TKey : notnull
+    public class Dictionary<[DefaultEqualityUsage] TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue>, ISerializable, IDeserializationCallback where TKey : notnull
     {
         // constants for serialization
         private const string VersionName = "Version"; // Do not rename (binary serialization)
@@ -254,6 +254,7 @@ namespace System.Collections.Generic
         void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> keyValuePair) =>
             Add(keyValuePair.Key, keyValuePair.Value);
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
         {
             ref TValue value = ref FindValue(keyValuePair.Key);
@@ -265,6 +266,7 @@ namespace System.Collections.Generic
             return false;
         }
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair)
         {
             ref TValue value = ref FindValue(keyValuePair.Key);
@@ -297,7 +299,7 @@ namespace System.Collections.Generic
         public bool ContainsKey(TKey key) =>
             !Unsafe.IsNullRef(ref FindValue(key));
 
-        public bool ContainsValue(TValue value)
+        public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             Entry[]? entries = _entries;
             if (value == null)
@@ -664,6 +666,7 @@ namespace System.Collections.Generic
 
                 IEqualityComparer<TKey>? comparer = dictionary._comparer;
                 Debug.Assert(comparer is not null || typeof(TKey).IsValueType);
+                // ReSharper disable once TypeParameterEqualityUsage always use comparer from dictionary, only for devirtualization
                 uint hashCode = (uint)((typeof(TKey).IsValueType && comparer == null) ? key.GetHashCode() : comparer!.GetHashCode(key));
 
                 uint collisionCount = 0;
@@ -676,6 +679,7 @@ namespace System.Collections.Generic
                     // ValueType: Devirtualize with EqualityComparer<TKey>.Default intrinsic
                     while ((uint)i < (uint)entries.Length)
                     {
+                        // ReSharper disable once TypeParameterEqualityUsage always use comparer from dictionary, only for devirtualization
                         if (entries[i].hashCode == hashCode && EqualityComparer<TKey>.Default.Equals(entries[i].key, key))
                         {
                             exists = true;
@@ -1710,7 +1714,7 @@ namespace System.Collections.Generic
             void ICollection<TValue>.Clear() =>
                 ThrowHelper.ThrowNotSupportedException(ExceptionResource.NotSupported_ValueCollectionSet);
 
-            bool ICollection<TValue>.Contains(TValue item) => _dictionary.ContainsValue(item);
+            bool ICollection<TValue>.Contains([DefaultEqualityUsage] TValue item) => _dictionary.ContainsValue(item);
 
             IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator() =>
                 Count == 0 ? SZGenericArrayEnumerator<TValue>.Empty :

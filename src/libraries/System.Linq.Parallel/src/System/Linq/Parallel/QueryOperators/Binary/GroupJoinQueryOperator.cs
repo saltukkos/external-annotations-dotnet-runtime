@@ -23,7 +23,7 @@ namespace System.Linq.Parallel
     /// <typeparam name="TRightInput"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TOutput"></typeparam>
-    internal sealed class GroupJoinQueryOperator<TLeftInput, TRightInput, TKey, TOutput> : BinaryQueryOperator<TLeftInput, TRightInput, TOutput>
+    internal sealed class GroupJoinQueryOperator<TLeftInput, TRightInput, [DefaultEqualityUsage] TKey, TOutput> : BinaryQueryOperator<TLeftInput, TRightInput, TOutput>
     {
         private readonly Func<TLeftInput, TKey> _leftKeySelector; // The key selection routine for the outer (left) data source.
         private readonly Func<TRightInput, TKey> _rightKeySelector; // The key selection routine for the inner (right) data source.
@@ -214,7 +214,7 @@ namespace System.Linq.Parallel
     /// <typeparam name="TElement"></typeparam>
     /// <typeparam name="TOrderKey"></typeparam>
     /// <typeparam name="THashKey"></typeparam>
-    internal sealed class GroupJoinHashLookupBuilder<TElement, TOrderKey, THashKey> : HashLookupBuilder<IEnumerable<TElement>, int, THashKey>
+    internal sealed class GroupJoinHashLookupBuilder<TElement, TOrderKey, [DefaultEqualityUsage] THashKey> : HashLookupBuilder<IEnumerable<TElement>, int, THashKey>
     {
         private readonly QueryOperatorEnumerator<Pair<TElement, THashKey>, TOrderKey> _dataSource; // data source. For building.
         private readonly IEqualityComparer<THashKey>? _keyComparer; // An optional key comparison object.
@@ -300,7 +300,7 @@ namespace System.Linq.Parallel
     /// <typeparam name="TElement"></typeparam>
     /// <typeparam name="TOrderKey"></typeparam>
     /// <typeparam name="THashKey"></typeparam>
-    internal sealed class OrderedGroupJoinHashLookupBuilder<TElement, TOrderKey, THashKey> : HashLookupBuilder<IEnumerable<TElement>, Pair<bool, TOrderKey>, THashKey>
+    internal sealed class OrderedGroupJoinHashLookupBuilder<TElement, TOrderKey, [DefaultEqualityUsage] THashKey> : HashLookupBuilder<IEnumerable<TElement>, Pair<bool, TOrderKey>, THashKey>
     {
         private readonly QueryOperatorEnumerator<Pair<TElement, THashKey>, TOrderKey> _dataSource; // data source. For building.
         private readonly IEqualityComparer<THashKey>? _keyComparer; // An optional key comparison object.

@@ -153,7 +153,7 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="TDerived">The type of element in the compared array.</typeparam>
         /// <typeparam name="TBase">The type of element contained by the collection.</typeparam>
-        public static bool SequenceEqual<TDerived, TBase>(this ImmutableArray<TBase> immutableArray, ImmutableArray<TDerived> items, IEqualityComparer<TBase>? comparer = null) where TDerived : TBase
+        public static bool SequenceEqual<TDerived, [DefaultEqualityUsage] TBase>(this ImmutableArray<TBase> immutableArray, ImmutableArray<TDerived> items, IEqualityComparer<TBase>? comparer = null) where TDerived : TBase
         {
             immutableArray.ThrowNullRefIfNotInitialized();
             items.ThrowNullRefIfNotInitialized();
@@ -185,7 +185,7 @@ namespace System.Linq
         /// </summary>
         /// <typeparam name="TDerived">The type of element in the compared array.</typeparam>
         /// <typeparam name="TBase">The type of element contained by the collection.</typeparam>
-        public static bool SequenceEqual<TDerived, TBase>(this ImmutableArray<TBase> immutableArray, IEnumerable<TDerived> items, IEqualityComparer<TBase>? comparer = null) where TDerived : TBase
+        public static bool SequenceEqual<TDerived, [DefaultEqualityUsage] TBase>(this ImmutableArray<TBase> immutableArray, IEnumerable<TDerived> items, IEqualityComparer<TBase>? comparer = null) where TDerived : TBase
         {
             Requires.NotNull(items, nameof(items));
 
@@ -542,7 +542,7 @@ namespace System.Linq
         /// <param name="immutableArray"></param>
         /// <param name="keySelector">The key selector.</param>
         /// <returns>The newly initialized dictionary.</returns>
-        public static Dictionary<TKey, T> ToDictionary<TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector) where TKey : notnull
+        public static Dictionary<TKey, T> ToDictionary<[DefaultEqualityUsage] TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector) where TKey : notnull
         {
             return ToDictionary(immutableArray, keySelector, EqualityComparer<TKey>.Default);
         }
@@ -557,7 +557,7 @@ namespace System.Linq
         /// <param name="keySelector">The key selector.</param>
         /// <param name="elementSelector">The element selector.</param>
         /// <returns>The newly initialized dictionary.</returns>
-        public static Dictionary<TKey, TElement> ToDictionary<TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector) where TKey : notnull
+        public static Dictionary<TKey, TElement> ToDictionary<[DefaultEqualityUsage] TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector) where TKey : notnull
         {
             return ToDictionary(immutableArray, keySelector, elementSelector, EqualityComparer<TKey>.Default);
         }
@@ -571,7 +571,7 @@ namespace System.Linq
         /// <param name="keySelector">The key selector.</param>
         /// <param name="comparer">The comparer to initialize the dictionary with.</param>
         /// <returns>The newly initialized dictionary.</returns>
-        public static Dictionary<TKey, T> ToDictionary<TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+        public static Dictionary<TKey, T> ToDictionary<[DefaultEqualityUsage] TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             Requires.NotNull(keySelector, nameof(keySelector));
 
@@ -595,7 +595,7 @@ namespace System.Linq
         /// <param name="elementSelector">The element selector.</param>
         /// <param name="comparer">The comparer to initialize the dictionary with.</param>
         /// <returns>The newly initialized dictionary.</returns>
-        public static Dictionary<TKey, TElement> ToDictionary<TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+        public static Dictionary<TKey, TElement> ToDictionary<[DefaultEqualityUsage] TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             Requires.NotNull(keySelector, nameof(keySelector));
             Requires.NotNull(elementSelector, nameof(elementSelector));

@@ -18,7 +18,7 @@ namespace System.Linq.Parallel
     /// Operator that yields the union of two data sources.
     /// </summary>
     /// <typeparam name="TInputOutput"></typeparam>
-    internal sealed class UnionQueryOperator<TInputOutput> :
+    internal sealed class UnionQueryOperator<[DefaultEqualityUsage] TInputOutput> :
         BinaryQueryOperator<TInputOutput, TInputOutput, TInputOutput>
     {
         private readonly IEqualityComparer<TInputOutput>? _comparer; // An equality comparer.
@@ -180,6 +180,7 @@ namespace System.Linq.Parallel
         // return any duplicates.
         //
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class UnionQueryOperatorEnumerator<TLeftKey, TRightKey> : QueryOperatorEnumerator<TInputOutput, int>
         {
             private QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey>? _leftSource; // Left data source.
@@ -289,6 +290,7 @@ namespace System.Linq.Parallel
             }
         }
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class OrderedUnionQueryOperatorEnumerator<TLeftKey, TRightKey> : QueryOperatorEnumerator<TInputOutput, ConcatKey<TLeftKey, TRightKey>>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey> _leftSource; // Left data source.

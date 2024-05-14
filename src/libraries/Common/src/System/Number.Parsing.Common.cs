@@ -303,6 +303,7 @@ namespace System
             where TChar : unmanaged, IUtfChar<TChar>
         {
             // For compatibility, we need to allow trailing zeros at the end of a number string
+            // ReSharper disable once TypeParameterEqualityUsage -- only chars
             return !value.Slice(index).ContainsAnyExcept(TChar.CastFrom('\0'));
         }
 

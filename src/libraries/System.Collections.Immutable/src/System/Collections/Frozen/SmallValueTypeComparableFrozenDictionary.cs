@@ -22,6 +22,7 @@ namespace System.Collections.Frozen
         private readonly TValue[] _values;
         private readonly TKey _max;
 
+        // ReSharper disable once TypeParameterEqualityUsage - it only uses Compare for well-known comparables
         internal SmallValueTypeComparableFrozenDictionary(Dictionary<TKey, TValue> source) : base(EqualityComparer<TKey>.Default)
         {
             Debug.Assert(default(TKey) is IComparable<TKey>);
@@ -29,6 +30,7 @@ namespace System.Collections.Frozen
             Debug.Assert(typeof(TKey).IsValueType);
 
             Debug.Assert(source.Count != 0);
+            // ReSharper disable once TypeParameterEqualityUsage - it only uses Compare for well-known comparables
             Debug.Assert(ReferenceEquals(source.Comparer, EqualityComparer<TKey>.Default));
 
             _keys = source.Keys.ToArray();

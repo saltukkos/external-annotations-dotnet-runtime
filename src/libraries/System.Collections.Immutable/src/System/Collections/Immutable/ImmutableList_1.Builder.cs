@@ -205,7 +205,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// See <see cref="IList{T}"/>
             /// </summary>
-            public bool Contains(T item)
+            public bool Contains([DefaultEqualityUsage] T item)
             {
                 return this.IndexOf(item) >= 0;
             }
@@ -213,7 +213,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// See <see cref="IList{T}"/>
             /// </summary>
-            public bool Remove(T item)
+            public bool Remove([DefaultEqualityUsage] T item)
             {
                 int index = this.IndexOf(item);
                 if (index < 0)
@@ -529,7 +529,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that extends from index
             /// to the last element, if found; otherwise, -1.
             /// </returns>
-            public int IndexOf(T item, int index) =>
+            public int IndexOf([DefaultEqualityUsage] T item, int index) =>
                 _root.IndexOf(item, index, this.Count - index, EqualityComparer<T>.Default);
 
             /// <summary>
@@ -553,7 +553,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that starts at index and
             /// contains count number of elements, if found; otherwise, -1.
             /// </returns>
-            public int IndexOf(T item, int index, int count) =>
+            public int IndexOf([DefaultEqualityUsage] T item, int index, int count) =>
                 _root.IndexOf(item, index, count, EqualityComparer<T>.Default);
 
             /// <summary>
@@ -581,7 +581,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that starts at index and
             /// contains count number of elements, if found; otherwise, -1.
             /// </returns>
-            public int IndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer) =>
+            public int IndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer) =>
                 _root.IndexOf(item, index, count, equalityComparer);
 
             /// <summary>
@@ -599,7 +599,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
-            public int LastIndexOf(T item)
+            public int LastIndexOf([DefaultEqualityUsage] T item)
             {
                 if (this.Count == 0)
                 {
@@ -625,7 +625,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
-            public int LastIndexOf(T item, int startIndex)
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 if (this.Count == 0 && startIndex == 0)
                 {
@@ -652,7 +652,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
-            public int LastIndexOf(T item, int startIndex, int count) =>
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count) =>
                 _root.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);
 
             /// <summary>
@@ -673,7 +673,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
-            public int LastIndexOf(T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer) =>
+            public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer) =>
                 _root.LastIndexOf(item, startIndex, count, equalityComparer);
 
             /// <summary>
@@ -759,7 +759,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>A value indicating whether the specified element was found and removed from the collection.</returns>
-            public bool Remove(T item, IEqualityComparer<T>? equalityComparer)
+            public bool Remove([DefaultEqualityUsage] T item, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(item, 0, this.Count, equalityComparer);
                 if (index >= 0)
@@ -796,6 +796,8 @@ namespace System.Collections.Immutable
             /// The equality comparer to use in the search.
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
+            // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+            [DefaultEqualityUsageInternal(nameof(T))]
             public void RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.NotNull(items, nameof(items));
@@ -814,6 +816,8 @@ namespace System.Collections.Immutable
             /// Removes any first occurrences of the specified values from this list.
             /// </summary>
             /// <param name="items">The items to remove if matches are found in this list.</param>
+            // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+            [DefaultEqualityUsageInternal(nameof(T))]
             public void RemoveRange(IEnumerable<T> items)
             {
                 this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -825,7 +829,7 @@ namespace System.Collections.Immutable
             /// <param name="oldValue">The element to replace.</param>
             /// <param name="newValue">The element to replace the old element with.</param>
             /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-            public void Replace(T oldValue, T newValue)
+            public void Replace([DefaultEqualityUsage] T oldValue, T newValue)
             {
                 this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
             }
@@ -840,7 +844,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-            public void Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
+            public void Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(oldValue, 0, this.Count, equalityComparer);
                 if (index < 0)

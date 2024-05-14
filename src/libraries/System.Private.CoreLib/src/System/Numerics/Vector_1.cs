@@ -787,6 +787,8 @@ namespace System.Numerics
 
         /// <summary>Returns the hash code for this instance.</summary>
         /// <returns>The hash code.</returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public override int GetHashCode()
         {
             HashCode hashCode = default;

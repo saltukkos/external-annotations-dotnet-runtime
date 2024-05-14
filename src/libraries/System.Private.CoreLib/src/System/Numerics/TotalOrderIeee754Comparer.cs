@@ -12,7 +12,7 @@ namespace System.Numerics
     /// with IEEE 754 totalOrder semantic.
     /// </summary>
     /// <typeparam name="T">The type of the numbers to be compared, must be an IEEE 754 floating-point type.</typeparam>
-    public readonly struct TotalOrderIeee754Comparer<T> : IComparer<T>, IEqualityComparer<T>, IEquatable<TotalOrderIeee754Comparer<T>>
+    public readonly struct TotalOrderIeee754Comparer<[DefaultEqualityUsage] T> : IComparer<T>, IEqualityComparer<T>, IEquatable<TotalOrderIeee754Comparer<T>>
         where T : IFloatingPointIeee754<T>?
     {
         /// <summary>
@@ -218,7 +218,7 @@ namespace System.Numerics
         /// </summary>
         /// <param name="obj">The number for which a hash code is to be returned.</param>
         /// <returns>A hash code for the specified number.</returns>
-        public int GetHashCode([DisallowNull] T obj)
+        public int GetHashCode([DisallowNull] [DefaultEqualityUsage] T obj)
         {
             ArgumentNullException.ThrowIfNull(obj, nameof(obj));
             return obj.GetHashCode();

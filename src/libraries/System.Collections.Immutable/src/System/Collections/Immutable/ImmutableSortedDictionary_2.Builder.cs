@@ -41,6 +41,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// The value comparer.
             /// </summary>
+            // ReSharper disable once TypeParameterEqualityUsage - assigned value is always ignored
             private IEqualityComparer<TValue> _valueComparer = EqualityComparer<TValue>.Default;
 
             /// <summary>

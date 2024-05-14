@@ -24,6 +24,7 @@ namespace System.Linq
                 return true;
             }
 
+            // ReSharper disable once TypeParameterEqualityUsage - only for comparer instance equality check
             var defaultComparer = EqualityComparer<TSource>.Default;
 
             if (left is null)

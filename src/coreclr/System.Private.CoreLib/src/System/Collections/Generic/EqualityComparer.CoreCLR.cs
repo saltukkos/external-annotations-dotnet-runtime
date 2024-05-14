@@ -10,10 +10,12 @@ namespace System.Collections.Generic
     {
         // To minimize generic instantiation overhead of creating the comparer per type, we keep the generic portion of the code as small
         // as possible and define most of the creation logic in a non-generic class.
+        // ReSharper disable once InternalAttributeOnPublicApi - special handing in analyzer
+        [DefaultEqualityUsageInternal(nameof(T))]
         public static EqualityComparer<T> Default { [Intrinsic] get; } = (EqualityComparer<T>)ComparerHelpers.CreateDefaultEqualityComparer(typeof(T));
     }
 
-    public sealed partial class GenericEqualityComparer<T> : EqualityComparer<T> where T : IEquatable<T>?
+    public sealed partial class GenericEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T> where T : IEquatable<T>?
     {
         internal override int IndexOf(T[] array, T value, int startIndex, int count)
         {
@@ -56,7 +58,7 @@ namespace System.Collections.Generic
         }
     }
 
-    public sealed partial class NullableEqualityComparer<T> : EqualityComparer<T?> where T : struct
+    public sealed partial class NullableEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T?> where T : struct
     {
         internal override int IndexOf(T?[] array, T? value, int startIndex, int count)
         {
@@ -99,7 +101,7 @@ namespace System.Collections.Generic
         }
     }
 
-    public sealed partial class ObjectEqualityComparer<T> : EqualityComparer<T>
+    public sealed partial class ObjectEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T>
     {
         internal override int IndexOf(T[] array, T value, int startIndex, int count)
         {
@@ -159,6 +161,7 @@ namespace System.Collections.Generic
 #endif
     }
 
+    // ReSharper disable TypeParameterEqualityUsage - only for enum
     public sealed partial class EnumEqualityComparer<T> : EqualityComparer<T> where T : struct, Enum
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -187,4 +190,5 @@ namespace System.Collections.Generic
             return -1;
         }
     }
+    // ReSharper restore TypeParameterEqualityUsage
 }

@@ -122,7 +122,7 @@ namespace System.Collections.Immutable
         /// <param name="startIndex">The index at which to begin the search.</param>
         /// <param name="equalityComparer">The equality comparer to use in the search.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int IndexOf(T item, int startIndex, IEqualityComparer<T>? equalityComparer)
+        public int IndexOf([DefaultEqualityUsage] T item, int startIndex, IEqualityComparer<T>? equalityComparer)
         {
             ImmutableArray<T> self = this;
             return self.IndexOf(item, startIndex, self.Length - startIndex, equalityComparer);
@@ -134,7 +134,7 @@ namespace System.Collections.Immutable
         /// <param name="item">The item to search for.</param>
         /// <param name="startIndex">The index at which to begin the search.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int IndexOf(T item, int startIndex)
+        public int IndexOf([DefaultEqualityUsage] T item, int startIndex)
         {
             ImmutableArray<T> self = this;
             return self.IndexOf(item, startIndex, self.Length - startIndex, EqualityComparer<T>.Default);
@@ -147,7 +147,7 @@ namespace System.Collections.Immutable
         /// <param name="startIndex">The index at which to begin the search.</param>
         /// <param name="count">The number of elements to search.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int IndexOf(T item, int startIndex, int count)
+        public int IndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
         {
             return this.IndexOf(item, startIndex, count, EqualityComparer<T>.Default);
         }
@@ -200,7 +200,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <param name="item">The item to search for.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int LastIndexOf(T item)
+        public int LastIndexOf([DefaultEqualityUsage] T item)
         {
             ImmutableArray<T> self = this;
             if (self.IsEmpty)
@@ -217,7 +217,7 @@ namespace System.Collections.Immutable
         /// <param name="item">The item to search for.</param>
         /// <param name="startIndex">The index at which to begin the search.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int LastIndexOf(T item, int startIndex)
+        public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex)
         {
             ImmutableArray<T> self = this;
             if (self.IsEmpty && startIndex == 0)
@@ -235,7 +235,7 @@ namespace System.Collections.Immutable
         /// <param name="startIndex">The index at which to begin the search.</param>
         /// <param name="count">The number of elements to search.</param>
         /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
-        public int LastIndexOf(T item, int startIndex, int count)
+        public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
         {
             return this.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);
         }
@@ -285,7 +285,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <param name="item">The item to search for.</param>
         /// <returns><c>true</c> if an equal value was found in the array; <c>false</c> otherwise.</returns>
-        public bool Contains(T item)
+        public bool Contains([DefaultEqualityUsage] T item)
         {
             return this.IndexOf(item) >= 0;
         }
@@ -299,7 +299,7 @@ namespace System.Collections.Immutable
         /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
         /// </param>
         /// <returns><c>true</c> if an equal value was found in the array; <c>false</c> otherwise.</returns>
-        public bool Contains(T item, IEqualityComparer<T>? equalityComparer)
+        public bool Contains([DefaultEqualityUsage] T item, IEqualityComparer<T>? equalityComparer)
         {
             return this.IndexOf(item, equalityComparer) >= 0;
         }
@@ -570,7 +570,7 @@ namespace System.Collections.Immutable
         /// <param name="newValue">The element to replace the old element with.</param>
         /// <returns>The new list -- even if the value being replaced is equal to the new value for that position.</returns>
         /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-        public ImmutableArray<T> Replace(T oldValue, T newValue)
+        public ImmutableArray<T> Replace([DefaultEqualityUsage] T oldValue, T newValue)
         {
             return this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
         }
@@ -586,7 +586,7 @@ namespace System.Collections.Immutable
         /// </param>
         /// <returns>The new list -- even if the value being replaced is equal to the new value for that position.</returns>
         /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
-        public ImmutableArray<T> Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
+        public ImmutableArray<T> Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
         {
             ImmutableArray<T> self = this;
             int index = self.IndexOf(oldValue, 0, self.Length, equalityComparer);
@@ -604,7 +604,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <param name="item">The item to remove.</param>
         /// <returns>The new array.</returns>
-        public ImmutableArray<T> Remove(T item)
+        public ImmutableArray<T> Remove([DefaultEqualityUsage] T item)
         {
             return this.Remove(item, EqualityComparer<T>.Default);
         }
@@ -619,7 +619,7 @@ namespace System.Collections.Immutable
         /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
         /// </param>
         /// <returns>The new array.</returns>
-        public ImmutableArray<T> Remove(T item, IEqualityComparer<T>? equalityComparer)
+        public ImmutableArray<T> Remove([DefaultEqualityUsage] T item, IEqualityComparer<T>? equalityComparer)
         {
             ImmutableArray<T> self = this;
             self.ThrowNullRefIfNotInitialized();
@@ -670,6 +670,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(IEnumerable<T> items)
         {
             return this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -686,6 +688,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
         {
             ImmutableArray<T> self = this;
@@ -712,6 +716,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(ImmutableArray<T> items)
         {
             return this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -727,6 +733,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(ImmutableArray<T> items, IEqualityComparer<T>? equalityComparer)
         {
             Requires.NotNull(items.array!, nameof(items));
@@ -977,6 +985,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(ReadOnlySpan<T> items, IEqualityComparer<T>? equalityComparer = null)
         {
             ImmutableArray<T> self = this;
@@ -1015,6 +1025,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableArray<T> RemoveRange(T[] items, IEqualityComparer<T>? equalityComparer = null)
         {
             ImmutableArray<T> self = this;

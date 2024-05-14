@@ -15,11 +15,13 @@ namespace System.Collections.Immutable
     /// <typeparam name="TValue">The type of the value.</typeparam>
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(ImmutableDictionaryDebuggerProxy<,>))]
-    public sealed partial class ImmutableDictionary<TKey, TValue> : IImmutableDictionary<TKey, TValue>, IImmutableDictionaryInternal<TKey, TValue>, IHashKeyCollection<TKey>, IDictionary<TKey, TValue>, IDictionary where TKey : notnull
+    public sealed partial class ImmutableDictionary<[DefaultEqualityUsage] TKey, [DefaultEqualityUsage] TValue> : IImmutableDictionary<TKey, TValue>, IImmutableDictionaryInternal<TKey, TValue>, IHashKeyCollection<TKey>, IDictionary<TKey, TValue>, IDictionary where TKey : notnull
     {
         /// <summary>
         /// An empty immutable dictionary with default equality comparers.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - it could to be used only as Empty, without further '.Add()', and we also can't annotate it for now
+        [DefaultEqualityUsageInternal(nameof(TKey), nameof(TValue))]
         public static readonly ImmutableDictionary<TKey, TValue> Empty = new ImmutableDictionary<TKey, TValue>();
 
         /// <summary>
@@ -825,6 +827,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <param name="comparers">The comparers.</param>
         /// <returns>The empty dictionary.</returns>
+        [DefaultEqualityUsageInternal(nameof(TKey), nameof(TValue))]
         private static ImmutableDictionary<TKey, TValue> EmptyWithComparers(Comparers comparers)
         {
             Requires.NotNull(comparers, nameof(comparers));
@@ -1013,6 +1016,7 @@ namespace System.Collections.Immutable
         /// <returns>
         /// The immutable collection.
         /// </returns>
+        [DefaultEqualityUsageInternal(nameof(TKey), nameof(TValue))]
         private static ImmutableDictionary<TKey, TValue> Wrap(SortedInt32KeyNode<HashBucket> root, Comparers comparers, int count)
         {
             Requires.NotNull(root, nameof(root));

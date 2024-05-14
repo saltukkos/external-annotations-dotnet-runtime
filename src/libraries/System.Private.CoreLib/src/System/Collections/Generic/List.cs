@@ -339,7 +339,7 @@ namespace System.Collections.Generic
         // It does a linear, O(n) search.  Equality is determined by calling
         // EqualityComparer<T>.Default.Equals().
         //
-        public bool Contains(T item)
+        public bool Contains([DefaultEqualityUsage] T item)
         {
             // PERF: IndexOf calls Array.IndexOf, which internally
             // calls EqualityComparer<T>.Default.IndexOf, which
@@ -736,7 +736,7 @@ namespace System.Collections.Generic
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
-        public int IndexOf(T item, int index)
+        public int IndexOf([DefaultEqualityUsage] T item, int index)
         {
             if (index > _size)
                 ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
@@ -752,7 +752,7 @@ namespace System.Collections.Generic
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
-        public int IndexOf(T item, int index, int count)
+        public int IndexOf([DefaultEqualityUsage] T item, int index, int count)
         {
             if (index > _size)
                 ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessOrEqualException();
@@ -868,7 +868,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
-        public int LastIndexOf(T item)
+        public int LastIndexOf([DefaultEqualityUsage] T item)
         {
             if (_size == 0)
             {  // Special case for empty list
@@ -889,7 +889,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
-        public int LastIndexOf(T item, int index)
+        public int LastIndexOf([DefaultEqualityUsage] T item, int index)
         {
             if (index >= _size)
                 ThrowHelper.ThrowArgumentOutOfRange_IndexMustBeLessException();
@@ -905,7 +905,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
-        public int LastIndexOf(T item, int index, int count)
+        public int LastIndexOf([DefaultEqualityUsage] T item, int index, int count)
         {
             if ((Count != 0) && (index < 0))
             {
@@ -937,7 +937,7 @@ namespace System.Collections.Generic
 
         // Removes the first occurrence of the given element, if found.
         // The size of the list is decreased by one if successful.
-        public bool Remove(T item)
+        public bool Remove([DefaultEqualityUsage] T item)
         {
             int index = IndexOf(item);
             if (index >= 0)

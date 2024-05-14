@@ -108,7 +108,7 @@ namespace System.Collections.ObjectModel
             InsertItem(index, item);
         }
 
-        public bool Remove(T item)
+        public bool Remove([DefaultEqualityUsage] T item)
         {
             if (items.IsReadOnly)
             {

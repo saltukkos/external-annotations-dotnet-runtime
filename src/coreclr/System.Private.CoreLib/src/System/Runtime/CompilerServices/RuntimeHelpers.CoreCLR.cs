@@ -243,7 +243,7 @@ namespace System.Runtime.CompilerServices
         }
 
         [Intrinsic]
-        internal static bool EnumEquals<T>(T x, T y) where T : struct, Enum
+        internal static bool EnumEquals<[DefaultEqualityUsage] T>(T x, T y) where T : struct, Enum
         {
             // The body of this function will be replaced by the EE with unsafe code
             // See getILIntrinsicImplementation for how this happens.

@@ -735,7 +735,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the first occurrence of <paramref name="item"/> within the entire
             /// <see cref="ImmutableList{T}"/>, if found; otherwise, -1.
             /// </returns>
-            internal int IndexOf(T item, IEqualityComparer<T>? equalityComparer) => this.IndexOf(item, 0, this.Count, equalityComparer);
+            internal int IndexOf([DefaultEqualityUsage] T item, IEqualityComparer<T>? equalityComparer) => this.IndexOf(item, 0, this.Count, equalityComparer);
 
             /// <summary>
             /// Searches for the specified object and returns <c>true</c> if it is found, <c>false</c> otherwise.
@@ -777,7 +777,7 @@ namespace System.Collections.Immutable
             /// elements in the <see cref="ImmutableList{T}"/> that starts at <paramref name="index"/> and
             /// contains <paramref name="count"/> number of elements, if found; otherwise, -1.
             /// </returns>
-            internal int IndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer)
+            internal int IndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.Range(index >= 0, nameof(index));
                 Requires.Range(count >= 0, nameof(count));
@@ -819,7 +819,7 @@ namespace System.Collections.Immutable
             /// in the <see cref="ImmutableList{T}"/> that contains <paramref name="count"/> number of elements
             /// and ends at <paramref name="index"/>, if found; otherwise, -1.
             /// </returns>
-            internal int LastIndexOf(T item, int index, int count, IEqualityComparer<T>? equalityComparer)
+            internal int LastIndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.Range(index >= 0, nameof(index));
                 Requires.Range(count >= 0 && count <= this.Count, nameof(count));

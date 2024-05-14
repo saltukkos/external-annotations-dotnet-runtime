@@ -9,7 +9,7 @@ using System.Linq;
 namespace System.Collections.Frozen
 {
     /// <summary>Provides a frozen set to use when the item is a value type, the default comparer is used, and the item count is small.</summary>
-    internal sealed class SmallValueTypeDefaultComparerFrozenSet<T> : FrozenSetInternalBase<T, SmallValueTypeDefaultComparerFrozenSet<T>.GSW>
+    internal sealed class SmallValueTypeDefaultComparerFrozenSet<[DefaultEqualityUsage] T> : FrozenSetInternalBase<T, SmallValueTypeDefaultComparerFrozenSet<T>.GSW>
     {
         private readonly T[] _items;
 

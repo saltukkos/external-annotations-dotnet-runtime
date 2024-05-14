@@ -31,6 +31,7 @@ namespace System.Collections.ObjectModel
         /// <summary>Gets an empty <see cref="ReadOnlyDictionary{TKey, TValue}"/>.</summary>
         /// <value>An empty <see cref="ReadOnlyDictionary{TKey, TValue}"/>.</value>
         /// <remarks>The returned instance is immutable and will always be empty.</remarks>
+        // ReSharper disable once TypeParameterEqualityUsage - can only be empty
         public static ReadOnlyDictionary<TKey, TValue> Empty { get; } = new ReadOnlyDictionary<TKey, TValue>(new Dictionary<TKey, TValue>());
 
         protected IDictionary<TKey, TValue> Dictionary => m_dictionary;

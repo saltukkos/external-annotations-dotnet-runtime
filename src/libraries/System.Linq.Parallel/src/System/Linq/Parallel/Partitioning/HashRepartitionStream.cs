@@ -31,7 +31,7 @@ namespace System.Linq.Parallel
     /// <typeparam name="TInputOutput"></typeparam>
     /// <typeparam name="THashKey"></typeparam>
     /// <typeparam name="TOrderKey"></typeparam>
-    internal abstract class HashRepartitionStream<TInputOutput, THashKey, TOrderKey> : PartitionedStream<Pair<TInputOutput, THashKey>, TOrderKey>
+    internal abstract class HashRepartitionStream<TInputOutput, [DefaultEqualityUsage] THashKey, TOrderKey> : PartitionedStream<Pair<TInputOutput, THashKey>, TOrderKey>
     {
         private readonly IEqualityComparer<THashKey>? _keyComparer; // The optional key comparison routine.
         private readonly IEqualityComparer<TInputOutput>? _elementComparer; // The optional element comparison routine.
@@ -90,7 +90,8 @@ namespace System.Linq.Parallel
         {
             return
                 (HashCodeMask &
-                    (element == null ? NULL_ELEMENT_HASH_CODE : (_elementComparer?.GetHashCode(element) ?? element.GetHashCode())))
+                 // ReSharper disable once TypeParameterEqualityUsage - it's actually used only with NoKeyMemoizationRequired
+                 (element == null ? NULL_ELEMENT_HASH_CODE : (_elementComparer?.GetHashCode(element) ?? element.GetHashCode())))
                 % _distributionMod;
         }
 

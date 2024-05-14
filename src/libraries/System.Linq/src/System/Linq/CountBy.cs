@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<KeyValuePair<TKey, int>> CountBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer = null) where TKey : notnull
+        public static IEnumerable<KeyValuePair<TKey, int>> CountBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer = null) where TKey : notnull
         {
             if (source is null)
             {
@@ -27,7 +27,7 @@ namespace System.Linq
             return CountByIterator(source, keySelector, keyComparer);
         }
 
-        private static IEnumerable<KeyValuePair<TKey, int>> CountByIterator<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
+        private static IEnumerable<KeyValuePair<TKey, int>> CountByIterator<TSource, [DefaultEqualityUsage] TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
         {
             using IEnumerator<TSource> enumerator = source.GetEnumerator();
 
@@ -42,7 +42,7 @@ namespace System.Linq
             }
         }
 
-        private static Dictionary<TKey, int> BuildCountDictionary<TSource, TKey>(IEnumerator<TSource> enumerator, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
+        private static Dictionary<TKey, int> BuildCountDictionary<TSource, [DefaultEqualityUsage] TKey>(IEnumerator<TSource> enumerator, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
         {
             Dictionary<TKey, int> countsBy = new(keyComparer);
 

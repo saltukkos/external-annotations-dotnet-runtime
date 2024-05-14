@@ -6,8 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace System.Collections.Generic
 {
     /// <summary>Equality comparer for hashsets of hashsets</summary>
-    internal sealed class HashSetEqualityComparer<T> : IEqualityComparer<HashSet<T>?>
+    internal sealed class HashSetEqualityComparer<[DefaultEqualityUsage] T> : IEqualityComparer<HashSet<T>?>
     {
+        [DefaultEqualityUsageInternal(nameof(T))]
         public bool Equals(HashSet<T>? x, HashSet<T>? y)
         {
             // If they're the exact same instance, they're equal.
@@ -53,6 +54,7 @@ namespace System.Collections.Generic
             return true;
         }
 
+        [DefaultEqualityUsageInternal(nameof(T))]
         public int GetHashCode(HashSet<T>? obj)
         {
             int hashCode = 0; // default to 0 for null/empty set

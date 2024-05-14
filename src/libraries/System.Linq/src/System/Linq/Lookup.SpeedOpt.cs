@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace System.Linq
 {
-    public partial class Lookup<TKey, TElement>
+    public partial class Lookup<[DefaultEqualityUsage] TKey, TElement>
     {
         internal TResult[] ToArray<TResult>(Func<TKey, IEnumerable<TElement>, TResult> resultSelector)
         {

@@ -114,7 +114,8 @@ namespace System.Collections.Generic
     [Serializable]
     [TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
     // Needs to be public to support binary serialization compatibility
-    public sealed partial class GenericEqualityComparer<T> : EqualityComparer<T> where T : IEquatable<T>?
+    // ReSharper disable TypeParameterEqualityUsage - T is always IEquatable<T>
+    public sealed partial class GenericEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T> where T : IEquatable<T>?
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(T? x, T? y)
@@ -139,11 +140,12 @@ namespace System.Collections.Generic
         public override int GetHashCode() =>
             GetType().GetHashCode();
     }
+    // ReSharper restore TypeParameterEqualityUsage
 
     [Serializable]
     [TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
     // Needs to be public to support binary serialization compatibility
-    public sealed partial class NullableEqualityComparer<T> : EqualityComparer<T?>, ISerializable where T : struct
+    public sealed partial class NullableEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T?>, ISerializable where T : struct
     {
         public NullableEqualityComparer() { }
         private NullableEqualityComparer(SerializationInfo info, StreamingContext context) { }
@@ -183,7 +185,7 @@ namespace System.Collections.Generic
     [Serializable]
     [TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
     // Needs to be public to support binary serialization compatibility
-    public sealed partial class ObjectEqualityComparer<T> : EqualityComparer<T>
+    public sealed partial class ObjectEqualityComparer<[DefaultEqualityUsage] T> : EqualityComparer<T>
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(T? x, T? y)
@@ -233,6 +235,7 @@ namespace System.Collections.Generic
     [Serializable]
     [TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
     // Needs to be public to support binary serialization compatibility
+    // ReSharper disable TypeParameterEqualityUsage - only for enum
     public sealed partial class EnumEqualityComparer<T> : EqualityComparer<T>, ISerializable where T : struct, Enum
     {
         public EnumEqualityComparer() { }
@@ -262,4 +265,5 @@ namespace System.Collections.Generic
         public override int GetHashCode() =>
             GetType().GetHashCode();
     }
+    // ReSharper restore TypeParameterEqualityUsage
 }

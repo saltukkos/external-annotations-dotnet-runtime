@@ -19,7 +19,7 @@ namespace System.Linq.Parallel
     /// This is known as the set relative complement, i.e. left - right.
     /// </summary>
     /// <typeparam name="TInputOutput"></typeparam>
-    internal sealed class ExceptQueryOperator<TInputOutput> :
+    internal sealed class ExceptQueryOperator<[DefaultEqualityUsage] TInputOutput> :
         BinaryQueryOperator<TInputOutput, TInputOutput, TInputOutput>
     {
         private readonly IEqualityComparer<TInputOutput>? _comparer; // An equality comparer.
@@ -134,6 +134,7 @@ namespace System.Linq.Parallel
         // elements that have not yet been seen.
         //
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class ExceptQueryOperatorEnumerator<TLeftKey> : QueryOperatorEnumerator<TInputOutput, int>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey> _leftSource; // Left data source.
@@ -224,6 +225,7 @@ namespace System.Linq.Parallel
             }
         }
 
+        [DefaultEqualityUsageInternal(nameof(TInputOutput))]
         private sealed class OrderedExceptQueryOperatorEnumerator<TLeftKey> : QueryOperatorEnumerator<TInputOutput, TLeftKey>
         {
             private readonly QueryOperatorEnumerator<Pair<TInputOutput, NoKeyMemoizationRequired>, TLeftKey> _leftSource; // Left data source.

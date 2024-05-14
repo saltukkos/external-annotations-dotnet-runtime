@@ -261,7 +261,7 @@ namespace System.Collections.Generic
 
         // Returns true if the queue contains at least one object equal to item.
         // Equality is determined using EqualityComparer<T>.Default.Equals().
-        public bool Contains(T item)
+        public bool Contains([DefaultEqualityUsage] T item)
         {
             if (_size == 0)
             {

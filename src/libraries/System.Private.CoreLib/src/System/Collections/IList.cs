@@ -22,7 +22,7 @@ namespace System.Collections
         int Add(object? value);
 
         // Returns whether the list contains a particular item.
-        bool Contains(object? value);
+        bool Contains([DefaultEqualityUsage] object? value);
 
         // Removes all items from the list.
         void Clear();
@@ -39,7 +39,7 @@ namespace System.Collections
 
         // Returns the index of a particular item, if it is in the list.
         // Returns -1 if the item isn't in the list.
-        int IndexOf(object? value);
+        int IndexOf([DefaultEqualityUsage] object? value);
 
         // Inserts value into the list at position index.
         // index must be non-negative and less than or equal to the
@@ -48,7 +48,7 @@ namespace System.Collections
         void Insert(int index, object? value);
 
         // Removes an item from the list.
-        void Remove(object? value);
+        void Remove([DefaultEqualityUsage] object? value);
 
         // Removes the item at position index.
         void RemoveAt(int index);

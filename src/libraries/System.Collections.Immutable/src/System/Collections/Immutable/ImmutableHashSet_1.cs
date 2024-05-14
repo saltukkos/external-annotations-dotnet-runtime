@@ -24,6 +24,8 @@ namespace System.Collections.Immutable
         /// <summary>
         /// An empty immutable hash set with the default comparer for <typeparamref name="T"/>.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - it could to be used only as Empty, without further '.Add()', and we also can't annotate it for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public static readonly ImmutableHashSet<T> Empty = new ImmutableHashSet<T>(SortedInt32KeyNode<HashBucket>.EmptyNode, EqualityComparer<T>.Default, 0);
 
         /// <summary>
@@ -83,7 +85,9 @@ namespace System.Collections.Immutable
         /// </summary>
         public ImmutableHashSet<T> Clear()
         {
+            // ReSharper disable TypeParameterEqualityUsage - immediatly sets existing comparer
             return this.IsEmpty ? this : ImmutableHashSet<T>.Empty.WithComparer(_equalityComparer);
+            // ReSharper restore TypeParameterEqualityUsage
         }
 
         /// <summary>
@@ -425,6 +429,8 @@ namespace System.Collections.Immutable
         /// <summary>
         /// See the <see cref="IImmutableSet{T}"/> interface.
         /// </summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableHashSet<T> WithComparer(IEqualityComparer<T>? equalityComparer)
         {
             equalityComparer ??= EqualityComparer<T>.Default;
@@ -755,6 +761,7 @@ namespace System.Collections.Immutable
         {
             Requires.NotNull(other, nameof(other));
 
+            // ReSharper disable once TypeParameterEqualityUsage - always uses existing comparer
             var otherSet = new HashSet<T>(other, origin.EqualityComparer);
             if (origin.Count != otherSet.Count)
             {
@@ -845,6 +852,7 @@ namespace System.Collections.Immutable
         {
             Requires.NotNull(other, nameof(other));
 
+            // ReSharper disable once TypeParameterEqualityUsage - always existing comparer is passed
             ImmutableHashSet<T> otherAsSet = ImmutableHashSet.CreateRange(origin.EqualityComparer, other);
 
             int count = 0;
@@ -892,6 +900,8 @@ namespace System.Collections.Immutable
             // size of this collection.  Of course for this to work we need to ensure
             // the uniqueness of items in the given sequence, so we create a set based
             // on the sequence first.
+
+            // ReSharper disable once TypeParameterEqualityUsage - always uses exising comparer
             var otherSet = new HashSet<T>(other, origin.EqualityComparer);
             if (origin.Count >= otherSet.Count)
             {
@@ -965,6 +975,8 @@ namespace System.Collections.Immutable
             // size of this collection.  Of course for this to work we need to ensure
             // the uniqueness of items in the given sequence, so we create a set based
             // on the sequence first.
+
+            // ReSharper disable once TypeParameterEqualityUsage - always uses exising comparer
             var otherSet = new HashSet<T>(other, origin.EqualityComparer);
             int matches = 0;
             foreach (T item in otherSet)
@@ -1006,10 +1018,12 @@ namespace System.Collections.Immutable
             {
                 return HashBucketByRefEqualityComparer.DefaultInstance;
             }
+            // ReSharper disable TypeParameterEqualityUsage - only for instance comparison
             else if (valueComparer == EqualityComparer<T>.Default)
             {
                 return HashBucketByValueEqualityComparer.DefaultInstance;
             }
+            // ReSharper restore TypeParameterEqualityUsage
             else
             {
                 return new HashBucketByValueEqualityComparer(valueComparer);
@@ -1043,6 +1057,7 @@ namespace System.Collections.Immutable
                 // reuse that instance if possible.
                 if (items is ImmutableHashSet<T> other)
                 {
+                    // ReSharper disable once TypeParameterEqualityUsage always uses exising comparer
                     return other.WithComparer(this.KeyComparer);
                 }
             }

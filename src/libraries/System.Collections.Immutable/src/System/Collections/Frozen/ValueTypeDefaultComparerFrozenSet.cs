@@ -8,7 +8,7 @@ namespace System.Collections.Frozen
 {
     /// <summary>Provides a frozen set optimized for value types using the default comparer.</summary>
     /// <typeparam name="T">The type of values in the set.</typeparam>
-    internal sealed class ValueTypeDefaultComparerFrozenSet<T> : ItemsFrozenSet<T, ValueTypeDefaultComparerFrozenSet<T>.GSW>
+    internal sealed class ValueTypeDefaultComparerFrozenSet<[DefaultEqualityUsage] T> : ItemsFrozenSet<T, ValueTypeDefaultComparerFrozenSet<T>.GSW>
     {
         internal ValueTypeDefaultComparerFrozenSet(HashSet<T> source) : base(source, Constants.KeysAreHashCodes<T>())
         {

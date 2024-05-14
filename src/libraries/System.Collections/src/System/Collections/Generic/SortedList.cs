@@ -191,6 +191,7 @@ namespace System.Collections.Generic
             Add(keyValuePair.Key, keyValuePair.Value);
         }
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int index = IndexOfKey(keyValuePair.Key);
@@ -201,6 +202,7 @@ namespace System.Collections.Generic
             return false;
         }
 
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int index = IndexOfKey(keyValuePair.Key);
@@ -422,7 +424,7 @@ namespace System.Collections.Generic
         // using the Object.Equals method. This method performs a linear
         // search and is substantially slower than the Contains
         // method.
-        public bool ContainsValue(TValue value)
+        public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             return IndexOfValue(value) >= 0;
         }
@@ -647,7 +649,7 @@ namespace System.Collections.Generic
         // thus the average execution time of this method is proportional to the
         // size of this sorted list. The elements of the list are compared to the
         // given value using the Object.Equals method.
-        public int IndexOfValue(TValue value)
+        public int IndexOfValue([DefaultEqualityUsage] TValue value)
         {
             return Array.IndexOf(values, value, 0, _size);
         }
@@ -1151,7 +1153,7 @@ namespace System.Collections.Generic
                 throw new NotSupportedException(SR.NotSupported_SortedListNestedWrite);
             }
 
-            public bool Contains(TValue value)
+            public bool Contains([DefaultEqualityUsage] TValue value)
             {
                 return _dict.ContainsValue(value);
             }
@@ -1201,7 +1203,7 @@ namespace System.Collections.Generic
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-            public int IndexOf(TValue value)
+            public int IndexOf([DefaultEqualityUsage] TValue value)
             {
                 return Array.IndexOf(_dict.values, value, 0, _dict.Count);
             }

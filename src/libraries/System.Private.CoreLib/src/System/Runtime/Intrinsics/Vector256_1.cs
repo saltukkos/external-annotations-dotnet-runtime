@@ -438,6 +438,8 @@ namespace System.Runtime.Intrinsics
         /// <summary>Gets the hash code for the instance.</summary>
         /// <returns>The hash code for the instance.</returns>
         /// <exception cref="NotSupportedException">The type of the vector (<typeparamref name="T" />) is not supported.</exception>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public override int GetHashCode()
         {
             HashCode hashCode = default;

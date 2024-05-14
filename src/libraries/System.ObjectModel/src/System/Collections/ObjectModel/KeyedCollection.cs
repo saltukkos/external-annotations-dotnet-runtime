@@ -11,7 +11,7 @@ namespace System.Collections.ObjectModel
     [DebuggerTypeProxy(typeof(KeyedCollection<,>.KeyedCollectionDebugView))]
     [DebuggerDisplay("Count = {Count}")]
     [System.Runtime.CompilerServices.TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
-    public abstract class KeyedCollection<TKey, TItem> : Collection<TItem> where TKey : notnull
+    public abstract class KeyedCollection<[DefaultEqualityUsage] TKey, TItem> : Collection<TItem> where TKey : notnull
     {
         private const int DefaultThreshold = 0;
 
@@ -112,7 +112,7 @@ namespace System.Collections.ObjectModel
             return false;
         }
 
-        private bool ContainsItem(TItem item)
+        private bool ContainsItem([DefaultEqualityUsage] TItem item)
         {
             TKey key;
             if ((dict == null) || ((key = GetKeyForItem(item)) == null))
@@ -129,6 +129,8 @@ namespace System.Collections.ObjectModel
             return false;
         }
 
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TItem))]
         public bool Remove(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -153,7 +155,7 @@ namespace System.Collections.ObjectModel
 
         protected IDictionary<TKey, TItem>? Dictionary => dict;
 
-        protected void ChangeItemKey(TItem item, TKey newKey)
+        protected void ChangeItemKey([DefaultEqualityUsage] TItem item, TKey newKey)
         {
             if (!ContainsItem(item))
             {

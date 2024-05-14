@@ -81,7 +81,7 @@ namespace System.Linq
                 return _current;
             }
 
-            public bool Contains(TResult item)
+            public bool Contains([DefaultEqualityUsage] TResult item)
             {
                 Debug.Assert(_count > 0);
                 return EqualityComparer<TResult>.Default.Equals(_current, item);

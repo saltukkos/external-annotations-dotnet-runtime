@@ -1453,6 +1453,7 @@ namespace System
 
                     return (result >= 0 ? startIndex : lb) + result;
 
+                    [DefaultEqualityUsageInternal(nameof(T))]
                     static int GenericIndexOf<T>(Array array, object value, int adjustedIndex, int length) where T : struct, IEquatable<T>
                         => UnsafeArrayAsSpan<T>(array, adjustedIndex, length).IndexOf(Unsafe.As<byte, T>(ref value.GetRawData()));
                 }
@@ -1479,7 +1480,7 @@ namespace System
             return lb - 1;
         }
 
-        public static int IndexOf<T>(T[] array, T value)
+        public static int IndexOf<[DefaultEqualityUsage] T>(T[] array, T value)
         {
             if (array == null)
             {
@@ -1489,7 +1490,7 @@ namespace System
             return IndexOf(array, value, 0, array.Length);
         }
 
-        public static int IndexOf<T>(T[] array, T value, int startIndex)
+        public static int IndexOf<[DefaultEqualityUsage] T>(T[] array, T value, int startIndex)
         {
             if (array == null)
             {
@@ -1499,7 +1500,7 @@ namespace System
             return IndexOf(array, value, startIndex, array.Length - startIndex);
         }
 
-        public static unsafe int IndexOf<T>(T[] array, T value, int startIndex, int count)
+        public static unsafe int IndexOf<[DefaultEqualityUsage] T>(T[] array, T value, int startIndex, int count)
         {
             if (array == null)
             {
@@ -1683,6 +1684,7 @@ namespace System
 
                     return (result >= 0 ? endIndex : lb) + result;
 
+                    [DefaultEqualityUsageInternal(nameof(T))]
                     static int GenericLastIndexOf<T>(Array array, object value, int adjustedIndex, int length) where T : struct, IEquatable<T>
                         => UnsafeArrayAsSpan<T>(array, adjustedIndex, length).LastIndexOf(Unsafe.As<byte, T>(ref value.GetRawData()));
                 }
@@ -1705,7 +1707,7 @@ namespace System
             return lb - 1;  // Return lb-1 for arrays with negative lower bounds.
         }
 
-        public static int LastIndexOf<T>(T[] array, T value)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(T[] array, T value)
         {
             if (array == null)
             {
@@ -1715,7 +1717,7 @@ namespace System
             return LastIndexOf(array, value, array.Length - 1, array.Length);
         }
 
-        public static int LastIndexOf<T>(T[] array, T value, int startIndex)
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(T[] array, T value, int startIndex)
         {
             if (array == null)
             {
@@ -1725,7 +1727,7 @@ namespace System
             return LastIndexOf(array, value, startIndex, (array.Length == 0) ? 0 : (startIndex + 1));
         }
 
-        public static unsafe int LastIndexOf<T>(T[] array, T value, int startIndex, int count)
+        public static unsafe int LastIndexOf<[DefaultEqualityUsage] T>(T[] array, T value, int startIndex, int count)
         {
             if (array == null)
             {

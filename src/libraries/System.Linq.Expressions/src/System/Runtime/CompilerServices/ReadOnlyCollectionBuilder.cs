@@ -215,7 +215,7 @@ namespace System.Runtime.CompilerServices
         /// </summary>
         /// <param name="item">the object to locate in the <see cref="ReadOnlyCollectionBuilder{T}"/>.</param>
         /// <returns>true if item is found in the <see cref="ReadOnlyCollectionBuilder{T}"/>; otherwise, false.</returns>
-        public bool Contains(T item) => IndexOf(item) >= 0;
+        public bool Contains([DefaultEqualityUsage] T item) => IndexOf(item) >= 0;
 
         /// <summary>
         /// Copies the elements of the <see cref="ReadOnlyCollectionBuilder{T}"/> to an <see cref="Array"/>,
@@ -234,7 +234,7 @@ namespace System.Runtime.CompilerServices
         /// <returns>true if item was successfully removed from the <see cref="ReadOnlyCollectionBuilder{T}"/>;
         /// otherwise, false. This method also returns false if item is not found in the original <see cref="ReadOnlyCollectionBuilder{T}"/>.
         /// </returns>
-        public bool Remove(T item)
+        public bool Remove([DefaultEqualityUsage] T item)
         {
             int index = IndexOf(item);
             if (index >= 0)

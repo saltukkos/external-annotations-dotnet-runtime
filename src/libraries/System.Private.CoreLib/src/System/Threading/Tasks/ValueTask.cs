@@ -538,27 +538,37 @@ namespace System.Threading.Tasks
 
 
         /// <summary>Returns the hash code for this instance.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TResult))]
         public override int GetHashCode() =>
             _obj != null ? _obj.GetHashCode() :
             _result != null ? _result.GetHashCode() :
             0;
 
         /// <summary>Returns a value indicating whether this value is equal to a specified <see cref="object"/>.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TResult))]
         public override bool Equals([NotNullWhen(true)] object? obj) =>
             obj is ValueTask<TResult> &&
             Equals((ValueTask<TResult>)obj);
 
         /// <summary>Returns a value indicating whether this value is equal to a specified <see cref="ValueTask{TResult}"/> value.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TResult))]
         public bool Equals(ValueTask<TResult> other) =>
             _obj != null || other._obj != null ?
                 _obj == other._obj && _token == other._token :
                 EqualityComparer<TResult>.Default.Equals(_result, other._result);
 
         /// <summary>Returns a value indicating whether two <see cref="ValueTask{TResult}"/> values are equal.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TResult))]
         public static bool operator ==(ValueTask<TResult> left, ValueTask<TResult> right) =>
             left.Equals(right);
 
         /// <summary>Returns a value indicating whether two <see cref="ValueTask{TResult}"/> values are not equal.</summary>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TResult))]
         public static bool operator !=(ValueTask<TResult> left, ValueTask<TResult> right) =>
             !left.Equals(right);
 

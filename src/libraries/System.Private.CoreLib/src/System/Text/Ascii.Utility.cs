@@ -2201,6 +2201,7 @@ namespace System.Text
         private static unsafe bool HasMatch<TVectorByte>(TVectorByte vector)
             where TVectorByte : unmanaged, ISimdVector<TVectorByte, byte>
         {
+            // ReSharper disable once TypeParameterEqualityUsage - only bytes
             return !(vector & TVectorByte.Create((byte)0x80)).Equals(TVectorByte.Zero);
         }
 

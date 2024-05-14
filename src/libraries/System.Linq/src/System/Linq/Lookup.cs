@@ -9,10 +9,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static ILookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
             ToLookup(source, keySelector, comparer: null);
 
-        public static ILookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -32,10 +32,10 @@ namespace System.Linq
             return Lookup<TKey, TSource>.Create(source, keySelector, comparer);
         }
 
-        public static ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
             ToLookup(source, keySelector, elementSelector, comparer: null);
 
-        public static ILookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -72,13 +72,14 @@ namespace System.Linq
 
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(SystemLinq_LookupDebugView<,>))]
-    public partial class Lookup<TKey, TElement> : ILookup<TKey, TElement>
+    public partial class Lookup<[DefaultEqualityUsage] TKey, TElement> : ILookup<TKey, TElement>
     {
         private readonly IEqualityComparer<TKey> _comparer;
         private Grouping<TKey, TElement>[] _groupings;
         internal Grouping<TKey, TElement>? _lastGrouping;
         private int _count;
 
+        [DefaultEqualityUsageInternal(nameof(TKey))]
         internal static Lookup<TKey, TElement> Create<TSource>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             Debug.Assert(source is not null);
@@ -94,6 +95,7 @@ namespace System.Linq
             return lookup;
         }
 
+        [DefaultEqualityUsageInternal(nameof(TKey))]
         internal static Lookup<TKey, TElement> Create(IEnumerable<TElement> source, Func<TElement, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             Debug.Assert(source is not null);
@@ -108,6 +110,7 @@ namespace System.Linq
             return lookup;
         }
 
+        [DefaultEqualityUsageInternal(nameof(TKey))]
         internal static Lookup<TKey, TElement> CreateForJoin(IEnumerable<TElement> source, Func<TElement, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             var lookup = new CollectionLookup<TKey, TElement>(comparer);

@@ -763,7 +763,7 @@ namespace System
             ThrowHelper.ThrowNotSupportedException(ExceptionResource.NotSupported_FixedSizeCollection);
         }
 
-        private bool Contains<T>(T value)
+        private bool Contains<[DefaultEqualityUsage] T>(T value)
         {
             // ! Warning: "this" is an array, not an SZArrayHelper. See comments above
             // ! or you may introduce a security hole!
@@ -784,7 +784,7 @@ namespace System
             ThrowHelper.ThrowNotSupportedException(ExceptionResource.NotSupported_ReadOnlyCollection);
         }
 
-        private int IndexOf<T>(T value)
+        private int IndexOf<[DefaultEqualityUsage] T>(T value)
         {
             // ! Warning: "this" is an array, not an SZArrayHelper. See comments above
             // ! or you may introduce a security hole!

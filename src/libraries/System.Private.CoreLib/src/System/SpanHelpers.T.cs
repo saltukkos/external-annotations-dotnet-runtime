@@ -188,7 +188,7 @@ namespace System
             }
         }
 
-        public static int IndexOf<T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
+        public static int IndexOf<[DefaultEqualityUsage] T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
         {
             Debug.Assert(searchSpaceLength >= 0);
             Debug.Assert(valueLength >= 0);
@@ -224,7 +224,7 @@ namespace System
         }
 
         // Adapted from IndexOf(...)
-        public static bool Contains<T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
+        public static bool Contains<[DefaultEqualityUsage] T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -296,7 +296,7 @@ namespace System
             return true;
         }
 
-        public static int IndexOf<T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
+        public static int IndexOf<[DefaultEqualityUsage] T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -385,7 +385,7 @@ namespace System
             return (int)(index + 7);
         }
 
-        public static int IndexOfAny<T>(ref T searchSpace, T value0, T value1, int length) where T : IEquatable<T>?
+        public static int IndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -491,7 +491,7 @@ namespace System
             return index + 7;
         }
 
-        public static int IndexOfAny<T>(ref T searchSpace, T value0, T value1, T value2, int length) where T : IEquatable<T>?
+        public static int IndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -596,7 +596,7 @@ namespace System
             return index + 7;
         }
 
-        public static int IndexOfAny<T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
+        public static int IndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
         {
             Debug.Assert(searchSpaceLength >= 0);
             Debug.Assert(valueLength >= 0);
@@ -667,7 +667,7 @@ namespace System
             return -1; // not found
         }
 
-        public static int LastIndexOf<T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
         {
             Debug.Assert(searchSpaceLength >= 0);
             Debug.Assert(valueLength >= 0);
@@ -707,7 +707,7 @@ namespace System
             return -1;
         }
 
-        public static int LastIndexOf<T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
+        public static int LastIndexOf<[DefaultEqualityUsage] T>(ref T searchSpace, T value, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -790,7 +790,7 @@ namespace System
             return length + 7;
         }
 
-        public static int LastIndexOfAny<T>(ref T searchSpace, T value0, T value1, int length) where T : IEquatable<T>?
+        public static int LastIndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -895,7 +895,7 @@ namespace System
             return length + 7;
         }
 
-        public static int LastIndexOfAny<T>(ref T searchSpace, T value0, T value1, T value2, int length) where T : IEquatable<T>?
+        public static int LastIndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -1000,7 +1000,7 @@ namespace System
             return length + 7;
         }
 
-        public static int LastIndexOfAny<T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
+        public static int LastIndexOfAny<[DefaultEqualityUsage] T>(ref T searchSpace, int searchSpaceLength, ref T value, int valueLength) where T : IEquatable<T>?
         {
             Debug.Assert(searchSpaceLength >= 0);
             Debug.Assert(valueLength >= 0);
@@ -1056,7 +1056,7 @@ namespace System
             return -1; // not found
         }
 
-        internal static int IndexOfAnyExcept<T>(ref T searchSpace, T value0, int length)
+        internal static int IndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1071,7 +1071,7 @@ namespace System
             return -1;
         }
 
-        internal static int LastIndexOfAnyExcept<T>(ref T searchSpace, T value0, int length)
+        internal static int LastIndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1086,7 +1086,7 @@ namespace System
             return -1;
         }
 
-        internal static int IndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, int length)
+        internal static int IndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1102,7 +1102,7 @@ namespace System
             return -1;
         }
 
-        internal static int LastIndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, int length)
+        internal static int LastIndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1118,7 +1118,7 @@ namespace System
             return -1;
         }
 
-        internal static int IndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, T value2, int length)
+        internal static int IndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1136,7 +1136,7 @@ namespace System
             return -1;
         }
 
-        internal static int LastIndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, T value2, int length)
+        internal static int LastIndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1154,7 +1154,7 @@ namespace System
             return -1;
         }
 
-        internal static int IndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, T value2, T value3, int length)
+        internal static int IndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, T value3, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1173,7 +1173,7 @@ namespace System
             return -1;
         }
 
-        internal static int LastIndexOfAnyExcept<T>(ref T searchSpace, T value0, T value1, T value2, T value3, int length)
+        internal static int LastIndexOfAnyExcept<[DefaultEqualityUsage] T>(ref T searchSpace, T value0, T value1, T value2, T value3, int length)
         {
             Debug.Assert(length >= 0, "Expected non-negative length");
 
@@ -1192,7 +1192,7 @@ namespace System
             return -1;
         }
 
-        public static bool SequenceEqual<T>(ref T first, ref T second, int length) where T : IEquatable<T>?
+        public static bool SequenceEqual<[DefaultEqualityUsage] T>(ref T first, ref T second, int length) where T : IEquatable<T>?
         {
             Debug.Assert(length >= 0);
 
@@ -3057,7 +3057,7 @@ namespace System
             return -1;
         }
 
-        public static void Replace<T>(ref T src, ref T dst, T oldValue, T newValue, nuint length) where T : IEquatable<T>?
+        public static void Replace<[DefaultEqualityUsage] T>(ref T src, ref T dst, T oldValue, T newValue, nuint length) where T : IEquatable<T>?
         {
             if (default(T) is not null || oldValue is not null)
             {
@@ -3079,7 +3079,7 @@ namespace System
             }
         }
 
-        public static void ReplaceValueType<T>(ref T src, ref T dst, T oldValue, T newValue, nuint length) where T : struct
+        public static void ReplaceValueType<[DefaultEqualityUsage] T>(ref T src, ref T dst, T oldValue, T newValue, nuint length) where T : struct
         {
             if (!Vector128.IsHardwareAccelerated || length < (uint)Vector128<T>.Count)
             {
@@ -3742,7 +3742,7 @@ namespace System
             return -1;
         }
 
-        public static int Count<T>(ref T current, T value, int length) where T : IEquatable<T>?
+        public static int Count<[DefaultEqualityUsage] T>(ref T current, T value, int length) where T : IEquatable<T>?
         {
             int count = 0;
 
@@ -3775,7 +3775,7 @@ namespace System
             return count;
         }
 
-        public static int CountValueType<T>(ref T current, T value, int length) where T : struct, IEquatable<T>?
+        public static int CountValueType<[DefaultEqualityUsage] T>(ref T current, T value, int length) where T : struct, IEquatable<T>?
         {
             int count = 0;
             ref T end = ref Unsafe.Add(ref current, length);

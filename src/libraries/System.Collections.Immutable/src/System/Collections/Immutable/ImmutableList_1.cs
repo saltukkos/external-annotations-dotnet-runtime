@@ -285,12 +285,12 @@ namespace System.Collections.Immutable
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.
         /// </summary>
-        public ImmutableList<T> Remove(T value) => this.Remove(value, EqualityComparer<T>.Default);
+        public ImmutableList<T> Remove([DefaultEqualityUsage] T value) => this.Remove(value, EqualityComparer<T>.Default);
 
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.
         /// </summary>
-        public ImmutableList<T> Remove(T value, IEqualityComparer<T>? equalityComparer)
+        public ImmutableList<T> Remove([DefaultEqualityUsage] T value, IEqualityComparer<T>? equalityComparer)
         {
             int index = this.IndexOf(value, equalityComparer);
             return index < 0 ? this : this.RemoveAt(index);
@@ -324,6 +324,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableList<T> RemoveRange(IEnumerable<T> items) => this.RemoveRange(items, EqualityComparer<T>.Default);
 
         /// <summary>
@@ -337,6 +339,8 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A new list with the elements removed.
         /// </returns>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(T))]
         public ImmutableList<T> RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
         {
             Requires.NotNull(items, nameof(items));
@@ -398,12 +402,12 @@ namespace System.Collections.Immutable
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.
         /// </summary>
-        public ImmutableList<T> Replace(T oldValue, T newValue) => this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
+        public ImmutableList<T> Replace([DefaultEqualityUsage] T oldValue, T newValue) => this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
 
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.
         /// </summary>
-        public ImmutableList<T> Replace(T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
+        public ImmutableList<T> Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
         {
             int index = this.IndexOf(oldValue, equalityComparer);
             if (index < 0)
@@ -807,7 +811,7 @@ namespace System.Collections.Immutable
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.
         /// </summary>
-        public bool Contains(T value) => _root.Contains(value, EqualityComparer<T>.Default);
+        public bool Contains([DefaultEqualityUsage] T value) => _root.Contains(value, EqualityComparer<T>.Default);
 
         /// <summary>
         /// See the <see cref="IImmutableList{T}"/> interface.

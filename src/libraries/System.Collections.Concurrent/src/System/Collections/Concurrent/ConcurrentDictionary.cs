@@ -19,7 +19,7 @@ namespace System.Collections.Concurrent
     /// </remarks>
     [DebuggerTypeProxy(typeof(IDictionaryDebugView<,>))]
     [DebuggerDisplay("Count = {Count}")]
-    public class ConcurrentDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue> where TKey : notnull
+    public class ConcurrentDictionary<[DefaultEqualityUsage] TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue> where TKey : notnull
     {
         /// <summary>Internal tables of the dictionary.</summary>
         /// <remarks>
@@ -268,7 +268,7 @@ namespace System.Collections.Concurrent
         /// <param name="key">The other key to compare.</param>
         /// <returns>true if the keys are equal; otherwise, false.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool NodeEqualsKey(IEqualityComparer<TKey>? comparer, Node node, TKey key)
+        private static bool NodeEqualsKey(IEqualityComparer<TKey>? comparer, Node node, [DefaultEqualityUsage] TKey key)
         {
             if (typeof(TKey).IsValueType)
             {
@@ -350,6 +350,7 @@ namespace System.Collections.Concurrent
                 ThrowHelper.ThrowKeyNullException();
             }
 
+            // ReSharper disable once TypeParameterEqualityUsage beacuse of matchValue: false
             return TryRemoveInternal(key, out value, matchValue: false, default);
         }
 
@@ -368,6 +369,8 @@ namespace System.Collections.Concurrent
         /// <exception cref="ArgumentNullException">
         /// The <see cref="KeyValuePair{TKey, TValue}.Key"/> property of <paramref name="item"/> is a null reference.
         /// </exception>
+        // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         public bool TryRemove(KeyValuePair<TKey, TValue> item)
         {
             if (item.Key is null)
@@ -387,7 +390,7 @@ namespace System.Collections.Concurrent
         /// <param name="value">The variable into which the removed value, if found, is stored.</param>
         /// <param name="matchValue">Whether removal of the key is conditional on its value.</param>
         /// <param name="oldValue">The conditional value to compare against if <paramref name="matchValue"/> is true</param>
-        private bool TryRemoveInternal(TKey key, [MaybeNullWhen(false)] out TValue value, bool matchValue, TValue? oldValue)
+        private bool TryRemoveInternal(TKey key, [MaybeNullWhen(false)] [DefaultEqualityUsage] out TValue value, bool matchValue, TValue? oldValue)
         {
             Tables tables = _tables;
 
@@ -510,7 +513,7 @@ namespace System.Collections.Concurrent
             return false;
         }
 
-        private static bool TryGetValueInternal(Tables tables, TKey key, int hashcode, [MaybeNullWhen(false)] out TValue value)
+        private static bool TryGetValueInternal(Tables tables, [DefaultEqualityUsage] TKey key, int hashcode, [MaybeNullWhen(false)] out TValue value)
         {
             IEqualityComparer<TKey>? comparer = tables._comparer;
 
@@ -558,7 +561,7 @@ namespace System.Collections.Concurrent
         /// replaced with <paramref name="newValue"/>; otherwise, false.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is a null reference.</exception>
-        public bool TryUpdate(TKey key, TValue newValue, TValue comparisonValue)
+        public bool TryUpdate(TKey key, [DefaultEqualityUsage] TValue newValue, TValue comparisonValue)
         {
             if (key is null)
             {
@@ -585,7 +588,7 @@ namespace System.Collections.Concurrent
         /// replaced with <paramref name="newValue"/>; otherwise, false.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is a null reference.</exception>
-        private bool TryUpdateInternal(Tables tables, TKey key, int? nullableHashcode, TValue newValue, TValue comparisonValue)
+        private bool TryUpdateInternal(Tables tables, TKey key, int? nullableHashcode, [DefaultEqualityUsage] TValue newValue, TValue comparisonValue)
         {
             IEqualityComparer<TKey>? comparer = tables._comparer;
 
@@ -1277,6 +1280,7 @@ namespace System.Collections.Concurrent
         /// elements.</exception>
         /// <returns>The new value for the key.  This will be either be the result of addValueFactory (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
+        [return: DefaultEqualityUsage]
         public TValue AddOrUpdate<TArg>(
             TKey key, Func<TKey, TArg, TValue> addValueFactory, Func<TKey, TValue, TArg, TValue> updateValueFactory, TArg factoryArgument)
         {
@@ -1351,6 +1355,7 @@ namespace System.Collections.Concurrent
         /// elements.</exception>
         /// <returns>The new value for the key.  This will be either the result of addValueFactory (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
+        [return: DefaultEqualityUsage]
         public TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
         {
             if (key is null)
@@ -1422,7 +1427,7 @@ namespace System.Collections.Concurrent
         /// elements.</exception>
         /// <returns>The new value for the key.  This will be either the value of addValue (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
-        public TValue AddOrUpdate(TKey key, TValue addValue, Func<TKey, TValue, TValue> updateValueFactory)
+        public TValue AddOrUpdate(TKey key, [DefaultEqualityUsage] TValue addValue, Func<TKey, TValue, TValue> updateValueFactory)
         {
             if (key is null)
             {
@@ -1588,6 +1593,7 @@ namespace System.Collections.Concurrent
         /// cref="ICollection{TValue}"/>.</param>
         /// <returns>true if the <paramref name="keyValuePair"/> is found in the <see
         /// cref="ICollection{T}"/>; otherwise, false.</returns>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair) =>
             TryGetValue(keyValuePair.Key, out TValue? value) &&
             EqualityComparer<TValue>.Default.Equals(value, keyValuePair.Value);
@@ -1612,6 +1618,7 @@ namespace System.Collections.Concurrent
         /// found and removed; otherwise, false.</returns>
         /// <exception cref="ArgumentNullException">The Key property of <paramref
         /// name="keyValuePair"/> is a null reference (Nothing in Visual Basic).</exception>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair) =>
             TryRemove(keyValuePair);
 

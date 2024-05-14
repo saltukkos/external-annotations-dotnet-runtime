@@ -78,7 +78,7 @@ namespace System.Globalization
             return OrdinalCasing.CompareStringIgnoreCase(ref strA, lengthA, ref strB, lengthB);
         }
 
-        private static bool EqualsIgnoreCase_Vector<TVector>(ref char charA, ref char charB, int length)
+        private static bool EqualsIgnoreCase_Vector<[DefaultEqualityUsage] TVector>(ref char charA, ref char charB, int length)
             where TVector : struct, ISimdVector<TVector, ushort>
         {
             Debug.Assert(length >= TVector.Count);

@@ -43,6 +43,7 @@ namespace System.Linq.Parallel
         internal Lookup(IEqualityComparer<TKey> comparer)
         {
             _comparer = comparer;
+            // ReSharper disable once TypeParameterEqualityUsage - comparer is always present by contract
             _dict = new Dictionary<TKey, IGrouping<TKey, TElement>>(_comparer);
         }
 

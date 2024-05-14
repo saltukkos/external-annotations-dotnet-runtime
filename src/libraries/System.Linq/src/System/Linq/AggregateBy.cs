@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, TKey, TAccumulate>(
+        public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             TAccumulate seed,
@@ -36,7 +36,7 @@ namespace System.Linq
             return AggregateByIterator(source, keySelector, seed, func, keyComparer);
         }
 
-        public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, TKey, TAccumulate>(
+        public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             Func<TKey, TAccumulate> seedSelector,
@@ -68,7 +68,7 @@ namespace System.Linq
             return AggregateByIterator(source, keySelector, seedSelector, func, keyComparer);
         }
 
-        private static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateByIterator<TSource, TKey, TAccumulate>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
+        private static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateByIterator<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
         {
             using IEnumerator<TSource> enumerator = source.GetEnumerator();
 
@@ -100,7 +100,7 @@ namespace System.Linq
             }
         }
 
-        private static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateByIterator<TSource, TKey, TAccumulate>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, TAccumulate> seedSelector, Func<TAccumulate, TSource, TAccumulate> func, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
+        private static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateByIterator<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, TAccumulate> seedSelector, Func<TAccumulate, TSource, TAccumulate> func, IEqualityComparer<TKey>? keyComparer) where TKey : notnull
         {
             using IEnumerator<TSource> enumerator = source.GetEnumerator();
 

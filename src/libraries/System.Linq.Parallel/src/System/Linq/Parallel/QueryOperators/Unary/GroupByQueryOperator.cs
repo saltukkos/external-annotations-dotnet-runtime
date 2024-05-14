@@ -26,7 +26,7 @@ namespace System.Linq.Parallel
     /// <typeparam name="TSource"></typeparam>
     /// <typeparam name="TGroupKey"></typeparam>
     /// <typeparam name="TElement"></typeparam>
-    internal sealed class GroupByQueryOperator<TSource, TGroupKey, TElement> :
+    internal sealed class GroupByQueryOperator<TSource, [DefaultEqualityUsage] TGroupKey, TElement> :
         UnaryQueryOperator<TSource, IGrouping<TGroupKey, TElement>>
     {
         private readonly Func<TSource, TGroupKey> _keySelector; // Key selection function.
@@ -299,7 +299,7 @@ namespace System.Linq.Parallel
     // function.
     //
 
-    internal sealed class GroupByIdentityQueryOperatorEnumerator<TSource, TGroupKey, TOrderKey> :
+    internal sealed class GroupByIdentityQueryOperatorEnumerator<TSource, [DefaultEqualityUsage] TGroupKey, TOrderKey> :
         GroupByQueryOperatorEnumerator<TSource, TGroupKey, TSource, TOrderKey>
     {
         //---------------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ namespace System.Linq.Parallel
     // element selection function.
     //
 
-    internal sealed class GroupByElementSelectorQueryOperatorEnumerator<TSource, TGroupKey, TElement, TOrderKey> :
+    internal sealed class GroupByElementSelectorQueryOperatorEnumerator<TSource, [DefaultEqualityUsage] TGroupKey, TElement, TOrderKey> :
         GroupByQueryOperatorEnumerator<TSource, TGroupKey, TElement, TOrderKey>
     {
         private readonly Func<TSource, TElement> _elementSelector; // Function to select elements.
@@ -528,7 +528,7 @@ namespace System.Linq.Parallel
     // function.
     //
 
-    internal sealed class OrderedGroupByIdentityQueryOperatorEnumerator<TSource, TGroupKey, TOrderKey> :
+    internal sealed class OrderedGroupByIdentityQueryOperatorEnumerator<TSource, [DefaultEqualityUsage] TGroupKey, TOrderKey> :
         OrderedGroupByQueryOperatorEnumerator<TSource, TGroupKey, TSource, TOrderKey>
     {
         //---------------------------------------------------------------------------------------
@@ -599,7 +599,7 @@ namespace System.Linq.Parallel
     // element selection function.
     //
 
-    internal sealed class OrderedGroupByElementSelectorQueryOperatorEnumerator<TSource, TGroupKey, TElement, TOrderKey> :
+    internal sealed class OrderedGroupByElementSelectorQueryOperatorEnumerator<TSource, [DefaultEqualityUsage] TGroupKey, TElement, TOrderKey> :
         OrderedGroupByQueryOperatorEnumerator<TSource, TGroupKey, TElement, TOrderKey>
     {
         private readonly Func<TSource, TElement> _elementSelector; // Function to select elements.

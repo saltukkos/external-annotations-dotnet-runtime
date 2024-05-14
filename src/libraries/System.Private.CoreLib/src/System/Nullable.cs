@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 
+// ReSharper disable InternalAttributeOnPublicApi - special handling in analyzer
+
 #pragma warning disable CA1066 // Implement IEquatable when overriding Object.Equals
 
 namespace System
@@ -55,6 +57,7 @@ namespace System
         public readonly T GetValueOrDefault(T defaultValue) =>
             hasValue ? value : defaultValue;
 
+        [DefaultEqualityUsageInternal(nameof(T))]
         public override bool Equals(object? other)
         {
             if (!hasValue) return other == null;
@@ -62,6 +65,7 @@ namespace System
             return value.Equals(other);
         }
 
+        [DefaultEqualityUsageInternal(nameof(T))]
         public override int GetHashCode() => hasValue ? value.GetHashCode() : 0;
 
         public override string? ToString() => hasValue ? value.ToString() : "";
@@ -87,7 +91,7 @@ namespace System
             return 0;
         }
 
-        public static bool Equals<T>(T? n1, T? n2) where T : struct
+        public static bool Equals<[DefaultEqualityUsage] T>(T? n1, T? n2) where T : struct
         {
             if (n1.HasValue)
             {
