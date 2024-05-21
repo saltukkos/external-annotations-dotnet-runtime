@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <Target Name="CopyReferencedAssemblies" AfterTargets="Build">
-    <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(SolutionDir)/../ExternalAnnotations/ExportAssemblies/standard" />
+    <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(SolutionDir)/../ExternalAnnotations/ExportAssemblies/.NETStandard" />
   </Target>
 
 </Project>
