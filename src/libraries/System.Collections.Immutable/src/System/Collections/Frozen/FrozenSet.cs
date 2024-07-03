@@ -19,14 +19,14 @@ namespace System.Collections.Frozen
         /// <param name="source">The values to use to populate the set.</param>
         /// <typeparam name="T">The type of the values in the set.</typeparam>
         /// <returns>A frozen set.</returns>
-        public static FrozenSet<T> Create<T>(params ReadOnlySpan<T> source) => Create(null, source);
+        public static FrozenSet<T> Create<[DefaultEqualityUsage] T>(params ReadOnlySpan<T> source) => Create(null, source);
 
         /// <summary>Creates a <see cref="FrozenSet{T}"/> with the specified values.</summary>
         /// <param name="source">The values to use to populate the set.</param>
         /// <param name="equalityComparer">The comparer implementation to use to compare values for equality. If null, <see cref="EqualityComparer{T}.Default"/> is used.</param>
         /// <typeparam name="T">The type of the values in the set.</typeparam>
         /// <returns>A frozen set.</returns>
-        public static FrozenSet<T> Create<T>(IEqualityComparer<T>? equalityComparer, params ReadOnlySpan<T> source)
+        public static FrozenSet<T> Create<[DefaultEqualityUsage] T>(IEqualityComparer<T>? equalityComparer, params ReadOnlySpan<T> source)
         {
             if (source.Length == 0)
             {

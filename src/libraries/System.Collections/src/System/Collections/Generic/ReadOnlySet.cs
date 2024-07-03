@@ -23,6 +23,7 @@ namespace System.Collections.ObjectModel
         }
 
         /// <summary>Gets an empty <see cref="ReadOnlySet{T}"/>.</summary>
+        // ReSharper disable once TypeParameterEqualityUsage - always empty
         public static ReadOnlySet<T> Empty { get; } = new ReadOnlySet<T>(new HashSet<T>());
 
         /// <summary>Gets the set that is wrapped by this <see cref="ReadOnlySet{T}"/> object.</summary>

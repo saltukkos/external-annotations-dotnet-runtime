@@ -19,7 +19,7 @@ namespace System.Collections.Generic
     /// </remarks>
     [DebuggerTypeProxy(typeof(IDictionaryDebugView<,>))]
     [DebuggerDisplay("Count = {Count}")]
-    public class OrderedDictionary<TKey, TValue> :
+    public class OrderedDictionary<[DefaultEqualityUsage] TKey, TValue> :
         IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>, IDictionary,
         IList<KeyValuePair<TKey, TValue>>, IReadOnlyList<KeyValuePair<TKey, TValue>>, IList
         where TKey : notnull
@@ -521,7 +521,7 @@ namespace System.Collections.Generic
         /// <summary>Determines whether the <see cref="OrderedDictionary{TKey, TValue}"/> contains a specific value.</summary>
         /// <param name="value">The value to locate in the <see cref="OrderedDictionary{TKey, TValue}"/>. The value can be null for reference types.</param>
         /// <returns>true if the <see cref="OrderedDictionary{TKey, TValue}"/> contains an element with the specified value; otherwise, false.</returns>
-        public bool ContainsValue(TValue value)
+        public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             int count = _count;
 
@@ -1118,6 +1118,7 @@ namespace System.Collections.Generic
         IDictionaryEnumerator IDictionary.GetEnumerator() => new Enumerator(this, useDictionaryEntry: true);
 
         /// <inheritdoc/>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         int IList<KeyValuePair<TKey, TValue>>.IndexOf(KeyValuePair<TKey, TValue> item)
         {
             ArgumentNullException.ThrowIfNull(item.Key, nameof(item));
@@ -1142,6 +1143,7 @@ namespace System.Collections.Generic
         void ICollection<KeyValuePair<TKey, TValue>>.Add(KeyValuePair<TKey, TValue> item) => Add(item.Key, item.Value);
 
         /// <inheritdoc/>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item)
         {
             ArgumentNullException.ThrowIfNull(item.Key, nameof(item));
@@ -1169,6 +1171,7 @@ namespace System.Collections.Generic
         }
 
         /// <inheritdoc/>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item) =>
             TryGetValue(item.Key, out TValue? value) &&
             EqualityComparer<TValue>.Default.Equals(value, item.Value) &&
@@ -1286,6 +1289,7 @@ namespace System.Collections.Generic
         }
 
         /// <inheritdoc/>
+        [DefaultEqualityUsageInternal(nameof(TValue))]
         bool IList.Contains(object? value) =>
             value is KeyValuePair<TKey, TValue> pair &&
             TryGetValue(pair.Key, out TValue? v) &&
@@ -1680,7 +1684,7 @@ namespace System.Collections.Generic
             }
 
             /// <inheritdoc/>
-            bool ICollection<TValue>.Contains(TValue item) => _dictionary.ContainsValue(item);
+            bool ICollection<TValue>.Contains([DefaultEqualityUsage] TValue item) => _dictionary.ContainsValue(item);
 
             /// <inheritdoc/>
             IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator() =>
@@ -1731,12 +1735,14 @@ namespace System.Collections.Generic
             void IList.Clear() => throw new NotSupportedException();
 
             /// <inheritdoc/>
+            [DefaultEqualityUsageInternal(nameof(TValue))]
             bool IList.Contains(object? value) =>
                 value is null && default(TValue) is null ?
                     _dictionary.ContainsValue(default!) :
                     value is TValue tvalue && _dictionary.ContainsValue(tvalue);
 
             /// <inheritdoc/>
+            [DefaultEqualityUsageInternal(nameof(TValue))]
             int IList.IndexOf(object? value)
             {
                 Entry[]? entries = _dictionary._entries;
