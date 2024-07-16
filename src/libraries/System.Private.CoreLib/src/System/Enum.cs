@@ -306,6 +306,7 @@ namespace System
         /// The method is invoked by reflection in a reflection-only context, or <paramref name="enumType"/> is a type from an assembly loaded in a reflection-only context.
         /// </exception>
         [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use the GetValues<TEnum> overload or the GetValuesAsUnderlyingType method instead.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Array GetValues(Type enumType)
         {
             ArgumentNullException.ThrowIfNull(enumType);
@@ -319,6 +320,7 @@ namespace System
         /// For example, you might use this method for the <see cref="T:System.Reflection.MetadataLoadContext" /> enumeration or on a platform where run-time code generation is not available.
         /// </remarks>
         /// <returns>An array that contains the values of the underlying type constants in <typeparamref name="TEnum" />.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Array GetValuesAsUnderlyingType<TEnum>() where TEnum : struct, Enum =>
             typeof(TEnum).GetEnumValuesAsUnderlyingType();
 
@@ -331,6 +333,7 @@ namespace System
         /// <returns>An array that contains the values of the underlying type constants in  <paramref name="enumType" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumType" /> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="enumType" /> is not an enumeration type.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Array GetValuesAsUnderlyingType(Type enumType)
         {
             ArgumentNullException.ThrowIfNull(enumType);

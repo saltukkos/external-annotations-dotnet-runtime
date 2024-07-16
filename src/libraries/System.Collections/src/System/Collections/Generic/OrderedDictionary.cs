@@ -201,9 +201,11 @@ namespace System.Collections.Generic
         }
 
         /// <summary>Gets the total number of key/value pairs the internal data structure can hold without resizing.</summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity => _entries?.Length ?? 0;
 
         /// <summary>Gets the <see cref="IEqualityComparer{TKey}"/> that is used to determine equality of keys for the dictionary.</summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public IEqualityComparer<TKey> Comparer
         {
             get
@@ -242,6 +244,7 @@ namespace System.Collections.Generic
         bool IList.IsFixedSize => false;
 
         /// <summary>Gets a collection containing the keys in the <see cref="OrderedDictionary{TKey, TValue}"/>.</summary>
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyCollection Keys => _keys ??= new(this);
 
         /// <inheritdoc/>
@@ -254,6 +257,7 @@ namespace System.Collections.Generic
         ICollection IDictionary.Keys => Keys;
 
         /// <summary>Gets a collection containing the values in the <see cref="OrderedDictionary{TKey, TValue}"/>.</summary>
+        [CollectionAccess(CollectionAccessType.Read)]
         public ValueCollection Values => _values ??= new(this);
 
         /// <inheritdoc/>
@@ -471,6 +475,7 @@ namespace System.Collections.Generic
         /// <param name="value">The value of the element to add. The value can be null for reference types.</param>
         /// <exception cref="ArgumentNullException">key is null.</exception>
         /// <returns>true if the key didn't exist and the key and value were added to the dictionary; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(TKey key, TValue value)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -521,6 +526,7 @@ namespace System.Collections.Generic
         /// <summary>Determines whether the <see cref="OrderedDictionary{TKey, TValue}"/> contains a specific value.</summary>
         /// <param name="value">The value to locate in the <see cref="OrderedDictionary{TKey, TValue}"/>. The value can be null for reference types.</param>
         /// <returns>true if the <see cref="OrderedDictionary{TKey, TValue}"/> contains an element with the specified value; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             int count = _count;
@@ -560,6 +566,7 @@ namespace System.Collections.Generic
         /// <param name="index">The zero-based index of the pair to get.</param>
         /// <returns>The element at the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than 0 or greater than or equal to <see cref="Count"/>.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyValuePair<TKey, TValue> GetAt(int index)
         {
             if ((uint)index >= (uint)_count)
@@ -577,6 +584,7 @@ namespace System.Collections.Generic
         /// <param name="key">The key to locate.</param>
         /// <returns>The index of <paramref name="key"/> if found; otherwise, -1.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is null.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOf(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -689,6 +697,7 @@ namespace System.Collections.Generic
         /// <exception cref="ArgumentNullException">key is null.</exception>
         /// <exception cref="ArgumentException">An element with the same key already exists in the <see cref="OrderedDictionary{TKey, TValue}"/>.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than 0 or greater than <see cref="Count"/>.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Insert(int index, TKey key, TValue value)
         {
             if ((uint)index > (uint)_count)
@@ -710,6 +719,7 @@ namespace System.Collections.Generic
         /// <param name="key">The key of the element to remove.</param>
         /// <param name="value">The removed element.</param>
         /// <returns>true if the element is successfully found and removed; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool Remove(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -760,6 +770,7 @@ namespace System.Collections.Generic
         /// <summary>Sets the value for the key at the specified index.</summary>
         /// <param name="index">The zero-based index of the element to get or set.</param>
         /// <param name="value">The value to store at the specified index.</param>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetAt(int index, TValue value)
         {
             if ((uint)index >= (uint)_count)
@@ -777,6 +788,7 @@ namespace System.Collections.Generic
         /// <param name="key">The key to store at the specified index.</param>
         /// <param name="value">The value to store at the specified index.</param>
         /// <exception cref="ArgumentException"></exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetAt(int index, TKey key, TValue value)
         {
             if ((uint)index >= (uint)_count)
@@ -834,6 +846,7 @@ namespace System.Collections.Generic
         /// <param name="capacity">The desired minimum capacity of the dictionary. The actual capacity provided may be larger.</param>
         /// <returns>The new capacity of the dictionary.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is negative.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -856,11 +869,13 @@ namespace System.Collections.Generic
         }
 
         /// <summary>Sets the capacity of this dictionary to what it would be if it had been originally initialized with all its entries.</summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess() => TrimExcess(_count);
 
         /// <summary>Sets the capacity of this dictionary to hold up a specified number of entries without resizing.</summary>
         /// <param name="capacity">The desired capacity to which to shrink the dictionary.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="capacity"/> is less than <see cref="Count"/>.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(capacity, Count);
@@ -1104,6 +1119,7 @@ namespace System.Collections.Generic
 
         /// <summary>Returns an enumerator that iterates through the <see cref="OrderedDictionary{TKey, TValue}"/>.</summary>
         /// <returns>A <see cref="OrderedDictionary{TKey, TValue}.Enumerator"/> structure for the <see cref="OrderedDictionary{TKey, TValue}"/>.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new(this, useDictionaryEntry: false);
 
         /// <inheritdoc/>
@@ -1539,6 +1555,7 @@ namespace System.Collections.Generic
 
             /// <summary>Returns an enumerator that iterates through the <see cref="OrderedDictionary{TKey, TValue}.KeyCollection"/>.</summary>
             /// <returns>A <see cref="OrderedDictionary{TKey, TValue}.KeyCollection.Enumerator"/> for the <see cref="OrderedDictionary{TKey, TValue}.KeyCollection"/>.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new(_dictionary);
 
             /// <inheritdoc/>
@@ -1664,6 +1681,7 @@ namespace System.Collections.Generic
 
             /// <summary>Returns an enumerator that iterates through the <see cref="OrderedDictionary{TKey, TValue}.ValueCollection"/>.</summary>
             /// <returns>A <see cref="OrderedDictionary{TKey, TValue}.ValueCollection.Enumerator"/> for the <see cref="OrderedDictionary{TKey, TValue}.ValueCollection"/>.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new(_dictionary);
 
             /// <inheritdoc/>

@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
+// ReSharper disable CollectionAccessAnnotationMissing - not commonly used
 
 namespace System.Security
 {

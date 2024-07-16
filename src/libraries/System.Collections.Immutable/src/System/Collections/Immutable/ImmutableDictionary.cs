@@ -97,6 +97,7 @@ namespace System.Collections.Immutable
         /// <typeparam name="TKey">The type of keys stored by the dictionary.</typeparam>
         /// <typeparam name="TValue">The type of values stored by the dictionary.</typeparam>
         /// <returns>The new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableDictionary<TKey, TValue>.Builder CreateBuilder<[DefaultEqualityUsage] TKey, [DefaultEqualityUsage] TValue>() where TKey : notnull
         {
             return Create<TKey, TValue>().ToBuilder();
@@ -109,6 +110,7 @@ namespace System.Collections.Immutable
         /// <typeparam name="TValue">The type of values stored by the dictionary.</typeparam>
         /// <param name="keyComparer">The key comparer.</param>
         /// <returns>The new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableDictionary<TKey, TValue>.Builder CreateBuilder<[DefaultEqualityUsage] TKey, [DefaultEqualityUsage] TValue>(IEqualityComparer<TKey>? keyComparer) where TKey : notnull
         {
             return Create<TKey, TValue>(keyComparer).ToBuilder();
@@ -122,6 +124,7 @@ namespace System.Collections.Immutable
         /// <param name="keyComparer">The key comparer.</param>
         /// <param name="valueComparer">The value comparer.</param>
         /// <returns>The new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableDictionary<TKey, TValue>.Builder CreateBuilder<[DefaultEqualityUsage] TKey, [DefaultEqualityUsage] TValue>(IEqualityComparer<TKey>? keyComparer, IEqualityComparer<TValue>? valueComparer) where TKey : notnull
         {
             return Create<TKey, TValue>(keyComparer, valueComparer).ToBuilder();

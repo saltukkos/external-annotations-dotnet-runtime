@@ -37,6 +37,7 @@ namespace System.Collections.Concurrent
         /// available space from <paramref name="index"/> to the end of the destination <paramref
         /// name="array"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         void CopyTo(T[] array, int index);
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace System.Collections.Concurrent
         /// cref="IProducerConsumerCollection{T}"/>.</param>
         /// <returns>true if the object was added successfully; otherwise, false.</returns>
         /// <exception cref="ArgumentException">The <paramref name="item"/> was invalid for this collection.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         bool TryAdd(T item);
 
         /// <summary>
@@ -58,12 +60,14 @@ namespace System.Collections.Concurrent
         /// unspecified.
         /// </param>
         /// <returns>true if an object was removed and returned successfully; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         bool TryTake([MaybeNullWhen(false)] out T item);
 
         /// <summary>
         /// Copies the elements contained in the <see cref="IProducerConsumerCollection{T}"/> to a new array.
         /// </summary>
         /// <returns>A new array containing the elements copied from the <see cref="IProducerConsumerCollection{T}"/>.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         T[] ToArray();
     }
 }

@@ -402,6 +402,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <typeparam name="T">The type of elements stored in the array.</typeparam>
         /// <returns>A new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableArray<T>.Builder CreateBuilder<T>()
         {
             return Create<T>().ToBuilder();
@@ -413,6 +414,7 @@ namespace System.Collections.Immutable
         /// <typeparam name="T">The type of elements stored in the array.</typeparam>
         /// <param name="initialCapacity">The size of the initial array backing the builder.</param>
         /// <returns>A new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableArray<T>.Builder CreateBuilder<T>(int initialCapacity)
         {
             return new ImmutableArray<T>.Builder(initialCapacity);

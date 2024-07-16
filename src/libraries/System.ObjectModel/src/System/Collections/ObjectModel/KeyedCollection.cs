@@ -53,10 +53,12 @@ namespace System.Collections.ObjectModel
             }
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public IEqualityComparer<TKey> Comparer => comparer;
 
         public TItem this[TKey key]
         {
+            [CollectionAccess(CollectionAccessType.Read)]
             get
             {
                 TItem item;
@@ -69,6 +71,7 @@ namespace System.Collections.ObjectModel
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Contains(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -89,6 +92,7 @@ namespace System.Collections.ObjectModel
             return false;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TItem item)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -131,6 +135,7 @@ namespace System.Collections.ObjectModel
 
         // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
         [DefaultEqualityUsageInternal(nameof(TItem))]
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool Remove(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);

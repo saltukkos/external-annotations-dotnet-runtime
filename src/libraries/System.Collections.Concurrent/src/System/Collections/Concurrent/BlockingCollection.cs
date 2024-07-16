@@ -61,6 +61,7 @@ namespace System.Collections.Concurrent
         /// <value>The bounded capacity of this collection, or -1 if no bound was supplied.</value>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public int BoundedCapacity
         {
             get
@@ -74,6 +75,7 @@ namespace System.Collections.Concurrent
         /// <value>Whether this collection has been marked as complete for adding.</value>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public bool IsAddingCompleted
         {
             get
@@ -87,6 +89,7 @@ namespace System.Collections.Concurrent
         /// <value>Whether this collection has been marked as complete for adding and is empty.</value>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public bool IsCompleted
         {
             get
@@ -247,6 +250,7 @@ namespace System.Collections.Concurrent
         /// <see cref="System.Collections.Concurrent.BlockingCollection{T}"/> was initialized,
         /// a call to Add may block until space is available to store the provided item.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Add(T item)
         {
 #if DEBUG
@@ -277,6 +281,7 @@ namespace System.Collections.Concurrent
         /// <see cref="System.Collections.Concurrent.BlockingCollection{T}"/> was initialized,
         /// a call to <see cref="Add(T,System.Threading.CancellationToken)"/> may block until space is available to store the provided item.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Add(T item, CancellationToken cancellationToken)
         {
 #if DEBUG
@@ -299,6 +304,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
         /// <exception cref="System.InvalidOperationException">The underlying collection didn't accept the item.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // TODO R#: can user get any data using the return value?
         public bool TryAdd(T item)
         {
             return TryAddWithNoTimeValidation(item, 0, CancellationToken.None);
@@ -322,6 +328,7 @@ namespace System.Collections.Concurrent
         /// other than -1 milliseconds, which represents an infinite time-out -or- timeout is greater than
         /// <see cref="int.MaxValue"/>.</exception>
         /// <exception cref="System.InvalidOperationException">The underlying collection didn't accept the item.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(T item, TimeSpan timeout)
         {
             ValidateTimeout(timeout);
@@ -344,6 +351,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a
         /// negative number other than -1, which represents an infinite time-out.</exception>
         /// <exception cref="System.InvalidOperationException">The underlying collection didn't accept the item.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(T item, int millisecondsTimeout)
         {
             ValidateMillisecondsTimeout(millisecondsTimeout);
@@ -370,6 +378,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a
         /// negative number other than -1, which represents an infinite time-out.</exception>
         /// <exception cref="System.InvalidOperationException">The underlying collection didn't accept the item.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(T item, int millisecondsTimeout, CancellationToken cancellationToken)
         {
             ValidateMillisecondsTimeout(millisecondsTimeout);
@@ -506,6 +515,7 @@ namespace System.Collections.Concurrent
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> is empty and has been marked
         /// as complete with regards to additions.</exception>
         /// <remarks>A call to <see cref="Take()"/> may block until an item is available to be removed.</remarks>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public T Take()
         {
             T? item;
@@ -530,6 +540,7 @@ namespace System.Collections.Concurrent
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> is empty and has been marked
         /// as complete with regards to additions.</exception>
         /// <remarks>A call to <see cref="Take(CancellationToken)"/> may block until an item is available to be removed.</remarks>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public T Take(CancellationToken cancellationToken)
         {
             T? item;
@@ -552,6 +563,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.InvalidOperationException">The underlying collection was modified
         /// outside of this <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> instance.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryTake([MaybeNullWhen(false)] out T item)
         {
             return TryTake(out item, 0, CancellationToken.None);
@@ -574,6 +586,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.InvalidOperationException">The underlying collection was modified
         /// outside of this <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> instance.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryTake([MaybeNullWhen(false)] out T item, TimeSpan timeout)
         {
             ValidateTimeout(timeout);
@@ -595,6 +608,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.InvalidOperationException">The underlying collection was modified
         /// outside of this <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> instance.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryTake([MaybeNullWhen(false)] out T item, int millisecondsTimeout)
         {
             ValidateMillisecondsTimeout(millisecondsTimeout);
@@ -620,6 +634,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.InvalidOperationException">The underlying collection was modified
         /// outside of this <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> instance.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryTake([MaybeNullWhen(false)] out T item, int millisecondsTimeout, CancellationToken cancellationToken)
         {
             ValidateMillisecondsTimeout(millisecondsTimeout);
@@ -1434,6 +1449,7 @@ namespace System.Collections.Concurrent
         /// </remarks>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void CompleteAdding()
         {
             CheckDisposed();
@@ -1515,6 +1531,7 @@ namespace System.Collections.Concurrent
         /// <remarks>
         /// The copied elements are not removed from the collection.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public T[] ToArray()
         {
             CheckDisposed();
@@ -1534,6 +1551,7 @@ namespace System.Collections.Concurrent
         /// than the length of the <paramref name="array"/>.</exception>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array, int index)
         {
             ((ICollection)this).CopyTo(array, index);
@@ -1595,6 +1613,7 @@ namespace System.Collections.Concurrent
         /// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> that removes and returns items from the collection.</returns>
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public IEnumerable<T> GetConsumingEnumerable()
         {
             return GetConsumingEnumerable(CancellationToken.None);
@@ -1609,6 +1628,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
         /// <exception cref="OperationCanceledException">If the <see cref="CancellationToken"/> is canceled.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public IEnumerable<T> GetConsumingEnumerable(CancellationToken cancellationToken)
         {
             if (IsCompleted)

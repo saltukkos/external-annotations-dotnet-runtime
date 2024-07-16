@@ -601,6 +601,7 @@ namespace System
         }
 
         [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use Enum.GetValues<T> or the GetEnumValuesAsUnderlyingType method instead.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Array GetEnumValues()
         {
             if (!IsEnum)
@@ -620,6 +621,7 @@ namespace System
         /// </remarks>
         /// <returns>An array that contains the values of the underlying type constants in this enumeration type.</returns>
         /// <exception cref="T:System.ArgumentException">This type is not an enumeration type.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Array GetEnumValuesAsUnderlyingType() => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]

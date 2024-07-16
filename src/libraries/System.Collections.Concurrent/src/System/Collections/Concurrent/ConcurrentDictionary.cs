@@ -234,6 +234,7 @@ namespace System.Collections.Concurrent
         /// This instance must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternateKey, TKey}"/> with
         /// <typeparamref name="TAlternateKey"/> and <typeparamref name="TKey"/>. If it doesn't, an exception will be thrown.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public AlternateLookup<TAlternateKey> GetAlternateLookup<TAlternateKey>() where TAlternateKey : notnull, allows ref struct
         {
             if (!IsCompatibleKey<TAlternateKey>(_tables))
@@ -255,6 +256,7 @@ namespace System.Collections.Concurrent
         /// This instance must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternateKey, TKey}"/> with
         /// <typeparamref name="TAlternateKey"/> and <typeparamref name="TKey"/>. If it doesn't, the method will return false.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryGetAlternateLookup<TAlternateKey>(out AlternateLookup<TAlternateKey> lookup) where TAlternateKey : notnull, allows ref struct
         {
             if (IsCompatibleKey<TAlternateKey>(_tables))
@@ -358,6 +360,7 @@ namespace System.Collections.Concurrent
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is null reference (Nothing in Visual Basic).</exception>
         /// <exception cref="OverflowException">The <see cref="ConcurrentDictionary{TKey, TValue}"/> contains too many elements.</exception>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(TKey key, TValue value)
         {
             if (key is null)
@@ -387,6 +390,7 @@ namespace System.Collections.Concurrent
         /// </param>
         /// <returns>true if an object was removed successfully; otherwise, false.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is a null reference (Nothing in Visual Basic).</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryRemove(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
             if (key is null)
@@ -415,6 +419,7 @@ namespace System.Collections.Concurrent
         /// </exception>
         // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
         [DefaultEqualityUsageInternal(nameof(TValue))]
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryRemove(KeyValuePair<TKey, TValue> item)
         {
             if (item.Key is null)
@@ -605,6 +610,7 @@ namespace System.Collections.Concurrent
         /// replaced with <paramref name="newValue"/>; otherwise, false.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="key"/> is a null reference.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryUpdate(TKey key, [DefaultEqualityUsage] TValue newValue, TValue comparisonValue)
         {
             if (key is null)
@@ -781,6 +787,7 @@ namespace System.Collections.Concurrent
         /// </summary>
         /// <returns>A new array containing a snapshot of key and value pairs copied from the <see cref="ConcurrentDictionary{TKey,TValue}"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyValuePair<TKey, TValue>[] ToArray()
         {
             int locksAcquired = 0;
@@ -1131,6 +1138,7 @@ namespace System.Collections.Concurrent
         /// generic interface by using a constructor that accepts a comparer parameter;
         /// if you do not specify one, the default generic equality comparer <see cref="EqualityComparer{TKey}.Default" /> is used.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.None)]
         public IEqualityComparer<TKey> Comparer
         {
             get
@@ -1206,6 +1214,7 @@ namespace System.Collections.Concurrent
         /// <returns>The value for the key.  This will be either the existing value for the key if the
         /// key is already in the dictionary, or the new value for the key as returned by valueFactory
         /// if the key was not in the dictionary.</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
             if (key is null)
@@ -1247,6 +1256,7 @@ namespace System.Collections.Concurrent
         /// <returns>The value for the key.  This will be either the existing value for the key if the
         /// key is already in the dictionary, or the new value for the key as returned by valueFactory
         /// if the key was not in the dictionary.</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue GetOrAdd<TArg>(TKey key, Func<TKey, TArg, TValue> valueFactory, TArg factoryArgument)
             where TArg : allows ref struct
         {
@@ -1285,6 +1295,7 @@ namespace System.Collections.Concurrent
         /// elements.</exception>
         /// <returns>The value for the key.  This will be either the existing value for the key if the
         /// key is already in the dictionary, or the new value if the key was not in the dictionary.</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue GetOrAdd(TKey key, TValue value)
         {
             if (key is null)
@@ -1326,6 +1337,7 @@ namespace System.Collections.Concurrent
         /// <returns>The new value for the key.  This will be either be the result of addValueFactory (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
         [return: DefaultEqualityUsage]
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue AddOrUpdate<TArg>(
             TKey key, Func<TKey, TArg, TValue> addValueFactory, Func<TKey, TValue, TArg, TValue> updateValueFactory, TArg factoryArgument)
             where TArg : allows ref struct
@@ -1402,6 +1414,7 @@ namespace System.Collections.Concurrent
         /// <returns>The new value for the key.  This will be either the result of addValueFactory (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
         [return: DefaultEqualityUsage]
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue AddOrUpdate(TKey key, Func<TKey, TValue> addValueFactory, Func<TKey, TValue, TValue> updateValueFactory)
         {
             if (key is null)
@@ -1473,6 +1486,7 @@ namespace System.Collections.Concurrent
         /// elements.</exception>
         /// <returns>The new value for the key.  This will be either the value of addValue (if the key was
         /// absent) or the result of updateValueFactory (if the key was present).</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public TValue AddOrUpdate(TKey key, [DefaultEqualityUsage] TValue addValue, Func<TKey, TValue, TValue> updateValueFactory)
         {
             if (key is null)
@@ -1527,6 +1541,7 @@ namespace System.Collections.Concurrent
         /// </summary>
         /// <value>true if the <see cref="ConcurrentDictionary{TKey,TValue}"/> is empty; otherwise,
         /// false.</value>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool IsEmpty
         {
             get

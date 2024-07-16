@@ -57,6 +57,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Gets the total numbers of elements the internal data structure can hold without resizing.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity => _array.Length;
 
         /// <inheritdoc cref="ICollection{T}"/>
@@ -65,6 +66,7 @@ namespace System.Collections.Generic
         object ICollection.SyncRoot => this;
 
         // Removes all Objects from the queue.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Clear()
         {
             if (_size != 0)
@@ -92,6 +94,7 @@ namespace System.Collections.Generic
 
         // CopyTo copies a collection into an Array, starting at a particular
         // index into the array.
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array, int arrayIndex)
         {
             ArgumentNullException.ThrowIfNull(array);
@@ -164,6 +167,7 @@ namespace System.Collections.Generic
         }
 
         // Adds item to the tail of the queue.
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Enqueue(T item)
         {
             if (_size == _array.Length)
@@ -179,6 +183,7 @@ namespace System.Collections.Generic
 
         // GetEnumerator returns an IEnumerator over this Queue.  This
         // Enumerator will support removing.
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         /// <internalonly/>
@@ -191,6 +196,7 @@ namespace System.Collections.Generic
         // Removes the object at the head of the queue and returns it. If the queue
         // is empty, this method throws an
         // InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public T Dequeue()
         {
             int head = _head;
@@ -212,6 +218,7 @@ namespace System.Collections.Generic
             return removed;
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryDequeue([MaybeNullWhen(false)] out T result)
         {
             int head = _head;
@@ -237,6 +244,7 @@ namespace System.Collections.Generic
         // Returns the object at the head of the queue. The object remains in the
         // queue. If the queue is empty, this method throws an
         // InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.Read)]
         public T Peek()
         {
             if (_size == 0)
@@ -247,6 +255,7 @@ namespace System.Collections.Generic
             return _array[_head];
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
             if (_size == 0)
@@ -261,6 +270,7 @@ namespace System.Collections.Generic
 
         // Returns true if the queue contains at least one object equal to item.
         // Equality is determined using EqualityComparer<T>.Default.Equals().
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Contains([DefaultEqualityUsage] T item)
         {
             if (_size == 0)
@@ -283,6 +293,7 @@ namespace System.Collections.Generic
         // objects in the Queue, or an empty array if the queue is empty.
         // The order of elements in the array is first in to last in, the same
         // order produced by successive calls to Dequeue.
+        [CollectionAccess(CollectionAccessType.Read)]
         public T[] ToArray()
         {
             if (_size == 0)
@@ -350,6 +361,7 @@ namespace System.Collections.Generic
             throw new InvalidOperationException(SR.InvalidOperation_EmptyQueue);
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess()
         {
             int threshold = (int)(_array.Length * 0.9);
@@ -364,6 +376,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The new capacity.</param>
         /// <exception cref="ArgumentOutOfRangeException">Passed capacity is lower than entries count.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -380,6 +393,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The minimum capacity to ensure.</param>
         /// <returns>The new capacity of this queue.</returns>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(capacity);

@@ -102,6 +102,7 @@ namespace System.Collections.Immutable
             /// <value>
             /// The key comparer.
             /// </value>
+            [CollectionAccess(CollectionAccessType.None)]
             public IEqualityComparer<T> KeyComparer
             {
                 get
@@ -176,6 +177,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// A <see cref="IEnumerator{T}"/> that can be used to iterate through the collection.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator()
             {
                 return new Enumerator(_root, this);
@@ -189,6 +191,7 @@ namespace System.Collections.Immutable
             /// This method is an O(n) operation, and approaches O(1) time as the number of
             /// actual mutations to the set since the last call to this method approaches 0.
             /// </remarks>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableHashSet<T> ToImmutable()
             {
                 // Creating an instance of ImmutableSortedMap<T> with our root node automatically freezes our tree,
@@ -203,6 +206,7 @@ namespace System.Collections.Immutable
             /// <param name="equalValue">The value for which to search.</param>
             /// <param name="actualValue">The value from the set that the search found, or the original value if the search yielded no match.</param>
             /// <returns>A value indicating whether the search was successful.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool TryGetValue(T equalValue, out T actualValue)
             {
                 int hashCode = equalValue != null ? _equalityComparer.GetHashCode(equalValue) : 0;

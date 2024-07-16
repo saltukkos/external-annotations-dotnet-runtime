@@ -220,6 +220,7 @@ namespace System.Collections.Generic
         // of entries the list can contain before a reallocation of the internal
         // arrays is required.
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity
         {
             get
@@ -256,6 +257,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public IComparer<TKey> Comparer
         {
             get
@@ -292,6 +294,7 @@ namespace System.Collections.Generic
         // Returns a collection representing the keys of this sorted list. This
         // method returns the same object as GetKeyList, but typed as an
         // ICollection instead of an IList.
+        [CollectionAccess(CollectionAccessType.Read)]
         public IList<TKey> Keys
         {
             get
@@ -328,6 +331,7 @@ namespace System.Collections.Generic
         // method returns the same object as GetValueList, but typed as an
         // ICollection instead of an IList.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public IList<TValue> Values
         {
             get
@@ -424,6 +428,7 @@ namespace System.Collections.Generic
         // using the Object.Equals method. This method performs a linear
         // search and is substantially slower than the Contains
         // method.
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             return IndexOfValue(value) >= 0;
@@ -523,6 +528,7 @@ namespace System.Collections.Generic
         /// <param name="index">The zero-based index of the value within the entire <see cref="SortedList{TKey, TValue}"/>.</param>
         /// <returns>The value corresponding to the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException">The specified index was out of range.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public TValue GetValueAtIndex(int index)
         {
             if (index < 0 || index >= _size)
@@ -536,6 +542,7 @@ namespace System.Collections.Generic
         /// <param name="index">The zero-based index of the value within the entire <see cref="SortedList{TKey, TValue}"/>.</param>
         /// <param name="value">The value with which to replace the entry at the specified index.</param>
         /// <exception cref="ArgumentOutOfRangeException">The specified index was out of range.</exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValueAtIndex(int index, TValue value)
         {
             if (index < 0 || index >= _size)
@@ -544,6 +551,7 @@ namespace System.Collections.Generic
             version++;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => new Enumerator(this, Enumerator.KeyValuePair);
 
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator() =>
@@ -560,6 +568,7 @@ namespace System.Collections.Generic
         /// <param name="index">The zero-based index of the key within the entire <see cref="SortedList{TKey, TValue}"/>.</param>
         /// <returns>The key corresponding to the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException">The specified index is out of range.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         public TKey GetKeyAtIndex(int index)
         {
             if (index < 0 || index >= _size)
@@ -636,6 +645,7 @@ namespace System.Collections.Generic
         // size is the size of this sorted list. The returned value is -1 if
         // the given key does not occur in this sorted list. Null is an invalid
         // key value.
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOfKey(TKey key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -649,6 +659,7 @@ namespace System.Collections.Generic
         // thus the average execution time of this method is proportional to the
         // size of this sorted list. The elements of the list are compared to the
         // given value using the Object.Equals method.
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOfValue([DefaultEqualityUsage] TValue value)
         {
             return Array.IndexOf(values, value, 0, _size);
@@ -684,6 +695,7 @@ namespace System.Collections.Generic
 
         // Removes the entry at the given index. The size of the sorted list is
         // decreased by one.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= _size)
@@ -732,6 +744,7 @@ namespace System.Collections.Generic
         //
         // SortedList.Clear();
         // SortedList.TrimExcess();
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess()
         {
             int threshold = (int)(keys.Length * 0.9);

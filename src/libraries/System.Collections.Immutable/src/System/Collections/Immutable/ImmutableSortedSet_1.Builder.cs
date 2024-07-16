@@ -100,7 +100,7 @@ namespace System.Collections.Immutable
             /// </remarks>
             public T this[int index]
             {
-                get { return _root.ItemRef(index); }
+                [CollectionAccess(CollectionAccessType.Read)] get { return _root.ItemRef(index); }
             }
 
             /// <summary>
@@ -108,6 +108,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The 0-based index of the element in the set to return.</param>
             /// <returns>A read-only reference to the element at the given position.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ref readonly T ItemRef(int index)
             {
                 return ref _root.ItemRef(index);
@@ -117,6 +118,7 @@ namespace System.Collections.Immutable
             /// Gets the maximum value in the collection, as defined by the comparer.
             /// </summary>
             /// <value>The maximum value in the set.</value>
+            [CollectionAccess(CollectionAccessType.Read)]
             public T? Max
             {
                 get { return _root.Max; }
@@ -126,6 +128,7 @@ namespace System.Collections.Immutable
             /// Gets the minimum value in the collection, as defined by the comparer.
             /// </summary>
             /// <value>The minimum value in the set.</value>
+            [CollectionAccess(CollectionAccessType.Read)]
             public T? Min
             {
                 get { return _root.Min; }
@@ -386,6 +389,7 @@ namespace System.Collections.Immutable
             /// Returns an enumerator that iterates through the collection.
             /// </summary>
             /// <returns>A enumerator that can be used to iterate through the collection.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableSortedSet<T>.Enumerator GetEnumerator()
             {
                 return this.Root.GetEnumerator(this);
@@ -425,6 +429,7 @@ namespace System.Collections.Immutable
             /// a negative number which is the bitwise complement of (the index of the last
             /// element plus 1).
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf(T item)
             {
                 return this.Root.IndexOf(item, _comparer);
@@ -438,6 +443,7 @@ namespace System.Collections.Immutable
             /// An enumerator that iterates over the <see cref="ImmutableSortedSet{T}.Builder"/>
             /// in reverse order.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public IEnumerable<T> Reverse()
             {
                 return new ReverseEnumerable(_root);
@@ -451,6 +457,7 @@ namespace System.Collections.Immutable
             /// This method is an O(n) operation, and approaches O(1) time as the number of
             /// actual mutations to the set since the last call to this method approaches 0.
             /// </remarks>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableSortedSet<T> ToImmutable()
             {
                 // Creating an instance of ImmutableSortedSet<T> with our root node automatically freezes our tree,
@@ -465,6 +472,7 @@ namespace System.Collections.Immutable
             /// <param name="equalValue">The value for which to search.</param>
             /// <param name="actualValue">The value from the set that the search found, or the original value if the search yielded no match.</param>
             /// <returns>A value indicating whether the search was successful.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool TryGetValue(T equalValue, out T actualValue)
             {
                 Node searchResult = _root.Search(equalValue, _comparer);

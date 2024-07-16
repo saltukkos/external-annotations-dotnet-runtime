@@ -357,6 +357,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Gets the total numbers of elements the internal data structure can hold without resizing.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity => _entries?.Length ?? 0;
 
         bool ICollection<T>.IsReadOnly => false;
@@ -632,6 +633,7 @@ namespace System.Collections.Generic
 
         #region IEnumerable methods
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
@@ -733,6 +735,7 @@ namespace System.Collections.Generic
         /// a value that has more complete data than the value you currently have, although their
         /// comparer functions indicate they are equal.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryGetValue(T equalValue, [MaybeNullWhen(false)] out T actualValue)
         {
             if (_buckets != null)
@@ -1117,6 +1120,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array) => CopyTo(array, 0, Count);
 
         /// <summary>Copies the elements of a <see cref="HashSet{T}"/> object to an array, starting at the specified array index.</summary>
@@ -1124,6 +1128,7 @@ namespace System.Collections.Generic
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(T[] array, int arrayIndex) => CopyTo(array, arrayIndex, Count);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array, int arrayIndex, int count)
         {
             if (array == null)
@@ -1155,6 +1160,7 @@ namespace System.Collections.Generic
         }
 
         /// <summary>Removes all elements that match the conditions defined by the specified predicate from a <see cref="HashSet{T}"/> collection.</summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int RemoveWhere(Predicate<T> match)
         {
             if (match == null)
@@ -1186,6 +1192,7 @@ namespace System.Collections.Generic
         }
 
         /// <summary>Gets the <see cref="IEqualityComparer"/> object that is used to determine equality for the values in the set.</summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public IEqualityComparer<T> Comparer
         {
             get
@@ -1203,6 +1210,7 @@ namespace System.Collections.Generic
         }
 
         /// <summary>Ensures that this hash set can hold the specified number of elements without growing.</summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             if (capacity < 0)
@@ -1278,6 +1286,7 @@ namespace System.Collections.Generic
         /// Sets the capacity of a <see cref="HashSet{T}"/> object to the actual number of elements it contains,
         /// rounded up to a nearby, implementation-specific value.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess() => TrimExcess(Count);
 
         /// <summary>
@@ -1286,6 +1295,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The new capacity.</param>
         /// <exception cref="ArgumentOutOfRangeException">Passed capacity is lower than entries count.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfLessThan(capacity, Count);

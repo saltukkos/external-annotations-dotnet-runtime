@@ -115,6 +115,8 @@ namespace System.Reflection
         public virtual bool IsDefined(Type attributeType, bool inherit) { throw NotImplemented.ByDesign; }
 
         public virtual IEnumerable<CustomAttributeData> CustomAttributes => GetCustomAttributesData();
+
+        // ReSharper disable once CollectionAccessAnnotationMissing -- it's actually readonly
         public virtual IList<CustomAttributeData> GetCustomAttributesData() { throw NotImplemented.ByDesign; }
 
         public virtual object[] GetCustomAttributes(bool inherit) { throw NotImplemented.ByDesign; }

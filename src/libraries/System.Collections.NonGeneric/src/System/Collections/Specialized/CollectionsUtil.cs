@@ -14,21 +14,25 @@ namespace System.Collections.Specialized
 {
     public class CollectionsUtil
     {
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Hashtable CreateCaseInsensitiveHashtable()
         {
             return new Hashtable(StringComparer.CurrentCultureIgnoreCase);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Hashtable CreateCaseInsensitiveHashtable(int capacity)
         {
             return new Hashtable(capacity, StringComparer.CurrentCultureIgnoreCase);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Hashtable CreateCaseInsensitiveHashtable(IDictionary d)
         {
             return new Hashtable(d, StringComparer.CurrentCultureIgnoreCase);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static SortedList CreateCaseInsensitiveSortedList()
         {
             return new SortedList(CaseInsensitiveComparer.Default);

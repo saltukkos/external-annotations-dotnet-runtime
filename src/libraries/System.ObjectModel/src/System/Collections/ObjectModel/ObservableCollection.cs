@@ -65,6 +65,7 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// Move item at oldIndex to newIndex.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Move(int oldIndex, int newIndex) => MoveItem(oldIndex, newIndex);
 
 

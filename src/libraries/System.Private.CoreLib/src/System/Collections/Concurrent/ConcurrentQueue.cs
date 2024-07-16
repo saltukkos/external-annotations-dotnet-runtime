@@ -211,6 +211,7 @@ namespace System.Collections.Concurrent
         /// that another thread will modify the collection after <see cref="IsEmpty"/> returns, thus invalidating
         /// the result.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool IsEmpty =>
             // IsEmpty == !TryPeek. We use a "resultUsed:false" peek in order to avoid marking
             // segments as preserved for observation, making IsEmpty a cheaper way than either
@@ -599,6 +600,7 @@ namespace System.Collections.Concurrent
         /// The object to add to the end of the <see cref="ConcurrentQueue{T}"/>.
         /// The value can be a null reference (<see langword="Nothing" /> in Visual Basic) for reference types.
         /// </param>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Enqueue(T item)
         {
             // Try to enqueue to the current tail.
@@ -665,6 +667,7 @@ namespace System.Collections.Concurrent
         /// true if an element was removed and returned from the beginning of the
         /// <see cref="ConcurrentQueue{T}"/> successfully; otherwise, false.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryDequeue([MaybeNullWhen(false)] out T result)
         {
             // Get the current head
@@ -748,6 +751,7 @@ namespace System.Collections.Concurrent
         /// For determining whether the collection contains any items, use of the <see cref="IsEmpty"/>
         /// property is recommended rather than peeking.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryPeek([MaybeNullWhen(false)] out T result) => TryPeek(out result, resultUsed: true);
 
         /// <summary>Attempts to retrieve the value for the first element in the queue.</summary>
@@ -808,6 +812,7 @@ namespace System.Collections.Concurrent
         /// <summary>
         /// Removes all objects from the <see cref="ConcurrentQueue{T}"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Clear()
         {
             lock (_crossSegmentLock)

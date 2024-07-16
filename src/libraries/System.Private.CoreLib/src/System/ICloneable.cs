@@ -5,6 +5,7 @@ namespace System
 {
     public interface ICloneable
     {
+        [CollectionAccess(CollectionAccessType.Read)]
         object Clone();
     }
 }

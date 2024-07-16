@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+// ReSharper disable CollectionAccessAnnotationMissing -- returned collections are effectively readonly, no need to annotate
 
 namespace System.Reflection
 {

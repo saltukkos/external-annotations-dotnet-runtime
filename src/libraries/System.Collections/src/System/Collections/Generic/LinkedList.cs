@@ -51,6 +51,7 @@ namespace System.Collections.Generic
             get { return count; }
         }
 
+        // ReSharper disable CollectionAccessAnnotationMissing - you can do any read\update using LinkedListNode
         public LinkedListNode<T>? First
         {
             get { return head; }
@@ -286,6 +287,7 @@ namespace System.Collections.Generic
             return null;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
@@ -308,13 +310,16 @@ namespace System.Collections.Generic
             ValidateNode(node);
             InternalRemoveNode(node);
         }
+        // ReSharper restore CollectionAccessAnnotationMissing
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void RemoveFirst()
         {
             if (head == null) { throw new InvalidOperationException(SR.LinkedListEmpty); }
             InternalRemoveNode(head);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void RemoveLast()
         {
             if (head == null) { throw new InvalidOperationException(SR.LinkedListEmpty); }

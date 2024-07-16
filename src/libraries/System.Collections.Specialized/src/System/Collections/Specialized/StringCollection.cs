@@ -18,10 +18,12 @@ namespace System.Collections.Specialized
         /// </devdoc>
         public string? this[int index]
         {
+            [CollectionAccess(CollectionAccessType.Read)]
             get
             {
                 return ((string?)data[index]);
             }
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             set
             {
                 data[index] = value;
@@ -61,6 +63,7 @@ namespace System.Collections.Specialized
         ///    <para>Adds a string with the specified value to the
         ///    <see cref='System.Collections.Specialized.StringCollection'/> .</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public int Add(string? value)
         {
             return data.Add(value);
@@ -69,6 +72,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Copies the elements of a string array to the end of the <see cref='System.Collections.Specialized.StringCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void AddRange(string[] value)
         {
             ArgumentNullException.ThrowIfNull(value);
@@ -90,6 +94,7 @@ namespace System.Collections.Specialized
         ///    <see cref='System.Collections.Specialized.StringCollection'/> contains a string with the specified
         ///       value.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Contains(string? value)
         {
             return data.Contains(value);
@@ -99,6 +104,7 @@ namespace System.Collections.Specialized
         /// <para>Copies the <see cref='System.Collections.Specialized.StringCollection'/> values to a one-dimensional <see cref='System.Array'/> instance at the
         ///    specified index.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(string[] array, int index)
         {
             data.CopyTo(array, index);
@@ -108,6 +114,7 @@ namespace System.Collections.Specialized
         ///    <para>Returns an enumerator that can iterate through
         ///       the <see cref='System.Collections.Specialized.StringCollection'/> .</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public StringEnumerator GetEnumerator()
         {
             return new StringEnumerator(this);
@@ -117,6 +124,7 @@ namespace System.Collections.Specialized
         ///    <para>Returns the index of the first occurrence of a string in
         ///       the <see cref='System.Collections.Specialized.StringCollection'/> .</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOf(string? value)
         {
             return data.IndexOf(value);
@@ -126,6 +134,7 @@ namespace System.Collections.Specialized
         /// <para>Inserts a string into the <see cref='System.Collections.Specialized.StringCollection'/> at the specified
         ///    index.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Insert(int index, string? value)
         {
             data.Insert(index, value);
@@ -134,6 +143,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Gets a value indicating whether the <see cref='System.Collections.Specialized.StringCollection'/> is read-only.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.None)]
         public bool IsReadOnly
         {
             get
@@ -159,6 +169,7 @@ namespace System.Collections.Specialized
         ///    <para> Removes a specific string from the
         ///    <see cref='System.Collections.Specialized.StringCollection'/> .</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Remove(string? value)
         {
             data.Remove(value);

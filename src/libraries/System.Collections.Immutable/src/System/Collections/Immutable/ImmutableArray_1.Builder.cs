@@ -50,6 +50,7 @@ namespace System.Collections.Immutable
             /// Get and sets the length of the internal array.  When set the internal array is
             /// reallocated to the given capacity if it is not already the specified length.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.None)]
             public int Capacity
             {
                 get { return _elements.Length; }
@@ -165,6 +166,7 @@ namespace System.Collections.Immutable
             /// <returns></returns>
             /// <exception cref="IndexOutOfRangeException">
             /// </exception>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ref readonly T ItemRef(int index)
             {
                 if (index >= this.Count)
@@ -189,6 +191,7 @@ namespace System.Collections.Immutable
             /// Returns an immutable copy of the current contents of this collection.
             /// </summary>
             /// <returns>An immutable array.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableArray<T> ToImmutable()
             {
                 return new ImmutableArray<T>(this.ToArray());
@@ -200,6 +203,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <exception cref="InvalidOperationException">When <see cref="ImmutableArray{T}.Builder.Count"/> doesn't
             /// equal <see cref="ImmutableArray{T}.Builder.Capacity"/>.</exception>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
             public ImmutableArray<T> MoveToImmutable()
             {
                 if (Capacity != Count)
@@ -222,6 +226,7 @@ namespace System.Collections.Immutable
             /// will be copied into a new array. The collection will then be set to a zero length array.
             /// </remarks>
             /// <returns>An immutable array.</returns>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
             public ImmutableArray<T> DrainToImmutable()
             {
                 T[] result = _elements;
@@ -269,6 +274,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The index at which to insert the value.</param>
             /// <param name="items">The elements to insert.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void InsertRange(int index, IEnumerable<T> items)
             {
                 Requires.Range(index >= 0 && index <= this.Count, nameof(index));
@@ -298,6 +304,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The index at which to insert the value.</param>
             /// <param name="items">The elements to insert.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void InsertRange(int index, ImmutableArray<T> items)
             {
                 Requires.Range(index >= 0 && index <= this.Count, nameof(index));
@@ -335,6 +342,7 @@ namespace System.Collections.Immutable
             /// Adds the specified items to the end of the array.
             /// </summary>
             /// <param name="items">The items.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(IEnumerable<T> items)
             {
                 Requires.NotNull(items, nameof(items));
@@ -361,6 +369,7 @@ namespace System.Collections.Immutable
             /// Adds the specified items to the end of the array.
             /// </summary>
             /// <param name="items">The items.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(params T[] items)
             {
                 Requires.NotNull(items, nameof(items));
@@ -376,6 +385,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <typeparam name="TDerived">The type that derives from the type of item already in the array.</typeparam>
             /// <param name="items">The items.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange<TDerived>(TDerived[] items) where TDerived : T
             {
                 Requires.NotNull(items, nameof(items));
@@ -391,6 +401,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="items">The items.</param>
             /// <param name="length">The number of elements from the source array to add.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(T[] items, int length)
             {
                 Requires.NotNull(items, nameof(items));
@@ -406,6 +417,7 @@ namespace System.Collections.Immutable
             /// Adds the specified items to the end of the array.
             /// </summary>
             /// <param name="items">The items.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(ImmutableArray<T> items)
             {
                 this.AddRange(items, items.Length);
@@ -416,6 +428,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="items">The items.</param>
             /// <param name="length">The number of elements from the source array to add.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(ImmutableArray<T> items, int length)
             {
                 Requires.Range(length >= 0, nameof(length));
@@ -430,6 +443,7 @@ namespace System.Collections.Immutable
             /// Adds the specified items to the end of the array.
             /// </summary>
             /// <param name="items">The items to add at the end of the array.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(params ReadOnlySpan<T> items)
             {
                 int offset = this.Count;
@@ -443,6 +457,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <typeparam name="TDerived">The type that derives from the type of item already in the array.</typeparam>
             /// <param name="items">The items to add at the end of the array.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange<TDerived>(params ReadOnlySpan<TDerived> items) where TDerived : T
             {
                 int offset = this.Count;
@@ -460,6 +475,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <typeparam name="TDerived">The type that derives from the type of item already in the array.</typeparam>
             /// <param name="items">The items to add at the end of the array.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange<TDerived>(ImmutableArray<TDerived> items) where TDerived : T
             {
                 if (items.array != null)
@@ -472,6 +488,7 @@ namespace System.Collections.Immutable
             /// Adds the specified items to the end of the array.
             /// </summary>
             /// <param name="items">The items to add at the end of the array.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(Builder items)
             {
                 Requires.NotNull(items, nameof(items));
@@ -483,6 +500,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <typeparam name="TDerived">The type that derives from the type of item already in the array.</typeparam>
             /// <param name="items">The items to add at the end of the array.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange<TDerived>(ImmutableArray<TDerived>.Builder items) where TDerived : T
             {
                 Requires.NotNull(items, nameof(items));
@@ -517,6 +535,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>A value indicating whether the specified element was found and removed from the collection.</returns>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
             public bool Remove([DefaultEqualityUsage] T element, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(element, 0, _count, equalityComparer);
@@ -538,6 +557,7 @@ namespace System.Collections.Immutable
             /// The <see cref="Predicate{T}"/> delegate that defines the conditions of the elements
             /// to remove.
             /// </param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveAll(Predicate<T> match)
             {
                 List<int>? removeIndices = null;
@@ -577,6 +597,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The 0-based index into the array for the element to omit from the returned array.</param>
             /// <param name="length">The number of elements to remove.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(int index, int length)
             {
                 Requires.Range(index >= 0 && index <= _count, nameof(index));
@@ -608,6 +629,7 @@ namespace System.Collections.Immutable
             /// <param name="items">The items to remove if matches are found in this list.</param>
             // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
             [DefaultEqualityUsageInternal(nameof(T))]
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(IEnumerable<T> items)
             {
                 this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -623,6 +645,7 @@ namespace System.Collections.Immutable
             /// </param>
             // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now, skip
             [DefaultEqualityUsageInternal(nameof(T))]
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.NotNull(items, nameof(items));
@@ -645,6 +668,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="oldValue">The element to replace.</param>
             /// <param name="newValue">The element to replace the old element with.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Replace([DefaultEqualityUsage] T oldValue, T newValue)
             {
                 this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
@@ -659,6 +683,7 @@ namespace System.Collections.Immutable
             /// The equality comparer to use in the search.
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(oldValue, 0, _count, equalityComparer);
@@ -684,6 +709,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// Creates a new array with the current contents of this Builder.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.Read)]
             public T[] ToArray()
             {
                 if (this.Count == 0)
@@ -712,6 +738,7 @@ namespace System.Collections.Immutable
             /// Copies the contents of this array to the specified array.
             /// </summary>
             /// <param name="destination">The array to copy to.</param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void CopyTo(T[] destination)
             {
                 Requires.NotNull(destination, nameof(destination));
@@ -725,6 +752,7 @@ namespace System.Collections.Immutable
             /// <param name="destination">The array to copy to.</param>
             /// <param name="destinationIndex">The index into the destination array to which the first copied element is written.</param>
             /// <param name="length">The number of elements to copy.</param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void CopyTo(int sourceIndex, T[] destination, int destinationIndex, int length)
             {
                 Requires.NotNull(destination, nameof(destination));
@@ -765,6 +793,7 @@ namespace System.Collections.Immutable
             /// <param name="item">The item to search for.</param>
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 return this.IndexOf(item, startIndex, this.Count - startIndex, EqualityComparer<T>.Default);
@@ -777,6 +806,7 @@ namespace System.Collections.Immutable
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <param name="count">The number of elements to search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
             {
                 return this.IndexOf(item, startIndex, count, EqualityComparer<T>.Default);
@@ -793,6 +823,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
             {
                 if (count == 0 && startIndex == 0)
@@ -832,6 +863,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int startIndex, IEqualityComparer<T>? equalityComparer)
             {
                 return this.IndexOf(item, startIndex, this.Count - startIndex, equalityComparer);
@@ -842,6 +874,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="item">The item to search for.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item)
             {
                 if (this.Count == 0)
@@ -858,6 +891,7 @@ namespace System.Collections.Immutable
             /// <param name="item">The item to search for.</param>
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 if (this.Count == 0 && startIndex == 0)
@@ -877,6 +911,7 @@ namespace System.Collections.Immutable
             /// <param name="startIndex">The index at which to begin the search.</param>
             /// <param name="count">The number of elements to search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count)
             {
                 return this.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);
@@ -890,6 +925,7 @@ namespace System.Collections.Immutable
             /// <param name="count">The number of elements to search.</param>
             /// <param name="equalityComparer">The equality comparer to use in the search.</param>
             /// <returns>The 0-based index into the array where the item was found; or -1 if it could not be found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer)
             {
                 if (count == 0 && startIndex == 0)
@@ -922,6 +958,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// Reverses the order of elements in the collection.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Reverse()
             {
 #if NET || NETSTANDARD2_1_OR_GREATER
@@ -946,6 +983,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// Sorts the array.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort()
             {
                 if (Count > 1)
@@ -962,6 +1000,7 @@ namespace System.Collections.Immutable
             /// The <see cref="Comparison{T}"/> to use when comparing elements.
             /// </param>
             /// <exception cref="ArgumentNullException"><paramref name="comparison"/> is null.</exception>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(Comparison<T> comparison)
             {
                 Requires.NotNull(comparison, nameof(comparison));
@@ -986,6 +1025,7 @@ namespace System.Collections.Immutable
             /// Sorts the array.
             /// </summary>
             /// <param name="comparer">The comparer to use in sorting. If <c>null</c>, the default comparer is used.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(IComparer<T>? comparer)
             {
                 if (Count > 1)
@@ -1000,6 +1040,7 @@ namespace System.Collections.Immutable
             /// <param name="index">The index of the first element to consider in the sort.</param>
             /// <param name="count">The number of elements to include in the sort.</param>
             /// <param name="comparer">The comparer to use in sorting. If <c>null</c>, the default comparer is used.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(int index, int count, IComparer<T>? comparer)
             {
                 // Don't rely on Array.Sort's argument validation since our internal array may exceed
@@ -1017,6 +1058,7 @@ namespace System.Collections.Immutable
             /// Copies the current contents to the specified <see cref="Span{T}"/>.
             /// </summary>
             /// <param name="destination">The <see cref="Span{T}"/> to copy to.</param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void CopyTo(Span<T> destination)
             {
                 Requires.Range(this.Count <= destination.Length, nameof(destination));
@@ -1027,6 +1069,7 @@ namespace System.Collections.Immutable
             /// Returns an enumerator for the contents of the array.
             /// </summary>
             /// <returns>An enumerator.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public IEnumerator<T> GetEnumerator()
             {
                 for (int i = 0; i < this.Count; i++)

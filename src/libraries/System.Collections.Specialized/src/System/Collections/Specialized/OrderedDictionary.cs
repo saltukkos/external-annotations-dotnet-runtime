@@ -249,6 +249,8 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// Returns a readonly OrderedDictionary for the given OrderedDictionary.
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public OrderedDictionary AsReadOnly()
         {
             return new OrderedDictionary(this);

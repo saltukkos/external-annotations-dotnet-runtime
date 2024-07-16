@@ -64,14 +64,17 @@ namespace System
             _count = count;
         }
 
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public T[]? Array => _array;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int Offset => _offset;
 
         public int Count => _count;
 
         public T this[int index]
         {
+            [CollectionAccess(CollectionAccessType.Read)]
             get
             {
                 if ((uint)index >= (uint)_count)
@@ -81,6 +84,7 @@ namespace System
 
                 return _array![_offset + index];
             }
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             set
             {
                 if ((uint)index >= (uint)_count)
@@ -92,6 +96,7 @@ namespace System
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator()
         {
             ThrowInvalidOperationIfDefault();
@@ -101,6 +106,7 @@ namespace System
         public override int GetHashCode() =>
             _array is null ? 0 : HashCode.Combine(_offset, _count, _array.GetHashCode());
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] destination) => CopyTo(destination, 0);
 
         public void CopyTo(T[] destination, int destinationIndex)
@@ -109,6 +115,7 @@ namespace System
             System.Array.Copy(_array!, _offset, destination, destinationIndex, _count);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(ArraySegment<T> destination)
         {
             ThrowInvalidOperationIfDefault();
@@ -125,9 +132,12 @@ namespace System
         public override bool Equals([NotNullWhen(true)] object? obj) =>
             obj is ArraySegment<T> other && Equals(other);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Equals(ArraySegment<T> obj) =>
             obj._array == _array && obj._offset == _offset && obj._count == _count;
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public ArraySegment<T> Slice(int index)
         {
             ThrowInvalidOperationIfDefault();
@@ -140,6 +150,8 @@ namespace System
             return new ArraySegment<T>(_array!, _offset + index, _count - index);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public ArraySegment<T> Slice(int index, int count)
         {
             ThrowInvalidOperationIfDefault();
@@ -152,6 +164,7 @@ namespace System
             return new ArraySegment<T>(_array!, _offset + index, count);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public T[] ToArray()
         {
             ThrowInvalidOperationIfDefault();

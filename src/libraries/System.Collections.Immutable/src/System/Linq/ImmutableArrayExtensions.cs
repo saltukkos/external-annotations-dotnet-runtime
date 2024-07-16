@@ -542,6 +542,7 @@ namespace System.Linq
         /// <param name="immutableArray"></param>
         /// <param name="keySelector">The key selector.</param>
         /// <returns>The newly initialized dictionary.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, T> ToDictionary<[DefaultEqualityUsage] TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector) where TKey : notnull
         {
             return ToDictionary(immutableArray, keySelector, EqualityComparer<TKey>.Default);
@@ -557,6 +558,7 @@ namespace System.Linq
         /// <param name="keySelector">The key selector.</param>
         /// <param name="elementSelector">The element selector.</param>
         /// <returns>The newly initialized dictionary.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<[DefaultEqualityUsage] TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector) where TKey : notnull
         {
             return ToDictionary(immutableArray, keySelector, elementSelector, EqualityComparer<TKey>.Default);
@@ -571,6 +573,7 @@ namespace System.Linq
         /// <param name="keySelector">The key selector.</param>
         /// <param name="comparer">The comparer to initialize the dictionary with.</param>
         /// <returns>The newly initialized dictionary.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, T> ToDictionary<[DefaultEqualityUsage] TKey, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             Requires.NotNull(keySelector, nameof(keySelector));
@@ -595,6 +598,7 @@ namespace System.Linq
         /// <param name="elementSelector">The element selector.</param>
         /// <param name="comparer">The comparer to initialize the dictionary with.</param>
         /// <returns>The newly initialized dictionary.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<[DefaultEqualityUsage] TKey, TElement, T>(this ImmutableArray<T> immutableArray, Func<T, TKey> keySelector, Func<T, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             Requires.NotNull(keySelector, nameof(keySelector));

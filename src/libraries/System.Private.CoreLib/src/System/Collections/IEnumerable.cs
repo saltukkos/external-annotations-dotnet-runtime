@@ -11,6 +11,7 @@ namespace System.Collections
     {
         // Returns an IEnumerator for this enumerable Object.  The enumerator provides
         // a simple way to access all the contents of a collection.
+        [CollectionAccess(CollectionAccessType.Read)]
         IEnumerator GetEnumerator();
     }
 }

@@ -56,6 +56,7 @@ namespace System
             return GetEnvironmentVariableFromRegistry(variable, fromMachine);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static IDictionary GetEnvironmentVariables(EnvironmentVariableTarget target)
         {
             if (target == EnvironmentVariableTarget.Process)

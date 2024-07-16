@@ -66,6 +66,7 @@ namespace System
             }
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe IDictionary GetEnvironmentVariables()
         {
             // Format for GetEnvironmentStrings is:

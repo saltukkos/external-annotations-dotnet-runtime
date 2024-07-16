@@ -18,20 +18,27 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// Returns the object at the given index
         /// </devdoc>
-        object? this[int index] { get; set; }
+        object? this[int index]
+        {
+            [CollectionAccess(CollectionAccessType.Read)] get;
+            [CollectionAccess(CollectionAccessType.UpdatedContent)] set;
+        }
 
         // Returns an IDictionaryEnumerator for this dictionary.
+        [CollectionAccess(CollectionAccessType.Read)]
         new IDictionaryEnumerator GetEnumerator();
 
         // methods
         /// <devdoc>
         /// Inserts the given object, with the given key, at the given index
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         void Insert(int index, object key, object? value);
 
         /// <devdoc>
         /// Removes the object and key at the given index
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         void RemoveAt(int index);
     }
 }

@@ -80,6 +80,7 @@ namespace System.Collections.Immutable
             /// <value>
             /// The key comparer.
             /// </value>
+            [CollectionAccess(CollectionAccessType.None)]
             public IEqualityComparer<TKey> KeyComparer
             {
                 get
@@ -110,6 +111,7 @@ namespace System.Collections.Immutable
             /// <value>
             /// The value comparer.
             /// </value>
+            [CollectionAccess(CollectionAccessType.None)]
             public IEqualityComparer<TValue> ValueComparer
             {
                 get
@@ -430,6 +432,7 @@ namespace System.Collections.Immutable
             /// Adds a sequence of values to this collection.
             /// </summary>
             /// <param name="items">The items.</param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(IEnumerable<KeyValuePair<TKey, TValue>> items)
             {
                 ImmutableDictionary<TKey, TValue>.MutationResult result = ImmutableDictionary<TKey, TValue>.AddRange(items, this.Origin);
@@ -440,6 +443,7 @@ namespace System.Collections.Immutable
             /// Removes any entries from the dictionaries with keys that match those found in the specified sequence.
             /// </summary>
             /// <param name="keys">The keys for entries to remove from the dictionary.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(IEnumerable<TKey> keys)
             {
                 Requires.NotNull(keys, nameof(keys));
@@ -456,6 +460,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// A <see cref="IEnumerator{T}"/> that can be used to iterate through the collection.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator()
             {
                 return new Enumerator(_root, this);
@@ -466,6 +471,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="key">The key to search for.</param>
             /// <returns>The value for the key, or the default value of type <typeparamref name="TValue"/> if no matching key was found.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public TValue? GetValueOrDefault(TKey key)
             {
                 return this.GetValueOrDefault(key, default(TValue)!);
@@ -479,6 +485,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// The value for the key, or <paramref name="defaultValue"/> if no matching key was found.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public TValue GetValueOrDefault(TKey key, TValue defaultValue)
             {
                 Requires.NotNullAllowStructs(key, nameof(key));
@@ -500,6 +507,7 @@ namespace System.Collections.Immutable
             /// This method is an O(n) operation, and approaches O(1) time as the number of
             /// actual mutations to the set since the last call to this method approaches 0.
             /// </remarks>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableDictionary<TKey, TValue> ToImmutable()
             {
                 // Creating an instance of ImmutableSortedMap<T> with our root node automatically freezes our tree,
@@ -554,6 +562,7 @@ namespace System.Collections.Immutable
             /// true if the <see cref="ImmutableDictionary{TKey, TValue}"/> contains
             /// an element with the specified value; otherwise, false.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool ContainsValue(TValue value)
             {
                 foreach (KeyValuePair<TKey, TValue> item in this)
@@ -599,6 +608,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// See the <see cref="IImmutableDictionary{TKey, TValue}"/> interface.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool TryGetKey(TKey equalKey, out TKey actualKey)
             {
                 return ImmutableDictionary<TKey, TValue>.TryGetKey(equalKey, this.Origin, out actualKey);

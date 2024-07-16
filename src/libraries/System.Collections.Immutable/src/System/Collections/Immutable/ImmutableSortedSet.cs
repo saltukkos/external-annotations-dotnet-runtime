@@ -133,6 +133,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <typeparam name="T">The type of items stored by the collection.</typeparam>
         /// <returns>The immutable collection.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableSortedSet<T>.Builder CreateBuilder<T>()
         {
             return Create<T>().ToBuilder();
@@ -146,6 +147,7 @@ namespace System.Collections.Immutable
         /// <returns>
         /// The immutable collection.
         /// </returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableSortedSet<T>.Builder CreateBuilder<T>(IComparer<T>? comparer)
         {
             return Create<T>(comparer).ToBuilder();
