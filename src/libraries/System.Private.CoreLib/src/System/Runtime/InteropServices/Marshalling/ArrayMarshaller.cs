@@ -66,6 +66,7 @@ namespace System.Runtime.InteropServices.Marshalling
         /// <param name="unmanaged">The unmanaged array.</param>
         /// <param name="numElements">The unmanaged element count.</param>
         /// <returns>The managed array.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[]? AllocateContainerForManagedElements(TUnmanagedElement* unmanaged, int numElements)
         {
             if (unmanaged is null)

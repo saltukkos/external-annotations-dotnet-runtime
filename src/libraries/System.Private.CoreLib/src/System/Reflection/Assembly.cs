@@ -43,6 +43,7 @@ namespace System.Reflection
         }
 
         [RequiresUnreferencedCode("Types might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetTypes()
         {
             Module[] m = GetModules(false);
@@ -77,9 +78,13 @@ namespace System.Reflection
             [RequiresUnreferencedCode("Types might be removed")]
             get => GetExportedTypes();
         }
+
         [RequiresUnreferencedCode("Types might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetExportedTypes() { throw NotImplemented.ByDesign; }
+
         [RequiresUnreferencedCode("Types might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetForwardedTypes() { throw NotImplemented.ByDesign; }
 
         internal const string ThrowingMessageInRAF = "This member throws an exception for assemblies embedded in a single-file app";
@@ -96,6 +101,8 @@ namespace System.Reflection
         public virtual bool IsCollectible => true;
 
         public virtual ManifestResourceInfo? GetManifestResourceInfo(string resourceName) { throw NotImplemented.ByDesign; }
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[] GetManifestResourceNames() { throw NotImplemented.ByDesign; }
         public virtual Stream? GetManifestResourceStream(string name) { throw NotImplemented.ByDesign; }
         public virtual Stream? GetManifestResourceStream(Type type, string name) { throw NotImplemented.ByDesign; }
@@ -147,14 +154,22 @@ namespace System.Reflection
         public virtual Module ManifestModule => throw NotImplemented.ByDesign;
         public virtual Module? GetModule(string name) { throw NotImplemented.ByDesign; }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Module[] GetModules() => GetModules(getResourceModules: false);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Module[] GetModules(bool getResourceModules) { throw NotImplemented.ByDesign; }
 
         public virtual IEnumerable<Module> Modules => GetLoadedModules(getResourceModules: true);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Module[] GetLoadedModules() => GetLoadedModules(getResourceModules: false);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Module[] GetLoadedModules(bool getResourceModules) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Assembly references might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual AssemblyName[] GetReferencedAssemblies() { throw NotImplemented.ByDesign; }
 
         public virtual Assembly GetSatelliteAssembly(CultureInfo culture) { throw NotImplemented.ByDesign; }
@@ -162,9 +177,13 @@ namespace System.Reflection
 
         [RequiresAssemblyFiles(ThrowingMessageInRAF)]
         public virtual FileStream? GetFile(string name) { throw NotImplemented.ByDesign; }
+
         [RequiresAssemblyFiles(ThrowingMessageInRAF)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual FileStream[] GetFiles() => GetFiles(getResourceModules: false);
+
         [RequiresAssemblyFiles(ThrowingMessageInRAF)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual FileStream[] GetFiles(bool getResourceModules) { throw NotImplemented.ByDesign; }
 
         [Obsolete(Obsoletions.LegacyFormatterImplMessage, DiagnosticId = Obsoletions.LegacyFormatterImplDiagId, UrlFormat = Obsoletions.SharedUrlFormat)]

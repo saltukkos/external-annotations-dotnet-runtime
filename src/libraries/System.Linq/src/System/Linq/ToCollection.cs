@@ -9,6 +9,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static TSource[] ToArray<TSource>(this IEnumerable<TSource> source)
         {
 #if !OPTIMIZE_FOR_SIZE

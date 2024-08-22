@@ -5,7 +5,10 @@ namespace System.Reflection
 {
     public interface ICustomAttributeProvider
     {
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         object[] GetCustomAttributes(bool inherit);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         object[] GetCustomAttributes(Type attributeType, bool inherit);
         bool IsDefined(Type attributeType, bool inherit);
     }

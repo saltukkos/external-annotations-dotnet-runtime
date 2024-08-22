@@ -294,6 +294,7 @@ namespace System.Collections.Generic
         // The order of elements in the array is first in to last in, the same
         // order produced by successive calls to Dequeue.
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_size == 0)

@@ -862,6 +862,7 @@ namespace System.Reflection.Emit
             return HashCode;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public byte[] GetSignature()
         {
             return GetSignature(false);

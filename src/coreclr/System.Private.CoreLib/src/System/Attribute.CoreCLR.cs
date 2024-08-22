@@ -442,11 +442,14 @@ namespace System
         #region Public Statics
 
         #region MemberInfo
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(MemberInfo element, Type attributeType)
         {
             return GetCustomAttributes(element, attributeType, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(MemberInfo element, Type attributeType, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -463,11 +466,13 @@ namespace System
             };
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(MemberInfo element)
         {
             return GetCustomAttributes(element, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(MemberInfo element, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -524,16 +529,20 @@ namespace System
         #endregion
 
         #region ParameterInfo
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(ParameterInfo element)
         {
             return GetCustomAttributes(element, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(ParameterInfo element, Type attributeType)
         {
             return GetCustomAttributes(element, attributeType, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(ParameterInfo element, Type attributeType, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -552,6 +561,7 @@ namespace System
             return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(ParameterInfo element, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -624,16 +634,20 @@ namespace System
         #endregion
 
         #region Module
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Module element, Type attributeType)
         {
             return GetCustomAttributes(element, attributeType, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Module element)
         {
             return GetCustomAttributes(element, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Module element, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -641,6 +655,7 @@ namespace System
             return (Attribute[])element.GetCustomAttributes(typeof(Attribute), inherit);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Module element, Type attributeType, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -694,11 +709,14 @@ namespace System
         #endregion
 
         #region Assembly
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Assembly element, Type attributeType)
         {
             return GetCustomAttributes(element, attributeType, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Assembly element, Type attributeType, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);
@@ -710,11 +728,13 @@ namespace System
             return (Attribute[])element.GetCustomAttributes(attributeType, inherit);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Assembly element)
         {
             return GetCustomAttributes(element, true);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Attribute[] GetCustomAttributes(Assembly element, bool inherit)
         {
             ArgumentNullException.ThrowIfNull(element);

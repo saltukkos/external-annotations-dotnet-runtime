@@ -694,6 +694,7 @@ namespace System.Collections
         // ToArray returns a new Object array containing the contents of the ArrayList.
         // This requires copying the ArrayList, which is an O(n) operation.
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual object?[] ToArray()
         {
             if (_size == 0)

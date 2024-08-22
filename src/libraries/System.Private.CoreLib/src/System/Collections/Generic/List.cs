@@ -1178,6 +1178,7 @@ namespace System.Collections.Generic
         // ToArray returns an array containing the contents of the List.
         // This requires copying the List, which is an O(n) operation.
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_size == 0)

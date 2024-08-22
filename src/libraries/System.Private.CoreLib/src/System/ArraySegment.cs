@@ -165,6 +165,7 @@ namespace System
         }
 
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             ThrowInvalidOperationIfDefault();

@@ -83,6 +83,7 @@ namespace System.Reflection.Emit
         protected abstract FieldBuilder DefineFieldCore(string fieldName, Type type, Type[]? requiredCustomModifiers, Type[]? optionalCustomModifiers,
             FieldAttributes attributes);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public GenericTypeParameterBuilder[] DefineGenericParameters(params string[] names)
         {
             ArgumentNullException.ThrowIfNull(names);

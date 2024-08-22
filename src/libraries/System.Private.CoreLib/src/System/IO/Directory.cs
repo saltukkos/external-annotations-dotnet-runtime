@@ -163,33 +163,45 @@ namespace System.IO
             return File.GetLastAccessTimeUtc(path);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFiles(string path) => GetFiles(path, "*", enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFiles(string path, string searchPattern) => GetFiles(path, searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFiles(string path, string searchPattern, SearchOption searchOption)
             => GetFiles(path, searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFiles(string path, string searchPattern, EnumerationOptions enumerationOptions)
             => new List<string>(InternalEnumeratePaths(path, searchPattern, SearchTarget.Files, enumerationOptions)).ToArray();
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetDirectories(string path) => GetDirectories(path, "*", enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetDirectories(string path, string searchPattern) => GetDirectories(path, searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetDirectories(string path, string searchPattern, SearchOption searchOption)
             => GetDirectories(path, searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetDirectories(string path, string searchPattern, EnumerationOptions enumerationOptions)
             => new List<string>(InternalEnumeratePaths(path, searchPattern, SearchTarget.Directories, enumerationOptions)).ToArray();
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFileSystemEntries(string path) => GetFileSystemEntries(path, "*", enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFileSystemEntries(string path, string searchPattern) => GetFileSystemEntries(path, searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFileSystemEntries(string path, string searchPattern, SearchOption searchOption)
             => GetFileSystemEntries(path, searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetFileSystemEntries(string path, string searchPattern, EnumerationOptions enumerationOptions)
             => new List<string>(InternalEnumeratePaths(path, searchPattern, SearchTarget.Both, enumerationOptions)).ToArray();
 
@@ -285,6 +297,7 @@ namespace System.IO
             FileSystem.RemoveDirectory(fullPath, recursive);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetLogicalDrives()
         {
             return FileSystem.GetLogicalDrives();

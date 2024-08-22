@@ -1532,6 +1532,7 @@ namespace System.Collections.Concurrent
         /// The copied elements are not removed from the collection.
         /// </remarks>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             CheckDisposed();

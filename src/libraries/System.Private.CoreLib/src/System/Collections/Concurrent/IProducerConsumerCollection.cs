@@ -68,6 +68,7 @@ namespace System.Collections.Concurrent
         /// </summary>
         /// <returns>A new array containing the elements copied from the <see cref="IProducerConsumerCollection{T}"/>.</returns>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         T[] ToArray();
     }
 }

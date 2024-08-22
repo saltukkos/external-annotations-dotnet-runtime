@@ -251,6 +251,7 @@ namespace System
         ///   The method uses <see cref="Next(int)" /> to select items randomly from <paramref name="choices" />
         ///   by index. This is used to populate a newly-created array.
         /// </remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] GetItems<T>(T[] choices, int length)
         {
             ArgumentNullException.ThrowIfNull(choices);
@@ -272,6 +273,7 @@ namespace System
         ///   The method uses <see cref="Next(int)" /> to select items randomly from <paramref name="choices" />
         ///   by index. This is used to populate a newly-created array.
         /// </remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] GetItems<T>(ReadOnlySpan<T> choices, int length)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(length);

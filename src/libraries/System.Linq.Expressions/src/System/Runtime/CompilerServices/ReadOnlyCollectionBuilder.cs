@@ -394,6 +394,7 @@ namespace System.Runtime.CompilerServices
         /// </summary>
         /// <returns>An array containing copies of the elements of the <see cref="ReadOnlyCollectionBuilder{T}"/>.</returns>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             T[] array = new T[_size];

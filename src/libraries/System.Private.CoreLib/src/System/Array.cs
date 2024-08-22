@@ -1047,6 +1047,7 @@ namespace System
             return ArraySortHelper<T>.Default.BinarySearch(array, index, length, value, comparer);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static TOutput[] ConvertAll<TInput, TOutput>(TInput[] array, Converter<TInput, TOutput> converter)
         {
             if (array == null)
@@ -1099,6 +1100,7 @@ namespace System
 #pragma warning restore CA1825
         }
 
+        [return: CollectionAccess(CollectionAccessType.None)] //note: since it's empty, no reason to read from it. Let's see if there are any false-positives because of this
         public static T[] Empty<T>()
         {
             return EmptyArray<T>.Value;
@@ -1182,6 +1184,7 @@ namespace System
             return default;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[] FindAll<T>(T[] array, Predicate<T> match)
         {
             if (array == null)

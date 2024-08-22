@@ -23,6 +23,7 @@ namespace System
         /// Returns an object array that contains zero or more objects to format. Clients should not
         /// mutate the contents of the array.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: modifications could be observed, method returns the original unprotected array
         public abstract object?[] GetArguments();
 
         /// <summary>

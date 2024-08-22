@@ -788,6 +788,7 @@ namespace System.Collections.Concurrent
         /// <returns>A new array containing a snapshot of key and value pairs copied from the <see cref="ConcurrentDictionary{TKey,TValue}"/>.
         /// </returns>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public KeyValuePair<TKey, TValue>[] ToArray()
         {
             int locksAcquired = 0;

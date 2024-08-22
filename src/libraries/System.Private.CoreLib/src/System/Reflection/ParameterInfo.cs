@@ -52,7 +52,10 @@ namespace System.Reflection
 
         public virtual Type GetModifiedParameterType() => throw new NotSupportedException();
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetOptionalCustomModifiers() => Type.EmptyTypes;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetRequiredCustomModifiers() => Type.EmptyTypes;
 
         public virtual int MetadataToken => MetadataToken_ParamDef;

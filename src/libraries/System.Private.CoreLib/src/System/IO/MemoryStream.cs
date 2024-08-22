@@ -176,6 +176,7 @@ namespace System.IO
             }
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public virtual byte[] GetBuffer()
         {
             if (!_exposable)
@@ -565,6 +566,7 @@ namespace System.IO
                 _position = newLength;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] ToArray()
         {
             int count = _length - _origin;

@@ -116,6 +116,7 @@ namespace System
         }
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] FindInterfaces(TypeFilter filter, object? filterCriteria)
         {
             ArgumentNullException.ThrowIfNull(filter);
@@ -143,6 +144,7 @@ namespace System
         }
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual MemberInfo[] FindMembers(MemberTypes memberType, BindingFlags bindingAttr, MemberFilter? filter, object? filterCriteria)
         {
             // Define the work arrays

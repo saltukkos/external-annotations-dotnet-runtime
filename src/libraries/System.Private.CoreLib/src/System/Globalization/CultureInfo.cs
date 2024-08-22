@@ -538,6 +538,7 @@ namespace System.Globalization
 
         public virtual int KeyboardLayoutId => _cultureData.KeyboardLayoutId;
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static CultureInfo[] GetCultures(CultureTypes types)
         {
             // internally we treat UserCustomCultures as Supplementals but v2

@@ -619,6 +619,7 @@ namespace System.Linq
         /// <typeparam name="T">The type of element contained by the collection.</typeparam>
         /// <param name="immutableArray">The immutable array to copy into a mutable one.</param>
         /// <returns>The newly instantiated array.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[] ToArray<T>(this ImmutableArray<T> immutableArray)
         {
             immutableArray.ThrowNullRefIfNotInitialized();

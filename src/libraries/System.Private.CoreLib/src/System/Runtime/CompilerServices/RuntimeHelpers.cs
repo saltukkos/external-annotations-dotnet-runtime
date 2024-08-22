@@ -23,6 +23,7 @@ namespace System.Runtime.CompilerServices
         /// <summary>
         /// Slices the specified array using the specified range.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[] GetSubArray<T>(T[] array, Range range)
         {
             if (array == null)

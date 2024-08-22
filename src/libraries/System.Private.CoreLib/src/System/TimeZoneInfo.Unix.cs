@@ -137,6 +137,7 @@ namespace System
         /// <summary>
         /// Returns a cloned array of AdjustmentRule objects
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public AdjustmentRule[] GetAdjustmentRules()
         {
             if (_adjustmentRules == null)

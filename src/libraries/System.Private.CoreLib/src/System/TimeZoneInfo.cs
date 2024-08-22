@@ -188,6 +188,7 @@ namespace System
         /// Returns an array of TimeSpan objects representing all of
         /// the possible UTC offset values for this ambiguous time.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public TimeSpan[] GetAmbiguousTimeOffsets(DateTimeOffset dateTimeOffset)
         {
             if (!SupportsDaylightSavingTime)
@@ -233,6 +234,7 @@ namespace System
         /// Returns an array of TimeSpan objects representing all of
         /// possible UTC offset values for this ambiguous time.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public TimeSpan[] GetAmbiguousTimeOffsets(DateTime dateTime)
         {
             if (!SupportsDaylightSavingTime)

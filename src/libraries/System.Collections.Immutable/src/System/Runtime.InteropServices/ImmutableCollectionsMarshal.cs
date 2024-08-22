@@ -50,6 +50,7 @@ namespace System.Runtime.InteropServices
         /// <see langword="true"/>), the resulting <typeparamref name="T"/> array will be <see langword="null"/>.
         /// </para>
         /// </remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // note: change could be observed through original ImmutableArray, even if it's prohibited
         public static T[]? AsArray<T>(ImmutableArray<T> array)
         {
             return array.array;

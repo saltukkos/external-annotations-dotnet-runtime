@@ -77,7 +77,10 @@ namespace System.Reflection
 
         public virtual Type GetModifiedFieldType() => throw new NotSupportedException();
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetOptionalCustomModifiers() { throw NotImplemented.ByDesign; }
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetRequiredCustomModifiers() { throw NotImplemented.ByDesign; }
     }
 }

@@ -4813,6 +4813,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static TSource[] ToArray<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4845,6 +4846,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static List<TSource> ToList<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4926,6 +4928,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
         {
@@ -4955,6 +4958,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
@@ -5017,6 +5021,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
         {
@@ -5052,6 +5057,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {

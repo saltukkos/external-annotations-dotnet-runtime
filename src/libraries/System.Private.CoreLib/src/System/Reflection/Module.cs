@@ -64,8 +64,11 @@ namespace System.Reflection
         protected virtual MethodInfo? GetMethodImpl(string name, BindingFlags bindingAttr, Binder? binder, CallingConventions callConvention, Type[]? types, ParameterModifier[]? modifiers) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Methods might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MethodInfo[] GetMethods() => GetMethods(DefaultLookup);
+
         [RequiresUnreferencedCode("Methods might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual MethodInfo[] GetMethods(BindingFlags bindingFlags) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Fields might be removed")]
@@ -74,11 +77,15 @@ namespace System.Reflection
         public virtual FieldInfo? GetField(string name, BindingFlags bindingAttr) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Fields might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FieldInfo[] GetFields() => GetFields(DefaultLookup);
+
         [RequiresUnreferencedCode("Fields might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual FieldInfo[] GetFields(BindingFlags bindingFlags) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Types might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetTypes() { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Types might be removed by trimming. If the type name is a string literal, consider using Type.GetType instead.")]
@@ -89,6 +96,7 @@ namespace System.Reflection
         public virtual Type? GetType(string className, bool throwOnError, bool ignoreCase) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Types might be removed")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] FindTypes(TypeFilter? filter, object? filterCriteria)
         {
             Type[] c = GetTypes();
@@ -131,6 +139,7 @@ namespace System.Reflection
         public virtual MethodBase? ResolveMethod(int metadataToken, Type[]? genericTypeArguments, Type[]? genericMethodArguments) { throw NotImplemented.ByDesign; }
 
         [RequiresUnreferencedCode("Trimming changes metadata tokens")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] ResolveSignature(int metadataToken) { throw NotImplemented.ByDesign; }
         [RequiresUnreferencedCode("Trimming changes metadata tokens")]
         public virtual string ResolveString(int metadataToken) { throw NotImplemented.ByDesign; }

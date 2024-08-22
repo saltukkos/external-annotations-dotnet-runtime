@@ -778,6 +778,7 @@ namespace System
         /// <param name="length">Specifies the length of the array.</param>
         /// <param name="pinned">Specifies whether the allocated array must be pinned.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)] // forced to ensure no perf drop for small memory buffers (hot path)
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe T[] AllocateUninitializedArray<T>(int length, bool pinned = false) // T[] rather than T?[] to match `new T[length]` behavior
         {
             if (!pinned)
@@ -814,6 +815,7 @@ namespace System
         /// <typeparam name="T">Specifies the type of the array element.</typeparam>
         /// <param name="length">Specifies the length of the array.</param>
         /// <param name="pinned">Specifies whether the allocated array must be pinned.</param>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[] AllocateArray<T>(int length, bool pinned = false) // T[] rather than T?[] to match `new T[length]` behavior
         {
             GC_ALLOC_FLAGS flags = GC_ALLOC_FLAGS.GC_ALLOC_NO_FLAGS;

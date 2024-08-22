@@ -342,6 +342,7 @@ namespace System.Collections.Generic
 
         // Copies the Stack to an array, in the same order Pop would return the items.
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_size == 0)

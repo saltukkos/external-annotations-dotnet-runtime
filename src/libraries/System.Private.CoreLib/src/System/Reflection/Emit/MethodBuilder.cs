@@ -19,6 +19,7 @@ namespace System.Reflection.Emit
 
         protected abstract bool InitLocalsCore { get; set; }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public GenericTypeParameterBuilder[] DefineGenericParameters(params string[] names)
         {
             ArgumentNullException.ThrowIfNull(names);

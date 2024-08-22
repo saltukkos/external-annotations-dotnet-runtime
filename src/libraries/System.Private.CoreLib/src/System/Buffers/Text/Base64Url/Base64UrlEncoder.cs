@@ -83,6 +83,7 @@ namespace System.Buffers.Text
         /// <param name="source">The input span which contains binary data that needs to be encoded.</param>
         /// <returns>The output byte array which contains the result of the operation, i.e. the UTF-8 encoded text in Base64Url.</returns>
         /// <remarks>This implementation of the base64url encoding omits the optional padding characters.</remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] EncodeToUtf8(ReadOnlySpan<byte> source)
         {
             byte[] destination = new byte[GetEncodedLength(source.Length)];
@@ -134,6 +135,7 @@ namespace System.Buffers.Text
         /// <param name="source">The input span which contains binary data that needs to be encoded.</param>
         /// <returns>A char array which contains the result of the operation, i.e. the ASCII chars in Base64Url.</returns>
         /// <remarks>This implementation of the base64url encoding omits the optional padding characters.</remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static char[] EncodeToChars(ReadOnlySpan<byte> source)
         {
             char[] destination = new char[GetEncodedLength(source.Length)];

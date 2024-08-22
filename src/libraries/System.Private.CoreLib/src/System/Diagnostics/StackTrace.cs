@@ -167,6 +167,7 @@ namespace System.Diagnostics
         /// The nth element of this array is the same as GetFrame(n).
         /// The length of the array is the same as FrameCount.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual StackFrame[] GetFrames()
         {
             if (_stackFrames == null || _numOfFrames <= 0)

@@ -74,6 +74,7 @@ namespace System.Buffers
         /// decreased application performance, as the pool may need to create a new buffer to replace
         /// the one lost.
         /// </remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract T[] Rent(int minimumLength);
 
         /// <summary>

@@ -297,6 +297,7 @@ namespace System.Collections.Specialized
         /// <para>Gets the values associated with the specified key from the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[]? GetValues(string? name)
         {
             ArrayList? values = (ArrayList?)BaseGet(name);
@@ -368,6 +369,7 @@ namespace System.Collections.Specialized
         ///    <para> Gets the values at the specified index of the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
         [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[]? GetValues(int index)
         {
             ArrayList? values = (ArrayList?)BaseGet(index);

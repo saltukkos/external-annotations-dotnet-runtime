@@ -710,6 +710,7 @@ namespace System.Collections.Immutable
             /// Creates a new array with the current contents of this Builder.
             /// </summary>
             [CollectionAccess(CollectionAccessType.Read)]
+            [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
             public T[] ToArray()
             {
                 if (this.Count == 0)

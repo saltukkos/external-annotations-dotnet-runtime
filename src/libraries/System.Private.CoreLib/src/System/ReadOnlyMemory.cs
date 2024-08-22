@@ -353,6 +353,7 @@ namespace System
         /// allocates, so should generally be avoided, however it is sometimes
         /// necessary to bridge the gap with APIs written in terms of arrays.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray() => Span.ToArray();
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>

@@ -9,8 +9,10 @@ namespace System.IO
 {
     public static partial class Path
     {
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static char[] GetInvalidFileNameChars() => new char[] { '\0', '/' };
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static char[] GetInvalidPathChars() => new char[] { '\0' };
 
         // Checks if the given path is available for use.

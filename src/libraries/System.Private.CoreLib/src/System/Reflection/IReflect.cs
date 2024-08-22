@@ -21,6 +21,7 @@ namespace System.Reflection
         MethodInfo? GetMethod(string name, BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.NonPublicMethods)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         MethodInfo[] GetMethods(BindingFlags bindingAttr);
 
         // Return the requestion field if it is implemented by the Reflection object.  The
@@ -30,6 +31,7 @@ namespace System.Reflection
         FieldInfo? GetField(string name, BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         FieldInfo[] GetFields(BindingFlags bindingAttr);
 
         // Return the property based upon name.  If more than one property has the given
@@ -46,14 +48,17 @@ namespace System.Reflection
         // Returns an array of PropertyInfos for all the properties defined on
         // the Reflection object.
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.NonPublicProperties)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         PropertyInfo[] GetProperties(BindingFlags bindingAttr);
 
         // Return an array of members which match the passed in name.
         [DynamicallyAccessedMembers(Type.GetAllMembers)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         MemberInfo[] GetMember(string name, BindingFlags bindingAttr);
 
         // Return an array of all of the members defined for this object.
         [DynamicallyAccessedMembers(Type.GetAllMembers)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         MemberInfo[] GetMembers(BindingFlags bindingAttr);
 
         // Description of the Binding Process.

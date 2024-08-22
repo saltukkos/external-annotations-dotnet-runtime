@@ -2638,6 +2638,7 @@ namespace System
         /// </summary>
         /// <param name="s">The string to convert</param>
         /// <returns>The array of bytes represented by the specified Base64 string.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] FromBase64String(string s)
         {
             // "s" is an unfortunate parameter name, but we need to keep it for backward compat.
@@ -2791,6 +2792,7 @@ namespace System
         /// <param name="offset">A position within the input array.</param>
         /// <param name="length">Number of element to convert.</param>
         /// <returns>The array of bytes represented by the specified Base64 encoding characters.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] FromBase64CharArray(char[] inArray, int offset, int length)
         {
             ArgumentNullException.ThrowIfNull(inArray);
@@ -2923,6 +2925,7 @@ namespace System
         /// <exception cref="ArgumentNullException"><paramref name="s"/> is <code>null</code>.</exception>
         /// <exception cref="FormatException">The length of <paramref name="s"/>, is not zero or a multiple of 2.</exception>
         /// <exception cref="FormatException">The format of <paramref name="s"/> is invalid. <paramref name="s"/> contains a non-hex character.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] FromHexString(string s)
         {
             if (s == null)
@@ -2940,6 +2943,7 @@ namespace System
         /// <returns>An array of 8-bit unsigned integers that is equivalent to <paramref name="chars"/>.</returns>
         /// <exception cref="FormatException">The length of <paramref name="chars"/>, is not zero or a multiple of 2.</exception>
         /// <exception cref="FormatException">The format of <paramref name="chars"/> is invalid. <paramref name="chars"/> contains a non-hex character.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] FromHexString(ReadOnlySpan<char> chars)
         {
             if (chars.Length == 0)

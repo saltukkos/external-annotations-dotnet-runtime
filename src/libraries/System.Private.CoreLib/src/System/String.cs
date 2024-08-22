@@ -458,6 +458,7 @@ namespace System
         }
 
         // Returns the entire string as an array of characters.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public char[] ToCharArray()
         {
             if (Length == 0)
@@ -475,6 +476,7 @@ namespace System
 
         // Returns a substring of this string as an array of characters.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public char[] ToCharArray(int startIndex, int length)
         {
             // Range check everything.

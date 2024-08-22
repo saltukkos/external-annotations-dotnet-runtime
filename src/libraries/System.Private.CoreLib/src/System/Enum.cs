@@ -218,6 +218,7 @@ namespace System
         /// <summary>Retrieves an array of the names of the constants in a specified enumeration type.</summary>
         /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
         /// <returns>A string array of the names of the constants in <typeparamref name="TEnum"/>.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetNames<TEnum>() where TEnum : struct, Enum
         {
             string[] names;
@@ -247,6 +248,7 @@ namespace System
         /// <returns>A string array of the names of the constants in <paramref name="enumType"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="enumType"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="enumType"/> is not an <see cref="Enum"/>.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetNames(Type enumType)
         {
             ArgumentNullException.ThrowIfNull(enumType);
@@ -289,6 +291,7 @@ namespace System
         /// <summary>Retrieves an array of the values of the constants in a specified enumeration type.</summary>
         /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
         /// <returns>An array that contains the values of the constants in <typeparamref name="TEnum"/>.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static TEnum[] GetValues<TEnum>() where TEnum : struct, Enum
         {
             Array values = GetValuesAsUnderlyingTypeNoCopy((RuntimeType)typeof(TEnum));

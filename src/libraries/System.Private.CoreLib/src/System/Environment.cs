@@ -89,6 +89,7 @@ namespace System
 #if !MONO
         internal static string[]? s_commandLineArgs;
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetCommandLineArgs()
         {
             // s_commandLineArgs is expected to be initialize with application command line arguments
