@@ -4,7 +4,6 @@
 // Changes to this file must follow the https://aka.ms/api-review process.
 // ------------------------------------------------------------------------------
 
-// ReSharper disable All -- this file is generated, no need to annotate
 namespace System
 {
     public partial class UriTypeConverter : System.ComponentModel.TypeConverter

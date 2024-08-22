@@ -304,7 +304,7 @@ namespace System.Collections.Concurrent
         /// <exception cref="System.ObjectDisposedException">The <see
         /// cref="System.Collections.Concurrent.BlockingCollection{T}"/> has been disposed.</exception>
         /// <exception cref="System.InvalidOperationException">The underlying collection didn't accept the item.</exception>
-        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // TODO R#: can user get any data using the return value?
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // note: it could be 'UpdatedContent', but judging by the side effects user can understand were there other writes or not
         public bool TryAdd(T item)
         {
             return TryAddWithNoTimeValidation(item, 0, CancellationToken.None);
