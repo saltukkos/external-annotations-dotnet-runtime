@@ -36,8 +36,10 @@ namespace System.Collections.ObjectModel
 
         protected IDictionary<TKey, TValue> Dictionary => m_dictionary;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyCollection Keys => _keys ??= new KeyCollection(m_dictionary.Keys);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public ValueCollection Values => _values ??= new ValueCollection(m_dictionary.Values);
 
         public bool ContainsKey(TKey key) => m_dictionary.ContainsKey(key);

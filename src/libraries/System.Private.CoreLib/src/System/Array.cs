@@ -72,6 +72,7 @@ namespace System
         }
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstance(Type elementType, int length)
         {
             ArgumentNullException.ThrowIfNull(elementType);
@@ -86,6 +87,7 @@ namespace System
 
         [UnconditionalSuppressMessage("AotAnalysis", "IL3050:RequiresDynamicCode",
             Justification = "MDArrays of Rank != 1 can be created because they don't implement generic interfaces.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstance(Type elementType, int length1, int length2)
         {
             ArgumentNullException.ThrowIfNull(elementType);
@@ -102,6 +104,7 @@ namespace System
 
         [UnconditionalSuppressMessage("AotAnalysis", "IL3050:RequiresDynamicCode",
             Justification = "MDArrays of Rank != 1 can be created because they don't implement generic interfaces.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstance(Type elementType, int length1, int length2, int length3)
         {
             ArgumentNullException.ThrowIfNull(elementType);
@@ -118,6 +121,7 @@ namespace System
         }
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstance(Type elementType, params int[] lengths)
         {
             ArgumentNullException.ThrowIfNull(elementType);
@@ -143,6 +147,7 @@ namespace System
         }
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstance(Type elementType, int[] lengths, int[] lowerBounds)
         {
             ArgumentNullException.ThrowIfNull(elementType);
@@ -172,6 +177,7 @@ namespace System
         }
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Array CreateInstance(Type elementType, params long[] lengths)
         {
             ArgumentNullException.ThrowIfNull(lengths);
@@ -204,6 +210,7 @@ namespace System
         /// </exception>
         /// <remarks>When the array type is readily available, this method should be preferred over <see cref="CreateInstance(Type, int)"/>, as it has
         /// better performance and it is AOT-friendly.</remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstanceFromArrayType(Type arrayType, int length)
         {
             ArgumentNullException.ThrowIfNull(arrayType);
@@ -241,6 +248,7 @@ namespace System
         /// </exception>
         /// <remarks>When the array type is readily available, this method should be preferred over <see cref="CreateInstance(Type, int[])"/>, as it has
         /// better performance and it is AOT-friendly.</remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstanceFromArrayType(Type arrayType, params int[] lengths)
         {
             ArgumentNullException.ThrowIfNull(arrayType);
@@ -293,6 +301,7 @@ namespace System
         /// <exception cref="PlatformNotSupportedException">Native AOT: any value in <paramref name="lowerBounds"/> is different than zero.</exception>
         /// <remarks>When the array type is readily available, this method should be preferred over <see cref="CreateInstance(Type, int[], int[])"/>, as it has
         /// better performance and it is AOT-friendly.</remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe Array CreateInstanceFromArrayType(Type arrayType, int[] lengths, int[] lowerBounds)
         {
             ArgumentNullException.ThrowIfNull(arrayType);
@@ -421,6 +430,7 @@ namespace System
 #endif
 
         // The various Get values...
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(params int[] indices)
         {
             if (indices == null)
@@ -431,6 +441,7 @@ namespace System
             return InternalGetValue(GetFlattenedIndex(indices));
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(int index)
         {
             if (Rank != 1)
@@ -439,6 +450,7 @@ namespace System
             return InternalGetValue(GetFlattenedIndex(index));
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(int index1, int index2)
         {
             if (Rank != 2)
@@ -447,6 +459,7 @@ namespace System
             return InternalGetValue(GetFlattenedIndex([index1, index2]));
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(int index1, int index2, int index3)
         {
             if (Rank != 3)
@@ -455,6 +468,7 @@ namespace System
             return InternalGetValue(GetFlattenedIndex([index1, index2, index3]));
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, int index)
         {
             if (Rank != 1)
@@ -463,6 +477,7 @@ namespace System
             InternalSetValue(value, GetFlattenedIndex(index));
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, int index1, int index2)
         {
             if (Rank != 2)
@@ -471,6 +486,7 @@ namespace System
             InternalSetValue(value, GetFlattenedIndex([index1, index2]));
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, int index1, int index2, int index3)
         {
             if (Rank != 3)
@@ -479,6 +495,7 @@ namespace System
             InternalSetValue(value, GetFlattenedIndex([index1, index2, index3]));
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, params int[] indices)
         {
             if (indices == null)
@@ -489,6 +506,7 @@ namespace System
             InternalSetValue(value, GetFlattenedIndex(indices));
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(long index)
         {
             int iindex = (int)index;
@@ -498,6 +516,7 @@ namespace System
             return this.GetValue(iindex);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(long index1, long index2)
         {
             int iindex1 = (int)index1;
@@ -511,6 +530,7 @@ namespace System
             return this.GetValue(iindex1, iindex2);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(long index1, long index2, long index3)
         {
             int iindex1 = (int)index1;
@@ -527,6 +547,7 @@ namespace System
             return this.GetValue(iindex1, iindex2, iindex3);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public object? GetValue(params long[] indices)
         {
             if (indices == null)
@@ -548,6 +569,7 @@ namespace System
             return this.GetValue(intIndices);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, long index)
         {
             int iindex = (int)index;
@@ -558,6 +580,7 @@ namespace System
             this.SetValue(value, iindex);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, long index1, long index2)
         {
             int iindex1 = (int)index1;
@@ -571,6 +594,7 @@ namespace System
             this.SetValue(value, iindex1, iindex2);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, long index1, long index2, long index3)
         {
             int iindex1 = (int)index1;
@@ -587,6 +611,7 @@ namespace System
             this.SetValue(value, iindex1, iindex2, iindex3);
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void SetValue(object? value, params long[] indices)
         {
             if (indices == null)
@@ -616,6 +641,7 @@ namespace System
             return low + ((hi - low) >> 1);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public long GetLongLength(int dimension)
         {
             // This method should throw an IndexOufOfRangeException for compat if dimension < 0 or >= Rank
@@ -1021,6 +1047,7 @@ namespace System
             return ArraySortHelper<T>.Default.BinarySearch(array, index, length, value, comparer);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static TOutput[] ConvertAll<TInput, TOutput>(TInput[] array, Converter<TInput, TOutput> converter)
         {
             if (array == null)
@@ -1056,6 +1083,7 @@ namespace System
             Copy(this, GetLowerBound(0), array!, index, Length);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(Array array, long index)
         {
             int iindex = (int)index;
@@ -1072,6 +1100,7 @@ namespace System
 #pragma warning restore CA1825
         }
 
+        [return: CollectionAccess(CollectionAccessType.None)] //note: since it's empty, no reason to read from it. Let's see if there are any false-positives because of this
         public static T[] Empty<T>()
         {
             return EmptyArray<T>.Value;
@@ -1155,6 +1184,7 @@ namespace System
             return default;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static T[] FindAll<T>(T[] array, Predicate<T> match)
         {
             if (array == null)

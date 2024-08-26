@@ -40,6 +40,7 @@ namespace System.Collections
             get { return (IList)this; }
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity
         {
             get

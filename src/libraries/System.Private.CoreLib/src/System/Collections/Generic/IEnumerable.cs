@@ -16,6 +16,7 @@ namespace System.Collections.Generic
 #if MONO
         [DynamicDependency(nameof(Array.InternalArray__IEnumerable_GetEnumerator) + "``1 ", typeof(Array))]
 #endif
+        [CollectionAccess(CollectionAccessType.Read)]
         new IEnumerator<T> GetEnumerator();
     }
 }

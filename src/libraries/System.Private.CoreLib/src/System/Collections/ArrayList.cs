@@ -68,6 +68,7 @@ namespace System.Collections
         // the internal array used to hold items.  When set, the internal
         // array of the list is reallocated to the given capacity.
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public virtual int Capacity
         {
             get => _items.Length;
@@ -139,6 +140,7 @@ namespace System.Collections
         // However, since these methods are generic, the performance may not be
         // nearly as good for some operations as they would be on the IList itself.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static ArrayList Adapter(IList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -162,6 +164,7 @@ namespace System.Collections
         // required, the capacity of the list is increased to twice the previous
         // capacity or the new size, whichever is larger.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void AddRange(ICollection c)
         {
             InsertRange(_size, c);
@@ -187,6 +190,7 @@ namespace System.Collections
         // The method uses the Array.BinarySearch method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int BinarySearch(int index, int count, object? value, IComparer? comparer)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -197,11 +201,13 @@ namespace System.Collections
             return Array.BinarySearch((Array)_items, index, count, value, comparer);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int BinarySearch(object? value)
         {
             return BinarySearch(0, Count, value, null);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int BinarySearch(object? value, IComparer? comparer)
         {
             return BinarySearch(0, Count, value, comparer);
@@ -241,6 +247,7 @@ namespace System.Collections
         // Copies this ArrayList into array, which must be of a
         // compatible array type.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual void CopyTo(Array array) => CopyTo(array, 0);
 
         // Copies this ArrayList into array, which must be of a
@@ -259,6 +266,7 @@ namespace System.Collections
         //
         // The method uses the Array.Copy method to copy the elements.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual void CopyTo(int index, Array array, int arrayIndex, int count)
         {
             if (_size - index < count)
@@ -290,6 +298,7 @@ namespace System.Collections
         // Returns a list wrapper that is fixed at the current size.  Operations
         // that add or remove items will fail, however, replacing items is allowed.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //TODO: error, return updated content, but modify for list parameter
         public static IList FixedSize(IList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -300,6 +309,7 @@ namespace System.Collections
         // Returns a list wrapper that is fixed at the current size.  Operations
         // that add or remove items will fail, however, replacing items is allowed.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static ArrayList FixedSize(ArrayList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -322,6 +332,7 @@ namespace System.Collections
         // while an enumeration is in progress, the MoveNext and
         // GetObject methods of the enumerator will throw an exception.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual IEnumerator GetEnumerator(int index, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -353,6 +364,7 @@ namespace System.Collections
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int IndexOf(object? value, int startIndex)
         {
             if (startIndex > _size)
@@ -369,6 +381,7 @@ namespace System.Collections
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int IndexOf(object? value, int startIndex, int count)
         {
             if (startIndex > _size)
@@ -401,6 +414,7 @@ namespace System.Collections
         // capacity or the new size, whichever is larger.  Ranges may be added
         // to the end of the list by setting index to the ArrayList's size.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void InsertRange(int index, ICollection c)
         {
             ArgumentNullException.ThrowIfNull(c);
@@ -433,6 +447,7 @@ namespace System.Collections
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int LastIndexOf(object? value)
         {
             return LastIndexOf(value, _size - 1, _size);
@@ -447,6 +462,7 @@ namespace System.Collections
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int LastIndexOf(object? value, int startIndex)
         {
             if (startIndex >= _size)
@@ -463,6 +479,7 @@ namespace System.Collections
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int LastIndexOf(object? value, int startIndex, int count)
         {
             if (Count != 0)
@@ -482,6 +499,7 @@ namespace System.Collections
 
         // Returns a read-only IList wrapper for the given IList.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static IList ReadOnly(IList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -491,6 +509,7 @@ namespace System.Collections
 
         // Returns a read-only ArrayList wrapper for the given ArrayList.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static ArrayList ReadOnly(ArrayList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -526,6 +545,7 @@ namespace System.Collections
 
         // Removes a range of elements from this list.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void RemoveRange(int index, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -548,6 +568,7 @@ namespace System.Collections
 
         // Returns an IList that contains count copies of value.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static ArrayList Repeat(object? value, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -559,6 +580,7 @@ namespace System.Collections
         }
 
         // Reverses the elements in this list.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Reverse()
         {
             Reverse(0, Count);
@@ -572,6 +594,7 @@ namespace System.Collections
         // This method uses the Array.Reverse method to reverse the
         // elements.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Reverse(int index, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -586,6 +609,7 @@ namespace System.Collections
         // Sets the elements starting at the given index to the elements of the
         // given collection.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void SetRange(int index, ICollection c)
         {
             ArgumentNullException.ThrowIfNull(c);
@@ -600,6 +624,8 @@ namespace System.Collections
             }
         }
 
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public virtual ArrayList GetRange(int index, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -611,6 +637,7 @@ namespace System.Collections
 
         // Sorts the elements in this list.  Uses the default comparer and
         // Array.Sort.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Sort()
         {
             Sort(0, Count, Comparer.Default);
@@ -618,6 +645,7 @@ namespace System.Collections
 
         // Sorts the elements in this list.  Uses Array.Sort with the
         // provided comparer.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Sort(IComparer? comparer)
         {
             Sort(0, Count, comparer);
@@ -631,6 +659,7 @@ namespace System.Collections
         //
         // This method uses the Array.Sort method to sort the elements.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Sort(int index, int count, IComparer? comparer)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -644,6 +673,7 @@ namespace System.Collections
 
         // Returns a thread-safe wrapper around an IList.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static IList Synchronized(IList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -653,6 +683,7 @@ namespace System.Collections
 
         // Returns a thread-safe wrapper around a ArrayList.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static ArrayList Synchronized(ArrayList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -662,6 +693,8 @@ namespace System.Collections
 
         // ToArray returns a new Object array containing the contents of the ArrayList.
         // This requires copying the ArrayList, which is an O(n) operation.
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual object?[] ToArray()
         {
             if (_size == 0)
@@ -678,6 +711,8 @@ namespace System.Collections
         // Internally, this implementation calls Array.Copy.
         //
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Array ToArray(Type type)
         {
             ArgumentNullException.ThrowIfNull(type);
@@ -696,6 +731,7 @@ namespace System.Collections
         // list.Clear();
         // list.TrimToSize();
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public virtual void TrimToSize()
         {
             Capacity = _size;

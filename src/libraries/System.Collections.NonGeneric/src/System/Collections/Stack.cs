@@ -75,6 +75,7 @@ namespace System.Collections
         public virtual object SyncRoot => this;
 
         // Removes all Objects from the Stack.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Clear()
         {
             Array.Clear(_array, 0, _size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
@@ -91,6 +92,7 @@ namespace System.Collections
             return s;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool Contains(object? obj)
         {
             int count = _size;
@@ -149,6 +151,7 @@ namespace System.Collections
 
         // Returns the top object on the stack without removing it.  If the stack
         // is empty, Peek throws an InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual object? Peek()
         {
             if (_size == 0)
@@ -159,6 +162,7 @@ namespace System.Collections
 
         // Pops an item from the top of the stack.  If the stack is empty, Pop
         // throws an InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public virtual object? Pop()
         {
             if (_size == 0)
@@ -172,6 +176,7 @@ namespace System.Collections
 
         // Pushes an item to the top of the stack.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void Push(object? obj)
         {
             if (_size == _array.Length)
@@ -186,6 +191,7 @@ namespace System.Collections
 
         // Returns a synchronized Stack.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static Stack Synchronized(Stack stack)
         {
             ArgumentNullException.ThrowIfNull(stack);
@@ -195,6 +201,8 @@ namespace System.Collections
 
 
         // Copies the Stack to an array, in the same order Pop would return the items.
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual object?[] ToArray()
         {
             if (_size == 0)

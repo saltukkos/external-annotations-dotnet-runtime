@@ -158,6 +158,7 @@ namespace System.Buffers.Text
         /// <returns>>A byte array which contains the result of the decoding operation.</returns>
         /// <exception cref="FormatException"><paramref name="source"/> contains an invalid Base64Url character,
         /// more than two padding characters, or a non white space character among the padding characters.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] DecodeFromUtf8(ReadOnlySpan<byte> source)
         {
             int upperBound = GetMaxDecodedLength(source.Length);
@@ -374,6 +375,7 @@ namespace System.Buffers.Text
         /// <returns>A byte array which contains the result of the decoding operation.</returns>
         /// <exception cref="FormatException"><paramref name="source"/> contains a invalid Base64Url character,
         /// more than two padding characters, or a non white space character among the padding characters.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] DecodeFromChars(ReadOnlySpan<char> source)
         {
             int upperBound = GetMaxDecodedLength(source.Length);

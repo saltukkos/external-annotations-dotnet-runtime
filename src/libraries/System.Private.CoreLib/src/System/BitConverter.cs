@@ -29,6 +29,7 @@ namespace System
         /// </summary>
         /// <param name="value">A Boolean value.</param>
         /// <returns>A byte array with length 1.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(bool value)
         {
             byte[] r = new byte[1];
@@ -56,6 +57,7 @@ namespace System
         /// </summary>
         /// <param name="value">A Char value.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(char value)
         {
             byte[] bytes = new byte[sizeof(char)];
@@ -83,6 +85,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(short value)
         {
             byte[] bytes = new byte[sizeof(short)];
@@ -110,6 +113,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(int value)
         {
             byte[] bytes = new byte[sizeof(int)];
@@ -137,6 +141,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(long value)
         {
             byte[] bytes = new byte[sizeof(long)];
@@ -164,6 +169,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 16.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(Int128 value)
         {
             byte[] bytes = new byte[Int128.Size];
@@ -192,6 +198,7 @@ namespace System
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
         [CLSCompliant(false)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(ushort value)
         {
             byte[] bytes = new byte[sizeof(ushort)];
@@ -221,6 +228,7 @@ namespace System
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
         [CLSCompliant(false)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(uint value)
         {
             byte[] bytes = new byte[sizeof(uint)];
@@ -250,6 +258,7 @@ namespace System
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
         [CLSCompliant(false)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(ulong value)
         {
             byte[] bytes = new byte[sizeof(ulong)];
@@ -279,6 +288,7 @@ namespace System
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 16.</returns>
         [CLSCompliant(false)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(UInt128 value)
         {
             byte[] bytes = new byte[UInt128.Size];
@@ -307,6 +317,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static unsafe byte[] GetBytes(Half value)
         {
             byte[] bytes = new byte[sizeof(Half)];
@@ -334,6 +345,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(float value)
         {
             byte[] bytes = new byte[sizeof(float)];
@@ -361,6 +373,7 @@ namespace System
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(double value)
         {
             byte[] bytes = new byte[sizeof(double)];

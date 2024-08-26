@@ -5,6 +5,7 @@ namespace System.Runtime.Serialization
 {
     public interface IDeserializationCallback
     {
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         void OnDeserialization(object? sender);
     }
 }

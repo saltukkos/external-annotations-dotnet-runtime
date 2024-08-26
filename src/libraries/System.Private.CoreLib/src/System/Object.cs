@@ -36,6 +36,7 @@ namespace System
 
         /// <summary>Returns a string that represents the current object.</summary>
         /// <returns>A string that represents the current object.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual string? ToString()
         {
             // The default for an object is to return the fully qualified name of the class.
@@ -45,6 +46,7 @@ namespace System
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
         /// <param name="obj">The object to compare with the current object.</param>
         /// <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool Equals(object? obj)
         {
             return this == obj;
@@ -71,6 +73,7 @@ namespace System
 
         /// <summary>Serves as the default hash function.</summary>
         /// <returns>A hash code for the current object.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int GetHashCode()
         {
             // GetHashCode is intended to serve as a hash function for this object.

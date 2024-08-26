@@ -373,6 +373,7 @@ namespace System.Net
         }
 
         [return: NotNullIfNotNull(nameof(value))]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[]? UrlEncodeToBytes(byte[]? value, int offset, int count)
         {
             if (!ValidateUrlEncodingParameters(value, offset, count))
@@ -561,6 +562,7 @@ namespace System.Net
         }
 
         [return: NotNullIfNotNull(nameof(encodedValue))]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[]? UrlDecodeToBytes(byte[]? encodedValue, int offset, int count)
         {
             return UrlDecodeInternal(encodedValue, offset, count);

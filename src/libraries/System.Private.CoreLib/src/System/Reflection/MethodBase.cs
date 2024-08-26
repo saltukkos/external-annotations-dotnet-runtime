@@ -16,6 +16,7 @@ namespace System.Reflection
 
         protected MethodBase() { }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract ParameterInfo[] GetParameters();
         public abstract MethodAttributes Attributes { get; }
         public virtual MethodImplAttributes MethodImplementationFlags => GetMethodImplementationFlags();
@@ -48,6 +49,8 @@ namespace System.Reflection
         public virtual bool IsConstructedGenericMethod => IsGenericMethod && !IsGenericMethodDefinition;
         public virtual bool IsGenericMethod => false;
         public virtual bool IsGenericMethodDefinition => false;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // note: changes could be observed
         public virtual Type[] GetGenericArguments() { throw new NotSupportedException(SR.NotSupported_SubclassOverride); }
         public virtual bool ContainsGenericParameters => false;
 

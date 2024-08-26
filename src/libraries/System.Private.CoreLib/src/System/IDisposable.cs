@@ -54,6 +54,7 @@ namespace System
     // since you cannot solve this problem correctly.
     public interface IDisposable
     {
+        [CollectionAccess(CollectionAccessType.None)]
         void Dispose();
     }
 }

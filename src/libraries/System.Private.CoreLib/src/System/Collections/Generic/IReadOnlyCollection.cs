@@ -10,6 +10,7 @@ namespace System.Collections.Generic
     // Provides a read-only, covariant view of a generic list.
     public interface IReadOnlyCollection<out T> : IEnumerable<T>
     {
+        [CollectionAccess(CollectionAccessType.Read)]
         int Count
         {
 #if MONO

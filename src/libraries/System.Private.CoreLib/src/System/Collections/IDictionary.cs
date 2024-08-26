@@ -14,33 +14,42 @@ namespace System.Collections
         // in the Dictionary.
         object? this[object key]
         {
-            get;
-            set;
+            [CollectionAccess(CollectionAccessType.Read)] get;
+            [CollectionAccess(CollectionAccessType.UpdatedContent)] set;
         }
 
         // Returns a collections of the keys in this dictionary.
+        [CollectionAccess(CollectionAccessType.Read)]
         ICollection Keys { get; }
 
         // Returns a collections of the values in this dictionary.
+        [CollectionAccess(CollectionAccessType.Read)]
         ICollection Values { get; }
 
         // Returns whether this dictionary contains a particular key.
+        [CollectionAccess(CollectionAccessType.Read)]
         bool Contains(object key);
 
         // Adds a key-value pair to the dictionary.
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         void Add(object key, object? value);
 
         // Removes all pairs from the dictionary.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         void Clear();
 
+        [CollectionAccess(CollectionAccessType.None)]
         bool IsReadOnly { get; }
 
+        [CollectionAccess(CollectionAccessType.None)]
         bool IsFixedSize { get; }
 
         // Returns an IDictionaryEnumerator for this dictionary.
+        [CollectionAccess(CollectionAccessType.Read)]
         new IDictionaryEnumerator GetEnumerator();
 
         // Removes a particular key from the dictionary.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         void Remove(object key);
     }
 }

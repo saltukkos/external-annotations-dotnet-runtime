@@ -76,13 +76,20 @@ namespace System
 
         public virtual Type GetGenericTypeDefinition() => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
         public virtual Type[] GenericTypeArguments => (IsGenericType && !IsGenericTypeDefinition) ? GetGenericArguments() : EmptyTypes;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetGenericArguments() => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetOptionalCustomModifiers() => EmptyTypes;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetRequiredCustomModifiers() => EmptyTypes;
 
         public virtual int GenericParameterPosition => throw new InvalidOperationException(SR.Arg_NotGenericParameter);
         public virtual GenericParameterAttributes GenericParameterAttributes => throw new NotSupportedException();
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetGenericParameterConstraints()
         {
             if (!IsGenericParameter)
@@ -198,9 +205,11 @@ namespace System
         protected abstract ConstructorInfo? GetConstructorImpl(BindingFlags bindingAttr, Binder? binder, CallingConventions callConvention, Type[] types, ParameterModifier[]? modifiers);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public ConstructorInfo[] GetConstructors() => GetConstructors(BindingFlags.Public | BindingFlags.Instance);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract ConstructorInfo[] GetConstructors(BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)]
@@ -210,9 +219,11 @@ namespace System
         public abstract EventInfo? GetEvent(string name, BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual EventInfo[] GetEvents() => GetEvents(DefaultLookup);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents | DynamicallyAccessedMemberTypes.NonPublicEvents)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract EventInfo[] GetEvents(BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]
@@ -222,13 +233,17 @@ namespace System
         public abstract FieldInfo? GetField(string name, BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FieldInfo[] GetFields() => GetFields(DefaultLookup);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicFields)]
         public abstract FieldInfo[] GetFields(BindingFlags bindingAttr);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetFunctionPointerCallingConventions() => throw new NotSupportedException();
         public virtual Type GetFunctionPointerReturnType() => throw new NotSupportedException();
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetFunctionPointerParameterTypes() => throw new NotSupportedException();
 
         [DynamicallyAccessedMembers(
@@ -238,12 +253,14 @@ namespace System
             DynamicallyAccessedMemberTypes.PublicProperties |
             DynamicallyAccessedMemberTypes.PublicConstructors |
             DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MemberInfo[] GetMember(string name) => GetMember(name, DefaultLookup);
 
         [DynamicallyAccessedMembers(GetAllMembers)]
         public virtual MemberInfo[] GetMember(string name, BindingFlags bindingAttr) => GetMember(name, MemberTypes.All, bindingAttr);
 
         [DynamicallyAccessedMembers(GetAllMembers)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual MemberInfo[] GetMember(string name, MemberTypes type, BindingFlags bindingAttr) => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
 
         [DynamicallyAccessedMembers(
@@ -253,6 +270,7 @@ namespace System
             DynamicallyAccessedMemberTypes.PublicProperties |
             DynamicallyAccessedMemberTypes.PublicConstructors |
             DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MemberInfo[] GetMembers() => GetMembers(DefaultLookup);
 
         /// <summary>
@@ -373,6 +391,7 @@ namespace System
         protected virtual MethodInfo? GetMethodImpl(string name, int genericParameterCount, BindingFlags bindingAttr, Binder? binder, CallingConventions callConvention, Type[]? types, ParameterModifier[]? modifiers) => throw new NotSupportedException();
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MethodInfo[] GetMethods() => GetMethods(DefaultLookup);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.NonPublicMethods)]
@@ -385,9 +404,11 @@ namespace System
         public abstract Type? GetNestedType(string name, BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Type[] GetNestedTypes() => GetNestedTypes(DefaultLookup);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicNestedTypes | DynamicallyAccessedMemberTypes.NonPublicNestedTypes)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract Type[] GetNestedTypes(BindingFlags bindingAttr);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
@@ -433,6 +454,7 @@ namespace System
         protected abstract PropertyInfo? GetPropertyImpl(string name, BindingFlags bindingAttr, Binder? binder, Type? returnType, Type[]? types, ParameterModifier[]? modifiers);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public PropertyInfo[] GetProperties() => GetProperties(DefaultLookup);
 
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.NonPublicProperties)]
@@ -445,6 +467,7 @@ namespace System
             | DynamicallyAccessedMemberTypes.PublicProperties
             | DynamicallyAccessedMemberTypes.PublicConstructors
             | DynamicallyAccessedMemberTypes.PublicNestedTypes)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual MemberInfo[] GetDefaultMembers() => throw NotImplemented.ByDesign;
 
         public virtual RuntimeTypeHandle TypeHandle
@@ -460,6 +483,7 @@ namespace System
             return o.GetType().TypeHandle;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Type[] GetTypeArray(object[] args)
         {
             ArgumentNullException.ThrowIfNull(args);
@@ -578,6 +602,7 @@ namespace System
         [return: DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)]
         public abstract Type? GetInterface(string name, bool ignoreCase);
         [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract Type[] GetInterfaces();
 
         public virtual InterfaceMapping GetInterfaceMap([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.NonPublicMethods)] Type interfaceType) => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
@@ -601,6 +626,7 @@ namespace System
         }
 
         [RequiresDynamicCode("It might not be possible to create an array of the enum type at runtime. Use Enum.GetValues<T> or the GetEnumValuesAsUnderlyingType method instead.")]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Array GetEnumValues()
         {
             if (!IsEnum)
@@ -620,6 +646,7 @@ namespace System
         /// </remarks>
         /// <returns>An array that contains the values of the underlying type constants in this enumeration type.</returns>
         /// <exception cref="T:System.ArgumentException">This type is not an enumeration type.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Array GetEnumValuesAsUnderlyingType() => throw new NotSupportedException(SR.NotSupported_SubclassOverride);
 
         [RequiresDynamicCode("The code for an array of the specified type might not be available.")]

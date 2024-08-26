@@ -423,6 +423,7 @@ namespace System
         /// necessary to bridge the gap with APIs written in terms of arrays.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_length == 0)

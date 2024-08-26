@@ -27,12 +27,14 @@ namespace System.Collections.Immutable
         /// A <see cref="ImmutableList{T}"/> of the target type containing the converted
         /// elements from the current <see cref="ImmutableList{T}"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         ImmutableList<TOutput> ConvertAll<TOutput>(Func<T, TOutput> converter);
 
         /// <summary>
         /// Performs the specified action on each element of the list.
         /// </summary>
         /// <param name="action">The <see cref="Action{T}"/> delegate to perform on each element of the list.</param>
+        [CollectionAccess(CollectionAccessType.Read)]
         void ForEach(Action<T> action);
 
         /// <summary>
@@ -48,6 +50,7 @@ namespace System.Collections.Immutable
         /// <returns>
         /// A shallow copy of a range of elements in the source <see cref="ImmutableList{T}"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         ImmutableList<T> GetRange(int index, int count);
 
         /// <summary>
@@ -59,6 +62,7 @@ namespace System.Collections.Immutable
         /// copied from <see cref="ImmutableList{T}"/>. The <see cref="Array"/> must have
         /// zero-based indexing.
         /// </param>
+        [CollectionAccess(CollectionAccessType.Read)]
         void CopyTo(T[] array);
 
         /// <summary>
@@ -73,6 +77,7 @@ namespace System.Collections.Immutable
         /// <param name="arrayIndex">
         /// The zero-based index in <paramref name="array"/> at which copying begins.
         /// </param>
+        [CollectionAccess(CollectionAccessType.Read)]
         void CopyTo(T[] array, int arrayIndex);
 
         /// <summary>
@@ -91,6 +96,7 @@ namespace System.Collections.Immutable
         /// </param>
         /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
         /// <param name="count">The number of elements to copy.</param>
+        [CollectionAccess(CollectionAccessType.Read)]
         void CopyTo(int index, T[] array, int arrayIndex, int count);
 
         /// <summary>
@@ -106,6 +112,7 @@ namespace System.Collections.Immutable
         /// that match the conditions defined by the specified predicate; otherwise,
         /// false.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         bool Exists(Predicate<T> match);
 
         /// <summary>
@@ -120,6 +127,7 @@ namespace System.Collections.Immutable
         /// The first element that matches the conditions defined by the specified predicate,
         /// if found; otherwise, the default value for type <typeparamref name="T"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         T? Find(Predicate<T> match);
 
         /// <summary>
@@ -135,6 +143,7 @@ namespace System.Collections.Immutable
         /// the conditions defined by the specified predicate, if found; otherwise, an
         /// empty <see cref="ImmutableList{T}"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         ImmutableList<T> FindAll(Predicate<T> match);
 
         /// <summary>
@@ -150,6 +159,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the first occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindIndex(Predicate<T> match);
 
         /// <summary>
@@ -164,6 +174,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the first occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindIndex(int startIndex, Predicate<T> match);
 
         /// <summary>
@@ -179,6 +190,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the first occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindIndex(int startIndex, int count, Predicate<T> match);
 
         /// <summary>
@@ -193,6 +205,7 @@ namespace System.Collections.Immutable
         /// The last element that matches the conditions defined by the specified predicate,
         /// if found; otherwise, the default value for type <typeparamref name="T"/>.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         T? FindLast(Predicate<T> match);
 
         /// <summary>
@@ -208,6 +221,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the last occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindLastIndex(Predicate<T> match);
 
         /// <summary>
@@ -223,6 +237,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the last occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindLastIndex(int startIndex, Predicate<T> match);
 
         /// <summary>
@@ -241,6 +256,7 @@ namespace System.Collections.Immutable
         /// The zero-based index of the last occurrence of an element that matches the
         /// conditions defined by <paramref name="match"/>, if found; otherwise, -1.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         int FindLastIndex(int startIndex, int count, Predicate<T> match);
 
         /// <summary>
@@ -256,6 +272,7 @@ namespace System.Collections.Immutable
         /// conditions defined by the specified predicate; otherwise, false. If the list
         /// has no elements, the return value is true.
         /// </returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         bool TrueForAll(Predicate<T> match);
 
         /// <summary>
@@ -274,6 +291,7 @@ namespace System.Collections.Immutable
         /// find an implementation of the <see cref="IComparable{T}"/> generic interface or
         /// the <see cref="IComparable"/> interface for type <typeparamref name="T"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         int BinarySearch(T item);
 
         /// <summary>
@@ -296,6 +314,7 @@ namespace System.Collections.Immutable
         /// cannot find an implementation of the <see cref="IComparable{T}"/> generic interface
         /// or the <see cref="IComparable"/> interface for type <typeparamref name="T"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         int BinarySearch(T item, IComparer<T>? comparer);
 
         /// <summary>
@@ -327,6 +346,7 @@ namespace System.Collections.Immutable
         /// cannot find an implementation of the <see cref="IComparable{T}"/> generic interface
         /// or the <see cref="IComparable"/> interface for type <typeparamref name="T"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.Read)]
         int BinarySearch(int index, int count, T item, IComparer<T>? comparer);
     }
 }

@@ -1938,6 +1938,7 @@ namespace System
         // Returns a string array containing all of the known date and time options for the
         // current culture.  The strings returned are properly formatted date and
         // time strings for the current instance of DateTime.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetDateTimeFormats()
         {
             return GetDateTimeFormats(CultureInfo.CurrentCulture);
@@ -1946,6 +1947,7 @@ namespace System
         // Returns a string array containing all of the known date and time options for the
         // using the information provided by IFormatProvider.  The strings returned are properly formatted date and
         // time strings for the current instance of DateTime.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetDateTimeFormats(IFormatProvider? provider)
         {
             return DateTimeFormat.GetAllDateTimes(this, DateTimeFormatInfo.GetInstance(provider));
@@ -1954,6 +1956,7 @@ namespace System
         // Returns a string array containing all of the date and time options for the
         // given format format and current culture.  The strings returned are properly formatted date and
         // time strings for the current instance of DateTime.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetDateTimeFormats(char format)
         {
             return GetDateTimeFormats(format, CultureInfo.CurrentCulture);
@@ -1962,6 +1965,7 @@ namespace System
         // Returns a string array containing all of the date and time options for the
         // given format format and given culture.  The strings returned are properly formatted date and
         // time strings for the current instance of DateTime.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetDateTimeFormats(char format, IFormatProvider? provider)
         {
             return DateTimeFormat.GetAllDateTimes(this, format, DateTimeFormatInfo.GetInstance(provider));

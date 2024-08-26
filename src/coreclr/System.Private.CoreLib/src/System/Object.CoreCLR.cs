@@ -11,6 +11,7 @@ namespace System
         // Returns a Type object which represent this object instance.
         [Intrinsic]
         [MethodImpl(MethodImplOptions.InternalCall)]
+        [CollectionAccess(CollectionAccessType.None)]
         public extern Type GetType();
 
         // Returns a new object instance that is a memberwise copy of this

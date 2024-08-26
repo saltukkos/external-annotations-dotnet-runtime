@@ -14,6 +14,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Gets the comparer used to sort keys.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         IComparer<TKey> KeyComparer { get; }
     }
 }

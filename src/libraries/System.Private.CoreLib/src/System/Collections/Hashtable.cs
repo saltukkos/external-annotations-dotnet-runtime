@@ -474,6 +474,7 @@ namespace System.Collections
         // Checks if this hashtable contains an entry with the given key.  This is
         // an O(1) operation.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool ContainsKey(object key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -506,6 +507,7 @@ namespace System.Collections
         // search and is thus be substantially slower than the ContainsKey
         // method.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool ContainsValue(object? value)
         {
             if (value == null)
@@ -1013,6 +1015,7 @@ namespace System.Collections
 
         // Returns a thread-safe wrapper for a Hashtable.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static Hashtable Synchronized(Hashtable table)
         {
             ArgumentNullException.ThrowIfNull(table);

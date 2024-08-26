@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+// ReSharper disable CollectionAccessAnnotationMissing --it's obsolete
 
 namespace System.Runtime.CompilerServices
 {

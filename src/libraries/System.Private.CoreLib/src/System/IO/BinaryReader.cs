@@ -390,6 +390,7 @@ namespace System.IO
             return totalCharsRead;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual char[] ReadChars(int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -431,6 +432,7 @@ namespace System.IO
             return _stream.Read(buffer);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] ReadBytes(int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(count);

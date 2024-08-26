@@ -186,6 +186,7 @@ namespace System.Collections
         // of entries the list can contain before a reallocation of the internal
         // arrays is required.
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public virtual int Capacity
         {
             get
@@ -313,6 +314,7 @@ namespace System.Collections
 
         // Checks if this sorted list contains an entry with the given key.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool ContainsKey(object key)
         {
             // Yes, this is a SPEC'ed duplicate of Contains().
@@ -325,6 +327,7 @@ namespace System.Collections
         // search and is substantially slower than the Contains
         // method.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool ContainsValue(object? value)
         {
             return IndexOfValue(value) >= 0;
@@ -378,6 +381,7 @@ namespace System.Collections
 
         // Returns the value of the entry at the given index.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual object? GetByIndex(int index)
         {
             if (index < 0 || index >= Count)
@@ -407,6 +411,7 @@ namespace System.Collections
 
         // Returns the key of the entry at the given index.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual object GetKey(int index)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
@@ -425,6 +430,8 @@ namespace System.Collections
         // Remove and RemoveRange methods or through an enumerator).
         // Null is an invalid key value.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)] //NOTE: it's 'ModifyExistingContent', not 'UpdatedContent' since returned list does not support adding
         public virtual IList GetKeyList() => keyList ??= new KeyList(this);
 
         // Returns an IList representing the values of this sorted list. The
@@ -438,6 +445,8 @@ namespace System.Collections
         // elements (through the Remove, RemoveRange, Set and
         // SetRange methods or through an enumerator).
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)] //NOTE: it's 'ModifyExistingContent', not 'UpdatedContent' since returned list does not support adding
         public virtual IList GetValueList() => valueList ??= new ValueList(this);
 
         // Returns the value associated with the given key. If an entry with the
@@ -472,6 +481,7 @@ namespace System.Collections
         // the given key does not occur in this sorted list. Null is an invalid
         // key value.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int IndexOfKey(object key)
         {
             ArgumentNullException.ThrowIfNull(key);
@@ -486,6 +496,7 @@ namespace System.Collections
         // size of this sorted list. The elements of the list are compared to the
         // given value using the Object.Equals method.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual int IndexOfValue(object? value)
         {
             return Array.IndexOf(values, value, 0, _size);
@@ -509,6 +520,7 @@ namespace System.Collections
         // Removes the entry at the given index. The size of the sorted list is
         // decreased by one.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void RemoveAt(int index)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
@@ -537,6 +549,7 @@ namespace System.Collections
         // Sets the value at an index to a given value.  The previous value of
         // the given entry is overwritten.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void SetByIndex(int index, object? value)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException(nameof(index), SR.ArgumentOutOfRange_IndexMustBeLess);
@@ -546,6 +559,7 @@ namespace System.Collections
 
         // Returns a thread-safe SortedList.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static SortedList Synchronized(SortedList list)
         {
             ArgumentNullException.ThrowIfNull(list);
@@ -562,6 +576,7 @@ namespace System.Collections
         // sortedList.Clear();
         // sortedList.TrimToSize();
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public virtual void TrimToSize()
         {
             Capacity = _size;

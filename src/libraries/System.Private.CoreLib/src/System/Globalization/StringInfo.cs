@@ -205,6 +205,7 @@ namespace System.Globalization
         /// \u4f00\u302a\ud800\udc00\u4f01, this method would return the indices:
         /// 0, 2, 4.
         /// </summary>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static int[] ParseCombiningCharacters(string str)
         {
             if (str is null)

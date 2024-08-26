@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
+// ReSharper disable CollectionAccessAnnotationMissing -- it's 'UpdatedContent' by default and modification methods also return the same collection, no need to annotate
 
 namespace System.Collections
 {

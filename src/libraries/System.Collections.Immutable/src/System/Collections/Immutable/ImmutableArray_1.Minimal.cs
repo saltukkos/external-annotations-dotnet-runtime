@@ -260,6 +260,7 @@ namespace System.Collections.Immutable
         /// Returns a builder that is populated with the same contents as this array.
         /// </summary>
         /// <returns>The new builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public ImmutableArray<T>.Builder ToBuilder()
         {
             ImmutableArray<T> self = this;

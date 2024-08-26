@@ -1281,6 +1281,7 @@ namespace System.Globalization
             return result;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetAllDateTimePatterns()
         {
             List<string> results = new List<string>(DEFAULT_ALL_DATETIMES_SIZE);
@@ -1296,6 +1297,7 @@ namespace System.Globalization
             return results.ToArray();
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] GetAllDateTimePatterns(char format)
         {
             string[] result;

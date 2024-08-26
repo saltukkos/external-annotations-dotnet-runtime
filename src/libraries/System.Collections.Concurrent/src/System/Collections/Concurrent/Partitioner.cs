@@ -49,6 +49,7 @@ namespace System.Collections.Concurrent
         /// </summary>
         /// <param name="partitionCount">The number of partitions to create.</param>
         /// <returns>A list containing <paramref name="partitionCount"/> enumerators.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract IList<IEnumerator<TSource>> GetPartitions(int partitionCount);
 
         /// <summary>

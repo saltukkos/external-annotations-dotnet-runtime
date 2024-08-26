@@ -190,6 +190,7 @@ namespace System.Collections.Generic
             HashHelpers.SerializationInfoTable.Add(this, info);
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public IEqualityComparer<TKey> Comparer
         {
             get
@@ -211,14 +212,17 @@ namespace System.Collections.Generic
         /// <summary>
         /// Gets the total numbers of elements the internal data structure can hold without resizing.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity => _entries?.Length ?? 0;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyCollection Keys => _keys ??= new KeyCollection(this);
 
         ICollection<TKey> IDictionary<TKey, TValue>.Keys => Keys;
 
         IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public ValueCollection Values => _values ??= new ValueCollection(this);
 
         ICollection<TValue> IDictionary<TKey, TValue>.Values => Values;
@@ -299,6 +303,7 @@ namespace System.Collections.Generic
         public bool ContainsKey(TKey key) =>
             !Unsafe.IsNullRef(ref FindValue(key));
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             Entry[]? entries = _entries;
@@ -369,6 +374,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this, Enumerator.KeyValuePair);
 
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator() =>
@@ -1316,6 +1322,7 @@ namespace System.Collections.Generic
             return false;
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool Remove(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
             // This overload is a copy of the overload Remove(TKey key) with one additional
@@ -1406,6 +1413,7 @@ namespace System.Collections.Generic
             return false;
         }
 
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(TKey key, TValue value) =>
             TryInsert(key, value, InsertionBehavior.None);
 
@@ -1488,6 +1496,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Ensures that the dictionary can hold up to 'capacity' entries without any further expansion of its backing storage
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             if (capacity < 0)
@@ -1525,6 +1534,7 @@ namespace System.Collections.Generic
         /// dictionary.Clear();
         /// dictionary.TrimExcess();
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess() => TrimExcess(Count);
 
         /// <summary>
@@ -1535,6 +1545,7 @@ namespace System.Collections.Generic
         /// once it is known that no new elements will be added.
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException">Passed capacity is lower than entries count.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess(int capacity)
         {
             if (capacity < Count)
@@ -1851,6 +1862,7 @@ namespace System.Collections.Generic
                 _dictionary = dictionary;
             }
 
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new Enumerator(_dictionary);
 
             public void CopyTo(TKey[] array, int index)
@@ -2046,6 +2058,7 @@ namespace System.Collections.Generic
                 _dictionary = dictionary;
             }
 
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new Enumerator(_dictionary);
 
             public void CopyTo(TValue[] array, int index)

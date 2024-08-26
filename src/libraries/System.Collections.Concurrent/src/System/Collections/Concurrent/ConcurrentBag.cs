@@ -72,6 +72,7 @@ namespace System.Collections.Concurrent
         /// <param name="item">The object to be added to the
         /// <see cref="ConcurrentBag{T}"/>. The value can be a null reference
         /// (Nothing in Visual Basic) for reference types.</param>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Add(T item) =>
             GetCurrentThreadWorkStealingQueue(forceCreate: true)!
             .LocalPush(item, ref _emptyToNonEmptyListTransitionCount);
@@ -109,6 +110,7 @@ namespace System.Collections.Concurrent
         /// the <see cref="ConcurrentBag{T}"/> or the default value of
         /// <typeparamref name="T"/> if the operation failed.</param>
         /// <returns>true if and object was returned successfully; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
             WorkStealingQueue? queue = GetCurrentThreadWorkStealingQueue(forceCreate: false);
@@ -406,6 +408,7 @@ namespace System.Collections.Concurrent
         /// <summary>
         /// Removes all values from the <see cref="ConcurrentBag{T}"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Clear()
         {
             // If there are no queues in the bag, there's nothing to clear.
@@ -527,6 +530,7 @@ namespace System.Collections.Concurrent
         /// Gets a value that indicates whether the <see cref="ConcurrentBag{T}"/> is empty.
         /// </summary>
         /// <value>true if the <see cref="ConcurrentBag{T}"/> is empty; otherwise, false.</value>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool IsEmpty
         {
             get

@@ -907,6 +907,7 @@ namespace System
             (str[i + 1] | 0x20) == 'x';
 
         // Returns an unsigned byte array containing the GUID.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public byte[] ToByteArray()
         {
             var g = new byte[16];
@@ -925,6 +926,7 @@ namespace System
 
 
         // Returns an unsigned byte array containing the GUID.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public byte[] ToByteArray(bool bigEndian)
         {
             var g = new byte[16];

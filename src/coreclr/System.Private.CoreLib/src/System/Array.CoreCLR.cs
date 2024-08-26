@@ -511,13 +511,16 @@ namespace System
             GC.KeepAlive(this); // Keep the method table alive
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int Length => checked((int)Unsafe.As<RawArrayData>(this).Length);
 
         // This could return a length greater than int.MaxValue
         internal nuint NativeLength => Unsafe.As<RawArrayData>(this).Length;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public long LongLength => (long)NativeLength;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public unsafe int Rank
         {
             get
@@ -528,6 +531,7 @@ namespace System
         }
 
         [Intrinsic]
+        [CollectionAccess(CollectionAccessType.Read)]
         public unsafe int GetLength(int dimension)
         {
             int rank = RuntimeHelpers.GetMultiDimensionalArrayRank(this);
@@ -541,6 +545,7 @@ namespace System
         }
 
         [Intrinsic]
+        [CollectionAccess(CollectionAccessType.Read)]
         public unsafe int GetUpperBound(int dimension)
         {
             int rank = RuntimeHelpers.GetMultiDimensionalArrayRank(this);
@@ -555,6 +560,7 @@ namespace System
         }
 
         [Intrinsic]
+        [CollectionAccess(CollectionAccessType.Read)]
         public unsafe int GetLowerBound(int dimension)
         {
             int rank = RuntimeHelpers.GetMultiDimensionalArrayRank(this);
@@ -579,6 +585,7 @@ namespace System
         // if this is an array of value classes and that value class has a default constructor
         // then this calls this default constructor on every element in the value class array.
         // otherwise this is a no-op.  Generally this method is called automatically by the compiler
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public unsafe void Initialize()
         {
             MethodTable* pArrayMT = RuntimeHelpers.GetMethodTable(this);

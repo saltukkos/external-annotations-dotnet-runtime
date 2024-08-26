@@ -272,6 +272,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public IComparer<T> Comparer => comparer;
 
         bool ICollection<T>.IsReadOnly => false;
@@ -506,10 +507,12 @@ namespace System.Collections.Generic
 
         public virtual bool Contains(T item) => FindNode(item) != null;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array) => CopyTo(array, 0, Count);
 
         public void CopyTo(T[] array, int index) => CopyTo(array, index, Count);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array, int index, int count)
         {
             ArgumentNullException.ThrowIfNull(array);
@@ -590,6 +593,7 @@ namespace System.Collections.Generic
 
         #region IEnumerable<T> members
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
@@ -1429,6 +1433,7 @@ namespace System.Collections.Generic
             return result;
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int RemoveWhere(Predicate<T> match)
         {
             ArgumentNullException.ThrowIfNull(match);
@@ -1461,6 +1466,7 @@ namespace System.Collections.Generic
 
         #region ISorted members
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public T? Min => MinInternal;
 
         internal virtual T? MinInternal
@@ -1482,6 +1488,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public T? Max => MaxInternal;
 
         internal virtual T? MaxInternal
@@ -1503,6 +1510,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public IEnumerable<T> Reverse()
         {
             Enumerator e = new Enumerator(this, reverse: true);
@@ -1512,6 +1520,8 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public virtual SortedSet<T> GetViewBetween(T? lowerValue, T? upperValue)
         {
             if (Comparer.Compare(lowerValue, upperValue) > 0)
@@ -2002,6 +2012,7 @@ namespace System.Collections.Generic
         /// a value that has more complete data than the value you currently have, although their
         /// comparer functions indicate they are equal.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryGetValue(T equalValue, [MaybeNullWhen(false)] out T actualValue)
         {
             Node? node = FindNode(equalValue);

@@ -12,6 +12,8 @@ namespace System.Reflection
         public virtual IList<LocalVariableInfo> LocalVariables => throw new ArgumentNullException("array");
         public virtual int MaxStackSize => 0;
         public virtual bool InitLocals => false;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public virtual byte[]? GetILAsByteArray() => null;
         public virtual IList<ExceptionHandlingClause> ExceptionHandlingClauses => throw new ArgumentNullException("array");
     }

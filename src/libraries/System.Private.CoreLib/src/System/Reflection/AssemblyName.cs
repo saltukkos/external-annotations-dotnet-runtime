@@ -195,6 +195,7 @@ namespace System.Reflection
             return (s_getAssemblyName ?? InitGetAssemblyName())(assemblyFile);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public byte[]? GetPublicKey()
         {
             return _publicKey;
@@ -212,6 +213,7 @@ namespace System.Reflection
 
         // The compressed version of the public key formed from a truncated hash.
         // Will throw a SecurityException if _publicKey is invalid
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] //note: changes could be observed
         public byte[]? GetPublicKeyToken() => _publicKeyToken ??= AssemblyNameHelpers.ComputePublicKeyToken(_publicKey);
 
         public void SetPublicKeyToken(byte[]? publicKeyToken)

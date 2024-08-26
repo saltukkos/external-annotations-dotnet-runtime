@@ -72,6 +72,7 @@ namespace System
 
         protected virtual Delegate? RemoveImpl(Delegate d) => d.Equals(this) ? null : this;
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Delegate[] GetInvocationList() => new Delegate[] { this };
 
         /// <summary>

@@ -193,6 +193,7 @@ namespace System
 
         public Assembly Load(string assemblyString) => Assembly.Load(assemblyString);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Assembly[] ReflectionOnlyGetAssemblies() => Array.Empty<Assembly>();
 
         public static bool MonitoringIsEnabled
@@ -243,6 +244,7 @@ namespace System
         [Obsolete("AppDomain.SetShadowCopyPath has been deprecated and is not supported.")]
         public void SetShadowCopyPath(string? path) { }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Assembly[] GetAssemblies() => AssemblyLoadContext.GetLoadedAssemblies();
 
         public event AssemblyLoadEventHandler? AssemblyLoad

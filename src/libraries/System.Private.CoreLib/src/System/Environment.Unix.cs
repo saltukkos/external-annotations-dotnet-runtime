@@ -12,6 +12,7 @@ namespace System
 {
     public static partial class Environment
     {
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] GetLogicalDrives() => Interop.Sys.GetAllMountPoints();
 
         public static string MachineName

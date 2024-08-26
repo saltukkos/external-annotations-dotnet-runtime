@@ -74,6 +74,7 @@ namespace System.Runtime.CompilerServices
         /// <summary>
         /// Gets and sets the capacity of this <see cref="ReadOnlyCollectionBuilder{T}"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity
         {
             get { return _items.Length; }
@@ -367,6 +368,7 @@ namespace System.Runtime.CompilerServices
         /// <summary>
         /// Reverses the order of the elements in the entire <see cref="ReadOnlyCollectionBuilder{T}"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Reverse()
         {
             Reverse(0, Count);
@@ -377,6 +379,7 @@ namespace System.Runtime.CompilerServices
         /// </summary>
         /// <param name="index">The zero-based starting index of the range to reverse.</param>
         /// <param name="count">The number of elements in the range to reverse.</param>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Reverse(int index, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(index);
@@ -390,6 +393,8 @@ namespace System.Runtime.CompilerServices
         /// Copies the elements of the <see cref="ReadOnlyCollectionBuilder{T}"/> to a new array.
         /// </summary>
         /// <returns>An array containing copies of the elements of the <see cref="ReadOnlyCollectionBuilder{T}"/>.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             T[] array = new T[_size];
@@ -403,6 +408,7 @@ namespace System.Runtime.CompilerServices
         /// <see cref="ReadOnlyCollection{T}"/> has been created.
         /// </summary>
         /// <returns>A new instance of <see cref="ReadOnlyCollection{T}"/>.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public ReadOnlyCollection<T> ToReadOnlyCollection()
         {
             if (_size == 0)

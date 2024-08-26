@@ -169,6 +169,7 @@ namespace System.Text
         // dstEncoding, and the returned value is a new byte array
         // containing the result of the conversion.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] Convert(Encoding srcEncoding, Encoding dstEncoding, byte[] bytes)
         {
             ArgumentNullException.ThrowIfNull(bytes);
@@ -181,6 +182,7 @@ namespace System.Text
         // index index from srcEncoding to dstEncoding, and
         // returns a new byte array containing the result of the conversion.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] Convert(Encoding srcEncoding, Encoding dstEncoding,
             byte[] bytes, int index, int count)
         {
@@ -314,12 +316,14 @@ namespace System.Text
         /// Get the <see cref="EncodingInfo"/> list from the runtime and all registered encoding providers
         /// </summary>
         /// <returns>The list of the <see cref="EncodingProvider"/> objects</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static EncodingInfo[] GetEncodings()
         {
             Dictionary<int, EncodingInfo>? result = EncodingProvider.GetEncodingListFromProviders();
             return result is null ? EncodingTable.GetEncodings() : EncodingTable.GetEncodings(result);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] GetPreamble() => Array.Empty<byte>();
 
         public virtual ReadOnlySpan<byte> Preamble => GetPreamble();
@@ -589,6 +593,7 @@ namespace System.Text
         // Returns a byte array containing the encoded representation of the given
         // character array.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] GetBytes(char[] chars)
         {
             ArgumentNullException.ThrowIfNull(chars);
@@ -599,6 +604,7 @@ namespace System.Text
         // Returns a byte array containing the encoded representation of a range
         // of characters in a character array.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] GetBytes(char[] chars, int index, int count)
         {
             byte[] result = new byte[GetByteCount(chars, index, count)];
@@ -621,6 +627,7 @@ namespace System.Text
         // Returns a byte array containing the encoded representation of the given
         // string.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual byte[] GetBytes(string s)
         {
             ArgumentNullException.ThrowIfNull(s);
@@ -635,6 +642,7 @@ namespace System.Text
         // Returns a byte array containing the encoded representation of the given
         // string range.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public byte[] GetBytes(string s, int index, int count)
         {
             ArgumentNullException.ThrowIfNull(s);
@@ -791,6 +799,7 @@ namespace System.Text
         // Returns a character array containing the decoded representation of a
         // given byte array.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual char[] GetChars(byte[] bytes)
         {
             ArgumentNullException.ThrowIfNull(bytes);
@@ -801,6 +810,7 @@ namespace System.Text
         // Returns a character array containing the decoded representation of a
         // range of bytes in a byte array.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual char[] GetChars(byte[] bytes, int index, int count)
         {
             char[] result = new char[GetCharCount(bytes, index, count)];

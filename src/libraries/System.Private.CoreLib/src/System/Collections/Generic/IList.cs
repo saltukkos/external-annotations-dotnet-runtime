@@ -18,10 +18,12 @@ namespace System.Collections.Generic
 #if MONO
             [DynamicDependency(nameof(Array.InternalArray__get_Item) + "``1", typeof(Array))]
 #endif
+            [CollectionAccess(CollectionAccessType.Read)]
             get;
 #if MONO
             [DynamicDependency(nameof(Array.InternalArray__set_Item) + "``1", typeof(Array))]
 #endif
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             set;
         }
 
@@ -30,6 +32,7 @@ namespace System.Collections.Generic
 #if MONO
         [DynamicDependency(nameof(Array.InternalArray__IndexOf) + "``1", typeof(Array))]
 #endif
+        [CollectionAccess(CollectionAccessType.Read)]
         int IndexOf([DefaultEqualityUsage] T item);
 
         // Inserts value into the list at position index.
@@ -39,12 +42,14 @@ namespace System.Collections.Generic
 #if MONO
         [DynamicDependency(nameof(Array.InternalArray__Insert) + "``1", typeof(Array))]
 #endif
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         void Insert(int index, T item);
 
         // Removes the item at position index.
 #if MONO
         [DynamicDependency(nameof(Array.InternalArray__RemoveAt), typeof(Array))]
 #endif
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         void RemoveAt(int index);
     }
 }

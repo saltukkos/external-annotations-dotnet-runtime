@@ -1042,6 +1042,7 @@ namespace System.Collections.Generic
             /// Returns an enumerator that iterates through the <see cref="UnorderedItems"/>.
             /// </summary>
             /// <returns>An <see cref="Enumerator"/> for the <see cref="UnorderedItems"/>.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new Enumerator(_queue);
 
             IEnumerator<(TElement Element, TPriority Priority)> IEnumerable<(TElement Element, TPriority Priority)>.GetEnumerator() =>

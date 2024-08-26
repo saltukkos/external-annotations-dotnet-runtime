@@ -458,6 +458,7 @@ namespace System.Collections.Specialized
         /// <para>Returns a <see cref='System.Collections.Specialized.NameObjectCollectionBase.KeysCollection'/> instance containing
         ///    all the keys in the <see cref='System.Collections.Specialized.NameObjectCollectionBase'/> instance.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual KeysCollection Keys => _keys ??= new KeysCollection(this);
 
         //
@@ -554,6 +555,7 @@ namespace System.Collections.Specialized
             /// <devdoc>
             ///    <para> Gets the key at the specified index of the collection.</para>
             /// </devdoc>
+            [CollectionAccess(CollectionAccessType.Read)]
             public virtual string? Get(int index)
             {
                 return _coll.BaseGetKey(index);
@@ -564,6 +566,7 @@ namespace System.Collections.Specialized
             /// </devdoc>
             public string? this[int index]
             {
+                [CollectionAccess(CollectionAccessType.Read)]
                 get
                 {
                     return Get(index);

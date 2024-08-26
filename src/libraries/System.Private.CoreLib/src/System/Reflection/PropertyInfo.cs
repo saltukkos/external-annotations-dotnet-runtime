@@ -14,6 +14,8 @@ namespace System.Reflection
         public override MemberTypes MemberType => MemberTypes.Property;
 
         public abstract Type PropertyType { get; }
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract ParameterInfo[] GetIndexParameters();
 
         public abstract PropertyAttributes Attributes { get; }
@@ -22,7 +24,10 @@ namespace System.Reflection
         public abstract bool CanRead { get; }
         public abstract bool CanWrite { get; }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MethodInfo[] GetAccessors() => GetAccessors(nonPublic: false);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public abstract MethodInfo[] GetAccessors(bool nonPublic);
 
         public virtual MethodInfo? GetMethod => GetGetMethod(nonPublic: true);
@@ -34,7 +39,11 @@ namespace System.Reflection
         public abstract MethodInfo? GetSetMethod(bool nonPublic);
 
         public virtual Type GetModifiedPropertyType() => throw new NotSupportedException();
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetOptionalCustomModifiers() => Type.EmptyTypes;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetRequiredCustomModifiers() => Type.EmptyTypes;
 
         [DebuggerHidden]

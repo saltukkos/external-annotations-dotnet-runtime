@@ -15,7 +15,10 @@ namespace System.Reflection
         public abstract EventAttributes Attributes { get; }
         public bool IsSpecialName => (Attributes & EventAttributes.SpecialName) != 0;
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public MethodInfo[] GetOtherMethods() => GetOtherMethods(nonPublic: false);
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual MethodInfo[] GetOtherMethods(bool nonPublic) { throw NotImplemented.ByDesign; }
 
         public virtual MethodInfo? AddMethod => GetAddMethod(nonPublic: true);

@@ -576,6 +576,7 @@ namespace System
         // indicates the sign of the Decimal value, 0 meaning positive and 1
         // meaning negative.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static int[] GetBits(decimal d)
         {
             return new int[] { (int)d.Low, (int)d.Mid, (int)d.High, d._flags };

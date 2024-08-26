@@ -60,6 +60,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Gets the total numbers of elements the internal data structure can hold without resizing.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity => _array.Length;
 
         /// <inheritdoc cref="ICollection{T}"/>
@@ -68,6 +69,7 @@ namespace System.Collections.Generic
         object ICollection.SyncRoot => this;
 
         // Removes all Objects from the Stack.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Clear()
         {
             if (RuntimeHelpers.IsReferenceOrContainsReferences<T>())
@@ -78,6 +80,7 @@ namespace System.Collections.Generic
             _version++;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Contains([DefaultEqualityUsage] T item)
         {
             // Compare items using the default equality comparer
@@ -94,6 +97,7 @@ namespace System.Collections.Generic
         }
 
         // Copies the stack into an array.
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array, int arrayIndex)
         {
             ArgumentNullException.ThrowIfNull(array);
@@ -153,6 +157,7 @@ namespace System.Collections.Generic
         }
 
         // Returns an IEnumerator for this Stack.
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         /// <internalonly/>
@@ -162,6 +167,7 @@ namespace System.Collections.Generic
 
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<T>)this).GetEnumerator();
 
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess()
         {
             int threshold = (int)(_array.Length * 0.9);
@@ -176,6 +182,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The new capacity.</param>
         /// <exception cref="ArgumentOutOfRangeException">Passed capacity is lower than 0 or entries count.</exception>
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -189,6 +196,7 @@ namespace System.Collections.Generic
 
         // Returns the top object on the stack without removing it.  If the stack
         // is empty, Peek throws an InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.Read)]
         public T Peek()
         {
             int size = _size - 1;
@@ -202,6 +210,7 @@ namespace System.Collections.Generic
             return array[size];
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
             int size = _size - 1;
@@ -218,6 +227,7 @@ namespace System.Collections.Generic
 
         // Pops an item from the top of the stack.  If the stack is empty, Pop
         // throws an InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public T Pop()
         {
             int size = _size - 1;
@@ -241,6 +251,7 @@ namespace System.Collections.Generic
             return item;
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryPop([MaybeNullWhen(false)] out T result)
         {
             int size = _size - 1;
@@ -263,6 +274,7 @@ namespace System.Collections.Generic
         }
 
         // Pushes an item to the top of the stack.
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Push(T item)
         {
             int size = _size;
@@ -298,6 +310,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The minimum capacity to ensure.</param>
         /// <returns>The new capacity of this stack.</returns>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -328,6 +341,8 @@ namespace System.Collections.Generic
         }
 
         // Copies the Stack to an array, in the same order Pop would return the items.
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_size == 0)

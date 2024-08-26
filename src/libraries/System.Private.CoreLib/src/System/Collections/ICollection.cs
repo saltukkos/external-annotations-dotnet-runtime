@@ -11,9 +11,11 @@ namespace System.Collections
         // CopyTo copies a collection into an Array, starting at a particular
         // index into the array.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         void CopyTo(Array array, int index);
 
         // Number of items in the collections.
+        [CollectionAccess(CollectionAccessType.Read)]
         int Count
         { get; }
 
@@ -51,6 +53,7 @@ namespace System.Collections
         // that the this pointer may not be sufficient for collections that
         // wrap other collections;  those should return the underlying
         // collection's SyncRoot property.
+        [CollectionAccess(CollectionAccessType.None)]
         object SyncRoot
         { get; }
 
@@ -60,6 +63,7 @@ namespace System.Collections
         // collections in System.Collections, you could call the static
         // Synchronized method to get a thread-safe wrapper around the
         // underlying collection.
+        [CollectionAccess(CollectionAccessType.None)]
         bool IsSynchronized
         { get; }
     }

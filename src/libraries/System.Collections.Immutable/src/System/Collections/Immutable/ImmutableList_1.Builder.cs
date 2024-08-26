@@ -153,6 +153,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The index of the desired element.</param>
             /// <returns>A read-only reference to the value at the specified index.</returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ref readonly T ItemRef(int index)
             {
                 return ref this.Root.ItemRef(index);
@@ -231,6 +232,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// A <see cref="IEnumerator{T}"/> that can be used to iterate through the collection.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableList<T>.Enumerator GetEnumerator()
             {
                 return this.Root.GetEnumerator(this);
@@ -529,6 +531,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that extends from index
             /// to the last element, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int index) =>
                 _root.IndexOf(item, index, this.Count - index, EqualityComparer<T>.Default);
 
@@ -553,6 +556,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that starts at index and
             /// contains count number of elements, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int index, int count) =>
                 _root.IndexOf(item, index, count, EqualityComparer<T>.Default);
 
@@ -581,6 +585,7 @@ namespace System.Collections.Immutable
             /// elements in the ImmutableList&lt;T&gt; that starts at index and
             /// contains count number of elements, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int IndexOf([DefaultEqualityUsage] T item, int index, int count, IEqualityComparer<T>? equalityComparer) =>
                 _root.IndexOf(item, index, count, equalityComparer);
 
@@ -599,6 +604,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item)
             {
                 if (this.Count == 0)
@@ -625,6 +631,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex)
             {
                 if (this.Count == 0 && startIndex == 0)
@@ -652,6 +659,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count) =>
                 _root.LastIndexOf(item, startIndex, count, EqualityComparer<T>.Default);
 
@@ -673,6 +681,7 @@ namespace System.Collections.Immutable
             /// in the ImmutableList&lt;T&gt; that contains count number of elements
             /// and ends at index, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int LastIndexOf([DefaultEqualityUsage] T item, int startIndex, int count, IEqualityComparer<T>? equalityComparer) =>
                 _root.LastIndexOf(item, startIndex, count, equalityComparer);
 
@@ -703,6 +712,7 @@ namespace System.Collections.Immutable
             /// The sequence itself cannot be null, but it can contain elements that are
             /// null, if type <typeparamref name="T"/> is a reference type.
             /// </param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void AddRange(IEnumerable<T> items)
             {
                 Requires.NotNull(items, nameof(items));
@@ -722,6 +732,7 @@ namespace System.Collections.Immutable
             /// The collection itself cannot be null, but it can contain elements that are
             /// null, if type T is a reference type.
             /// </param>
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             public void InsertRange(int index, IEnumerable<T> items)
             {
                 Requires.Range(index >= 0 && index <= this.Count, nameof(index));
@@ -741,6 +752,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// The number of elements removed from the ImmutableList&lt;T&gt;
             /// </returns>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
             public int RemoveAll(Predicate<T> match)
             {
                 Requires.NotNull(match, nameof(match));
@@ -759,6 +771,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <returns>A value indicating whether the specified element was found and removed from the collection.</returns>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
             public bool Remove([DefaultEqualityUsage] T item, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(item, 0, this.Count, equalityComparer);
@@ -776,6 +789,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The starting index to begin removal.</param>
             /// <param name="count">The number of elements to remove.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(int index, int count)
             {
                 Requires.Range(index >= 0 && index <= this.Count, nameof(index));
@@ -798,6 +812,7 @@ namespace System.Collections.Immutable
             /// </param>
             // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
             [DefaultEqualityUsageInternal(nameof(T))]
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(IEnumerable<T> items, IEqualityComparer<T>? equalityComparer)
             {
                 Requires.NotNull(items, nameof(items));
@@ -818,6 +833,7 @@ namespace System.Collections.Immutable
             /// <param name="items">The items to remove if matches are found in this list.</param>
             // ReSharper disable once InternalAttributeOnPublicApi - can't annotate for now
             [DefaultEqualityUsageInternal(nameof(T))]
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void RemoveRange(IEnumerable<T> items)
             {
                 this.RemoveRange(items, EqualityComparer<T>.Default);
@@ -829,6 +845,7 @@ namespace System.Collections.Immutable
             /// <param name="oldValue">The element to replace.</param>
             /// <param name="newValue">The element to replace the old element with.</param>
             /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Replace([DefaultEqualityUsage] T oldValue, T newValue)
             {
                 this.Replace(oldValue, newValue, EqualityComparer<T>.Default);
@@ -844,6 +861,7 @@ namespace System.Collections.Immutable
             /// If <c>null</c>, <see cref="EqualityComparer{T}.Default"/> is used.
             /// </param>
             /// <exception cref="ArgumentException">Thrown when the old value does not exist in the list.</exception>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Replace([DefaultEqualityUsage] T oldValue, T newValue, IEqualityComparer<T>? equalityComparer)
             {
                 int index = this.IndexOf(oldValue, 0, this.Count, equalityComparer);
@@ -858,6 +876,7 @@ namespace System.Collections.Immutable
             /// <summary>
             /// Reverses the order of the elements in the entire ImmutableList&lt;T&gt;.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Reverse()
             {
                 this.Reverse(0, this.Count);
@@ -868,6 +887,7 @@ namespace System.Collections.Immutable
             /// </summary>
             /// <param name="index">The zero-based starting index of the range to reverse.</param>
             /// <param name="count">The number of elements in the range to reverse.</param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Reverse(int index, int count)
             {
                 Requires.Range(index >= 0, nameof(index));
@@ -881,6 +901,7 @@ namespace System.Collections.Immutable
             /// Sorts the elements in the entire ImmutableList&lt;T&gt; using
             /// the default comparer.
             /// </summary>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort()
             {
                 this.Root = this.Root.Sort();
@@ -894,6 +915,7 @@ namespace System.Collections.Immutable
             /// The <see cref="Comparison{T}"/> to use when comparing elements.
             /// </param>
             /// <exception cref="ArgumentNullException"><paramref name="comparison"/> is null.</exception>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(Comparison<T> comparison)
             {
                 Requires.NotNull(comparison, nameof(comparison));
@@ -908,6 +930,7 @@ namespace System.Collections.Immutable
             /// The <see cref="IComparer{T}"/> implementation to use when comparing
             /// elements, or null to use <see cref="Comparer{T}.Default"/>.
             /// </param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(IComparer<T>? comparer)
             {
                 this.Root = this.Root.Sort(comparer);
@@ -927,6 +950,7 @@ namespace System.Collections.Immutable
             /// The <see cref="IComparer{T}"/> implementation to use when comparing
             /// elements, or null to use <see cref="Comparer{T}.Default"/>.
             /// </param>
+            [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
             public void Sort(int index, int count, IComparer<T>? comparer)
             {
                 Requires.Range(index >= 0, nameof(index));
@@ -1023,6 +1047,7 @@ namespace System.Collections.Immutable
             /// This method is an O(n) operation, and approaches O(1) time as the number of
             /// actual mutations to the set since the last call to this method approaches 0.
             /// </remarks>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableList<T> ToImmutable()
             {
                 // Creating an instance of ImmutableList<T> with our root node automatically freezes our tree,

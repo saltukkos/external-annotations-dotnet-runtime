@@ -689,6 +689,7 @@ namespace System.IO
             WriteToFile(path, FileMode.Create, contents, encoding);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] ReadAllBytes(string path)
         {
             // SequentialScan is a perf hint that requires extra sys-call on non-Windows OSes.
@@ -856,9 +857,11 @@ namespace System.IO
             }
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] ReadAllLines(string path)
             => ReadAllLines(path, Encoding.UTF8);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static string[] ReadAllLines(string path, Encoding encoding)
         {
             Validate(path, encoding);
@@ -1161,6 +1164,7 @@ namespace System.IO
             return WriteToFileAsync(path, FileMode.Create, contents, encoding, cancellationToken);
         }
 
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<byte[]> ReadAllBytesAsync(string path, CancellationToken cancellationToken = default)
         {
             if (cancellationToken.IsCancellationRequested)
@@ -1282,9 +1286,11 @@ namespace System.IO
             }
         }
 
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<string[]> ReadAllLinesAsync(string path, CancellationToken cancellationToken = default)
             => ReadAllLinesAsync(path, Encoding.UTF8, cancellationToken);
 
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<string[]> ReadAllLinesAsync(string path, Encoding encoding, CancellationToken cancellationToken = default)
         {
             Validate(path, encoding);

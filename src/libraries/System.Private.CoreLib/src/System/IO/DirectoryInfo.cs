@@ -105,43 +105,55 @@ namespace System.IO
         }
 
         // Returns an array of Files in the DirectoryInfo specified by path
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileInfo[] GetFiles() => GetFiles("*", enumerationOptions: EnumerationOptions.Compatible);
 
         // Returns an array of Files in the current DirectoryInfo matching the
         // given search criteria (i.e. "*.txt").
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileInfo[] GetFiles(string searchPattern) => GetFiles(searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileInfo[] GetFiles(string searchPattern, SearchOption searchOption)
             => GetFiles(searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileInfo[] GetFiles(string searchPattern, EnumerationOptions enumerationOptions)
             => new List<FileInfo>((IEnumerable<FileInfo>)InternalEnumerateInfos(FullPath, searchPattern, SearchTarget.Files, enumerationOptions)).ToArray();
 
         // Returns an array of strongly typed FileSystemInfo entries which will contain a listing
         // of all the files and directories.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileSystemInfo[] GetFileSystemInfos() => GetFileSystemInfos("*", enumerationOptions: EnumerationOptions.Compatible);
 
         // Returns an array of strongly typed FileSystemInfo entries in the path with the
         // given search criteria (i.e. "*.txt").
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileSystemInfo[] GetFileSystemInfos(string searchPattern)
             => GetFileSystemInfos(searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileSystemInfo[] GetFileSystemInfos(string searchPattern, SearchOption searchOption)
             => GetFileSystemInfos(searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public FileSystemInfo[] GetFileSystemInfos(string searchPattern, EnumerationOptions enumerationOptions)
             => new List<FileSystemInfo>(InternalEnumerateInfos(FullPath, searchPattern, SearchTarget.Both, enumerationOptions)).ToArray();
 
         // Returns an array of Directories in the current directory.
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public DirectoryInfo[] GetDirectories() => GetDirectories("*", enumerationOptions: EnumerationOptions.Compatible);
 
         // Returns an array of Directories in the current DirectoryInfo matching the
         // given search criteria (i.e. "System*" could match the System & System32 directories).
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public DirectoryInfo[] GetDirectories(string searchPattern) => GetDirectories(searchPattern, enumerationOptions: EnumerationOptions.Compatible);
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public DirectoryInfo[] GetDirectories(string searchPattern, SearchOption searchOption)
             => GetDirectories(searchPattern, EnumerationOptions.FromSearchOption(searchOption));
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public DirectoryInfo[] GetDirectories(string searchPattern, EnumerationOptions enumerationOptions)
             => new List<DirectoryInfo>((IEnumerable<DirectoryInfo>)InternalEnumerateInfos(FullPath, searchPattern, SearchTarget.Directories, enumerationOptions)).ToArray();
 

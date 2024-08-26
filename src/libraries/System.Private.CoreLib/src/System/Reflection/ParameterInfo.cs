@@ -39,6 +39,8 @@ namespace System.Reflection
         }
 
         public virtual IEnumerable<CustomAttributeData> CustomAttributes => GetCustomAttributesData();
+
+        // ReSharper disable once CollectionAccessAnnotationMissing -- it's actually readonly
         public virtual IList<CustomAttributeData> GetCustomAttributesData() { throw NotImplemented.ByDesign; }
 
         public virtual object[] GetCustomAttributes(bool inherit) => Array.Empty<object>();
@@ -50,7 +52,10 @@ namespace System.Reflection
 
         public virtual Type GetModifiedParameterType() => throw new NotSupportedException();
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetOptionalCustomModifiers() => Type.EmptyTypes;
+
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual Type[] GetRequiredCustomModifiers() => Type.EmptyTypes;
 
         public virtual int MetadataToken => MetadataToken_ParamDef;

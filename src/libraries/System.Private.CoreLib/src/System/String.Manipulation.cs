@@ -1631,11 +1631,13 @@ namespace System
             return retVal;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(char separator, StringSplitOptions options = StringSplitOptions.None)
         {
             return SplitInternal(new ReadOnlySpan<char>(in separator), int.MaxValue, options);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(char separator, int count, StringSplitOptions options = StringSplitOptions.None)
         {
             return SplitInternal(new ReadOnlySpan<char>(in separator), count, options);
@@ -1650,6 +1652,7 @@ namespace System
         // If the separator is null
         // whitespace (i.e., Character.IsWhitespace) is used as the separator.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(params char[]? separator)
         {
             return SplitInternal(separator, int.MaxValue, StringSplitOptions.None);
@@ -1660,6 +1663,7 @@ namespace System
         /// </summary>
         /// <param name="separator">A span of delimiting characters, or an empty span that contains no delimiters.</param>
         /// <returns>An array whose elements contain the substrings from this instance that are delimited by one or more characters in <paramref name="separator"/>.</returns>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(params ReadOnlySpan<char> separator)
         {
             return SplitInternal(separator, int.MaxValue, StringSplitOptions.None);
@@ -1676,16 +1680,19 @@ namespace System
         // If there are more than count different strings, the last n-(count-1)
         // elements are concatenated and added as the last string.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(char[]? separator, int count)
         {
             return SplitInternal(separator, count, StringSplitOptions.None);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(char[]? separator, StringSplitOptions options)
         {
             return SplitInternal(separator, int.MaxValue, options);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(char[]? separator, int count, StringSplitOptions options)
         {
             return SplitInternal(separator, count, options);
@@ -1733,21 +1740,25 @@ namespace System
             return result;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(string? separator, StringSplitOptions options = StringSplitOptions.None)
         {
             return SplitInternal(separator ?? Empty, null, int.MaxValue, options);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(string? separator, int count, StringSplitOptions options = StringSplitOptions.None)
         {
             return SplitInternal(separator ?? Empty, null, count, options);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(string[]? separator, StringSplitOptions options)
         {
             return SplitInternal(null, separator, int.MaxValue, options);
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public string[] Split(string[]? separator, int count, StringSplitOptions options)
         {
             return SplitInternal(null, separator, count, options);

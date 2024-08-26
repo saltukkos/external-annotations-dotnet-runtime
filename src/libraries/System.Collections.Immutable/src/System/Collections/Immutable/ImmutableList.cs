@@ -59,6 +59,7 @@ namespace System.Collections.Immutable
         /// </summary>
         /// <typeparam name="T">The type of items stored by the collection.</typeparam>
         /// <returns>The immutable collection builder.</returns>
+        [return: CollectionAccess(CollectionAccessType.None)]
         public static ImmutableList<T>.Builder CreateBuilder<T>() => Create<T>().ToBuilder();
 
         /// <summary>

@@ -102,6 +102,7 @@ namespace System.Collections
         public virtual object SyncRoot => this;
 
         // Removes all Objects from the queue.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Clear()
         {
             if (_size != 0)
@@ -149,6 +150,7 @@ namespace System.Collections
 
         // Adds obj to the tail of the queue.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void Enqueue(object? obj)
         {
             if (_size == _array.Length)
@@ -177,6 +179,7 @@ namespace System.Collections
 
         // Removes the object at the head of the queue and returns it. If the queue
         // is empty, this method throws an InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public virtual object? Dequeue()
         {
             if (Count == 0)
@@ -193,6 +196,7 @@ namespace System.Collections
         // Returns the object at the head of the queue. The object remains in the
         // queue. If the queue is empty, this method throws an
         // InvalidOperationException.
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual object? Peek()
         {
             if (Count == 0)
@@ -205,6 +209,7 @@ namespace System.Collections
         // class around the queue - the caller must not use references to the
         // original queue.
         //
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public static Queue Synchronized(Queue queue)
         {
             ArgumentNullException.ThrowIfNull(queue);
@@ -215,6 +220,7 @@ namespace System.Collections
         // Returns true if the queue contains at least one object equal to obj.
         // Equality is determined using obj.Equals().
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual bool Contains(object? obj)
         {
             int index = _head;
@@ -246,6 +252,8 @@ namespace System.Collections
         // objects in the Queue, or an empty array if the queue is empty.
         // The order of elements in the array is first in to last in, the same
         // order produced by successive calls to Dequeue.
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual object?[] ToArray()
         {
             if (_size == 0)
@@ -290,6 +298,7 @@ namespace System.Collections
             _version++;
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public virtual void TrimToSize()
         {
             SetCapacity(_size);

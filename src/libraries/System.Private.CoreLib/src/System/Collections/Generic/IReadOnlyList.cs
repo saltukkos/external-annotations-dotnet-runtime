@@ -15,7 +15,7 @@ namespace System.Collections.Generic
 #if MONO
             [DynamicDependency(nameof(Array.InternalArray__IReadOnlyList_get_Item) + "``1", typeof(Array))]
 #endif
-            get;
+            [CollectionAccess(CollectionAccessType.Read)] get;
         }
     }
 }

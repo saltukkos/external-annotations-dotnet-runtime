@@ -150,6 +150,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.None)]
         public IComparer<TKey> Comparer
         {
             get
@@ -158,6 +159,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public KeyCollection Keys => _keys ??= new KeyCollection(this);
 
         ICollection<TKey> IDictionary<TKey, TValue>.Keys
@@ -176,6 +178,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public ValueCollection Values => _values ??= new ValueCollection(this);
 
         ICollection<TValue> IDictionary<TKey, TValue>.Values
@@ -213,6 +216,7 @@ namespace System.Collections.Generic
             return _set.Contains(new KeyValuePair<TKey, TValue>(key, default(TValue)!));
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool ContainsValue([DefaultEqualityUsage] TValue value)
         {
             bool found = false;
@@ -249,6 +253,7 @@ namespace System.Collections.Generic
             _set.CopyTo(array, index);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this, Enumerator.KeyValuePair);
 
         IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator() =>
@@ -533,6 +538,7 @@ namespace System.Collections.Generic
                 _dictionary = dictionary;
             }
 
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new Enumerator(_dictionary);
 
             IEnumerator<TKey> IEnumerable<TKey>.GetEnumerator() =>
@@ -694,6 +700,7 @@ namespace System.Collections.Generic
                 _dictionary = dictionary;
             }
 
+            [CollectionAccess(CollectionAccessType.Read)]
             public Enumerator GetEnumerator() => new Enumerator(_dictionary);
 
             IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator() =>

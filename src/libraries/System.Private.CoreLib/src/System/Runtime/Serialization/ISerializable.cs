@@ -6,6 +6,7 @@ namespace System.Runtime.Serialization
     public interface ISerializable
     {
         [Obsolete(Obsoletions.LegacyFormatterMessage, DiagnosticId = Obsoletions.LegacyFormatterDiagId, UrlFormat = Obsoletions.SharedUrlFormat)]
+        [CollectionAccess(CollectionAccessType.Read)]
         void GetObjectData(SerializationInfo info, StreamingContext context);
     }
 }

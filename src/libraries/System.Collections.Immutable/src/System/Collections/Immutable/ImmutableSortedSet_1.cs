@@ -177,6 +177,7 @@ namespace System.Collections.Immutable
         /// This is an O(1) operation and results in only a single (small) memory allocation.
         /// The mutable collection that is returned is *not* thread-safe.
         /// </remarks>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public Builder ToBuilder()
         {
             // We must not cache the instance created here and return it to various callers.

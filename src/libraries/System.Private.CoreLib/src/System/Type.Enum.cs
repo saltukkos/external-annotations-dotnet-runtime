@@ -87,6 +87,7 @@ namespace System
             return null;
         }
 
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[] GetEnumNames()
         {
             if (!IsEnum)

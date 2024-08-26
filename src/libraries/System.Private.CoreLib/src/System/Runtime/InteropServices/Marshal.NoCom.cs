@@ -150,6 +150,7 @@ namespace System.Runtime.InteropServices
 
         [SupportedOSPlatform("windows")]
         [EditorBrowsable(EditorBrowsableState.Never)]
+        // ReSharper disable once CollectionAccessAnnotationMissing -- not commonly used
         public static object?[] GetObjectsForNativeVariants(IntPtr aSrcNativeVariant, int cVars)
         {
             throw new PlatformNotSupportedException(SR.PlatformNotSupported_ComInterop);
@@ -157,6 +158,7 @@ namespace System.Runtime.InteropServices
 
         [SupportedOSPlatform("windows")]
         [EditorBrowsable(EditorBrowsableState.Never)]
+        // ReSharper disable once CollectionAccessAnnotationMissing -- not commonly used
         public static T[] GetObjectsForNativeVariants<T>(IntPtr aSrcNativeVariant, int cVars)
         {
             throw new PlatformNotSupportedException(SR.PlatformNotSupported_ComInterop);

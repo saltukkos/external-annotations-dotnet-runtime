@@ -94,6 +94,7 @@ namespace System.Collections.Generic
         // the internal array used to hold items.  When set, the internal
         // array of the list is reallocated to the given capacity.
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public int Capacity
         {
             get => _items.Length;
@@ -240,6 +241,7 @@ namespace System.Collections.Generic
         // required, the capacity of the list is increased to twice the previous
         // capacity or the new size, whichever is larger.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void AddRange(IEnumerable<T> collection)
         {
             if (collection == null)
@@ -274,6 +276,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public ReadOnlyCollection<T> AsReadOnly()
             => new ReadOnlyCollection<T>(this);
 
@@ -297,6 +300,7 @@ namespace System.Collections.Generic
         // The method uses the Array.BinarySearch method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int BinarySearch(int index, int count, T item, IComparer<T>? comparer)
         {
             if (index < 0)
@@ -309,9 +313,11 @@ namespace System.Collections.Generic
             return Array.BinarySearch(_items, index, count, item, comparer);
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int BinarySearch(T item)
             => BinarySearch(0, Count, item, null);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int BinarySearch(T item, IComparer<T>? comparer)
             => BinarySearch(0, Count, item, comparer);
 
@@ -361,6 +367,8 @@ namespace System.Collections.Generic
             return false;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public List<TOutput> ConvertAll<TOutput>(Converter<T, TOutput> converter)
         {
             if (converter == null)
@@ -379,6 +387,7 @@ namespace System.Collections.Generic
 
         // Copies this List into array, which must be of a
         // compatible array type.
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(T[] array)
             => CopyTo(array, 0);
 
@@ -406,6 +415,7 @@ namespace System.Collections.Generic
         //
         // The method uses the Array.Copy method to copy the elements.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(int index, T[] array, int arrayIndex, int count)
         {
             if (_size - index < count)
@@ -430,6 +440,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="capacity">The minimum capacity to ensure.</param>
         /// <returns>The new capacity of this list.</returns>
+        [CollectionAccess(CollectionAccessType.None)]
         public int EnsureCapacity(int capacity)
         {
             if (capacity < 0)
@@ -502,9 +513,11 @@ namespace System.Collections.Generic
             return newCapacity;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool Exists(Predicate<T> match)
             => FindIndex(match) != -1;
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public T? Find(Predicate<T> match)
         {
             if (match == null)
@@ -522,6 +535,8 @@ namespace System.Collections.Generic
             return default;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public List<T> FindAll(Predicate<T> match)
         {
             if (match == null)
@@ -540,12 +555,15 @@ namespace System.Collections.Generic
             return list;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindIndex(Predicate<T> match)
             => FindIndex(0, _size, match);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindIndex(int startIndex, Predicate<T> match)
             => FindIndex(startIndex, _size - startIndex, match);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindIndex(int startIndex, int count, Predicate<T> match)
         {
             if ((uint)startIndex > (uint)_size)
@@ -571,6 +589,7 @@ namespace System.Collections.Generic
             return -1;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public T? FindLast(Predicate<T> match)
         {
             if (match == null)
@@ -588,12 +607,15 @@ namespace System.Collections.Generic
             return default;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindLastIndex(Predicate<T> match)
             => FindLastIndex(_size - 1, _size, match);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindLastIndex(int startIndex, Predicate<T> match)
             => FindLastIndex(startIndex, startIndex + 1, match);
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public int FindLastIndex(int startIndex, int count, Predicate<T> match)
         {
             if (match == null)
@@ -635,6 +657,7 @@ namespace System.Collections.Generic
             return -1;
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void ForEach(Action<T> action)
         {
             if (action == null)
@@ -662,6 +685,7 @@ namespace System.Collections.Generic
         // while an enumeration is in progress, the MoveNext and
         // GetObject methods of the enumerator will throw an exception.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public Enumerator GetEnumerator() => new Enumerator(this);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
@@ -670,6 +694,8 @@ namespace System.Collections.Generic
 
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<T>)this).GetEnumerator();
 
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public List<T> GetRange(int index, int count)
         {
             if (index < 0)
@@ -705,6 +731,8 @@ namespace System.Collections.Generic
         /// <paramref name="length" /> is less than 0.
         /// </exception>
         /// <exception cref="ArgumentException"><paramref name="start" /> and <paramref name="length" /> do not denote a valid range of elements in the <see cref="List{T}" />.</exception>
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public List<T> Slice(int start, int length) => GetRange(start, length);
 
         // Returns the index of the first occurrence of a given value in a range of
@@ -736,6 +764,7 @@ namespace System.Collections.Generic
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOf([DefaultEqualityUsage] T item, int index)
         {
             if (index > _size)
@@ -752,6 +781,7 @@ namespace System.Collections.Generic
         // This method uses the Array.IndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int IndexOf([DefaultEqualityUsage] T item, int index, int count)
         {
             if (index > _size)
@@ -806,6 +836,7 @@ namespace System.Collections.Generic
         // capacity or the new size, whichever is larger.  Ranges may be added
         // to the end of the list by setting index to the List's size.
         //
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void InsertRange(int index, IEnumerable<T> collection)
         {
             if (collection == null)
@@ -868,6 +899,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int LastIndexOf([DefaultEqualityUsage] T item)
         {
             if (_size == 0)
@@ -889,6 +921,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int LastIndexOf([DefaultEqualityUsage] T item, int index)
         {
             if (index >= _size)
@@ -905,6 +938,7 @@ namespace System.Collections.Generic
         // This method uses the Array.LastIndexOf method to perform the
         // search.
         //
+        [CollectionAccess(CollectionAccessType.Read)]
         public int LastIndexOf([DefaultEqualityUsage] T item, int index, int count)
         {
             if ((Count != 0) && (index < 0))
@@ -959,6 +993,7 @@ namespace System.Collections.Generic
 
         // This method removes all items which matches the predicate.
         // The complexity is O(n).
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int RemoveAll(Predicate<T> match)
         {
             if (match == null)
@@ -1017,6 +1052,7 @@ namespace System.Collections.Generic
         }
 
         // Removes a range of elements from this list.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void RemoveRange(int index, int count)
         {
             if (index < 0)
@@ -1049,6 +1085,7 @@ namespace System.Collections.Generic
         }
 
         // Reverses the elements in this list.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Reverse()
             => Reverse(0, Count);
 
@@ -1057,6 +1094,7 @@ namespace System.Collections.Generic
         // which was previously located at index i will now be located at
         // index index + (index + count - i - 1).
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Reverse(int index, int count)
         {
             if (index < 0)
@@ -1081,11 +1119,13 @@ namespace System.Collections.Generic
 
         // Sorts the elements in this list.  Uses the default comparer and
         // Array.Sort.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Sort()
             => Sort(0, Count, null);
 
         // Sorts the elements in this list.  Uses Array.Sort with the
         // provided comparer.
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Sort(IComparer<T>? comparer)
             => Sort(0, Count, comparer);
 
@@ -1097,6 +1137,7 @@ namespace System.Collections.Generic
         //
         // This method uses the Array.Sort method to sort the elements.
         //
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Sort(int index, int count, IComparer<T>? comparer)
         {
             if (index < 0)
@@ -1119,6 +1160,7 @@ namespace System.Collections.Generic
             _version++;
         }
 
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Sort(Comparison<T> comparison)
         {
             if (comparison == null)
@@ -1135,6 +1177,8 @@ namespace System.Collections.Generic
 
         // ToArray returns an array containing the contents of the List.
         // This requires copying the List, which is an O(n) operation.
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public T[] ToArray()
         {
             if (_size == 0)
@@ -1156,6 +1200,7 @@ namespace System.Collections.Generic
         // list.Clear();
         // list.TrimExcess();
         //
+        [CollectionAccess(CollectionAccessType.None)]
         public void TrimExcess()
         {
             int threshold = (int)(((double)_items.Length) * 0.9);
@@ -1165,6 +1210,7 @@ namespace System.Collections.Generic
             }
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TrueForAll(Predicate<T> match)
         {
             if (match == null)

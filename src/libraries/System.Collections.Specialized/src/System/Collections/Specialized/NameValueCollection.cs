@@ -155,6 +155,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Copies the entries in the specified <see cref='System.Collections.Specialized.NameValueCollection'/> to the current <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Add(NameValueCollection c)
         {
             ArgumentNullException.ThrowIfNull(c);
@@ -184,6 +185,7 @@ namespace System.Collections.Specialized
         ///    <para>Invalidates the cached arrays and removes all entries
         ///       from the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Clear()
         {
             if (IsReadOnly)
@@ -193,6 +195,7 @@ namespace System.Collections.Specialized
             BaseClear();
         }
 
+        [CollectionAccess(CollectionAccessType.Read)]
         public void CopyTo(Array dest, int index)
         {
             ArgumentNullException.ThrowIfNull(dest);
@@ -232,6 +235,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Gets a value indicating whether the <see cref='System.Collections.Specialized.NameValueCollection'/> contains entries whose keys are not <see langword='null'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool HasKeys()
         {
             return InternalHasKeys();
@@ -253,6 +257,7 @@ namespace System.Collections.Specialized
         ///    <para>Adds an entry with the specified name and value into the
         ///    <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void Add(string? name, string? value)
         {
             if (IsReadOnly)
@@ -281,6 +286,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para> Gets the values associated with the specified key from the <see cref='System.Collections.Specialized.NameValueCollection'/> combined into one comma-separated list.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual string? Get(string? name)
         {
             ArrayList? values = (ArrayList?)BaseGet(name);
@@ -290,6 +296,8 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Gets the values associated with the specified key from the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[]? GetValues(string? name)
         {
             ArrayList? values = (ArrayList?)BaseGet(name);
@@ -299,6 +307,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Adds a value to an entry in the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual void Set(string? name, string? value)
         {
             if (IsReadOnly)
@@ -314,6 +323,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Removes the entries with the specified key from the <see cref='System.Collections.Specialized.NameObjectCollectionBase'/> instance.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public virtual void Remove(string? name)
         {
             InvalidateCachedArrays();
@@ -326,11 +336,13 @@ namespace System.Collections.Specialized
         /// </devdoc>
         public string? this[string? name]
         {
+            [CollectionAccess(CollectionAccessType.Read)]
             get
             {
                 return Get(name);
             }
 
+            [CollectionAccess(CollectionAccessType.UpdatedContent)]
             set
             {
                 Set(name, value);
@@ -346,6 +358,7 @@ namespace System.Collections.Specialized
         ///       Gets the values at the specified index of the <see cref='System.Collections.Specialized.NameValueCollection'/> combined into one
         ///       comma-separated list.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual string? Get(int index)
         {
             ArrayList? values = (ArrayList?)BaseGet(index);
@@ -355,6 +368,8 @@ namespace System.Collections.Specialized
         /// <devdoc>
         ///    <para> Gets the values at the specified index of the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public virtual string[]? GetValues(int index)
         {
             ArrayList? values = (ArrayList?)BaseGet(index);
@@ -364,6 +379,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Gets the key at the specified index of the <see cref='System.Collections.Specialized.NameValueCollection'/>.</para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.Read)]
         public virtual string? GetKey(int index)
         {
             return BaseGetKey(index);
@@ -374,6 +390,7 @@ namespace System.Collections.Specialized
         /// </devdoc>
         public string? this[int index]
         {
+            [CollectionAccess(CollectionAccessType.Read)]
             get
             {
                 return Get(index);
@@ -387,6 +404,7 @@ namespace System.Collections.Specialized
         /// <devdoc>
         /// <para>Gets all the keys in the <see cref='System.Collections.Specialized.NameValueCollection'/>. </para>
         /// </devdoc>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public virtual string?[] AllKeys => _allKeys ??= BaseGetAllKeys();
     }
 }

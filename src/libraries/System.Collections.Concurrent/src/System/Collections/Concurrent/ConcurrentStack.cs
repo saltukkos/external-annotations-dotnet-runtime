@@ -113,6 +113,7 @@ namespace System.Collections.Concurrent
         /// that another thread will modify the collection after <see cref="IsEmpty"/> returns, thus invalidating
         /// the result.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool IsEmpty
         {
             // Checks whether the stack is empty. Clearly the answer may be out of date even prior to
@@ -188,6 +189,7 @@ namespace System.Collections.Concurrent
         /// <summary>
         /// Removes all objects from the <see cref="ConcurrentStack{T}"/>.
         /// </summary>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void Clear()
         {
             // Clear the list by setting the head to null. We don't need to use an atomic
@@ -270,6 +272,7 @@ namespace System.Collections.Concurrent
         /// <param name="item">The object to push onto the <see cref="ConcurrentStack{T}"/>. The value can be
         /// a null reference (Nothing in Visual Basic) for reference types.
         /// </param>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Push(T item)
         {
             // Pushes a node onto the front of the stack thread-safely. Internally, this simply
@@ -301,6 +304,7 @@ namespace System.Collections.Concurrent
         /// be able to inject elements between the elements being pushed.  Items at lower indices in
         /// the <paramref name="items"/> array will be pushed before items at higher indices.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void PushRange(T[] items)
         {
             ArgumentNullException.ThrowIfNull(items);
@@ -330,6 +334,7 @@ namespace System.Collections.Concurrent
         /// be able to inject elements between the elements being pushed. Items at lower indices in the
         /// <paramref name="items"/> array will be pushed before items at higher indices.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void PushRange(T[] items, int startIndex, int count)
         {
             ValidatePushPopRangeInput(items, startIndex, count);
@@ -429,6 +434,7 @@ namespace System.Collections.Concurrent
         /// the top of the <see cref="System.Collections.Concurrent.ConcurrentStack{T}"/> or an
         /// unspecified value if the operation failed.</param>
         /// <returns>true if and object was returned successfully; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryPeek([MaybeNullWhen(false)] out T result)
         {
             Node? head = _head;
@@ -456,6 +462,7 @@ namespace System.Collections.Concurrent
         /// <returns>true if an element was removed and returned from the top of the <see
         /// cref="ConcurrentStack{T}"/>
         /// successfully; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public bool TryPop([MaybeNullWhen(false)] out T result)
         {
             Node? head = _head;
@@ -495,6 +502,7 @@ namespace System.Collections.Concurrent
         /// with the first node to be popped at the startIndex, the second node to be popped
         /// at startIndex + 1, and so on.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int TryPopRange(T[] items)
         {
             ArgumentNullException.ThrowIfNull(items);
@@ -530,6 +538,7 @@ namespace System.Collections.Concurrent
         /// with the first node to be popped at the startIndex, the second node to be popped
         /// at startIndex + 1, and so on.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int TryPopRange(T[] items, int startIndex, int count)
         {
             ValidatePushPopRangeInput(items, startIndex, count);
