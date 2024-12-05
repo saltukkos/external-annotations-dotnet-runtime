@@ -73,7 +73,7 @@ namespace System.Collections.Specialized
         /// <para>Copies the elements of a string array to the end of the <see cref='System.Collections.Specialized.StringCollection'/>.</para>
         /// </devdoc>
         [CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public void AddRange(string[] value)
+        public void AddRange(string?[] value)
         {
             ArgumentNullException.ThrowIfNull(value);
 
@@ -105,7 +105,7 @@ namespace System.Collections.Specialized
         ///    specified index.</para>
         /// </devdoc>
         [CollectionAccess(CollectionAccessType.Read)]
-        public void CopyTo(string[] array, int index)
+        public void CopyTo(string?[] array, int index)
         {
             data.CopyTo(array, index);
         }

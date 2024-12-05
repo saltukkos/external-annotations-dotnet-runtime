@@ -579,7 +579,7 @@ namespace System
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static int[] GetBits(decimal d)
         {
-            return new int[] { (int)d.Low, (int)d.Mid, (int)d.High, d._flags };
+            return [(int)d.Low, (int)d.Mid, (int)d.High, d._flags];
         }
 
         /// <summary>
@@ -628,7 +628,7 @@ namespace System
 
         internal static void GetBytes(in decimal d, Span<byte> buffer)
         {
-            Debug.Assert(buffer.Length >= 16, "buffer.Length >= 16");
+            Debug.Assert(buffer.Length >= 16);
 
             BinaryPrimitives.WriteInt32LittleEndian(buffer, (int)d.Low);
             BinaryPrimitives.WriteInt32LittleEndian(buffer.Slice(4), (int)d.Mid);
@@ -638,7 +638,7 @@ namespace System
 
         internal static decimal ToDecimal(ReadOnlySpan<byte> span)
         {
-            Debug.Assert(span.Length >= 16, "span.Length >= 16");
+            Debug.Assert(span.Length >= 16);
             int lo = BinaryPrimitives.ReadInt32LittleEndian(span);
             int mid = BinaryPrimitives.ReadInt32LittleEndian(span.Slice(4));
             int hi = BinaryPrimitives.ReadInt32LittleEndian(span.Slice(8));
