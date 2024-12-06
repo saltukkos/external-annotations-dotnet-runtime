@@ -3360,7 +3360,7 @@ namespace System
         /// <param name="source">The source span to be enumerated.</param>
         /// <param name="separator">The separator character to be used to split the provided span.</param>
         /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/>.</returns>
-        public static SpanSplitEnumerator<T> Split<T>(this ReadOnlySpan<T> source, T separator) where T : IEquatable<T> =>
+        public static SpanSplitEnumerator<T> Split<[DefaultEqualityUsage] T>(this ReadOnlySpan<T> source, T separator) where T : IEquatable<T> =>
             new SpanSplitEnumerator<T>(source, separator);
 
         /// <summary>
@@ -3371,7 +3371,7 @@ namespace System
         /// <param name="source">The source span to be enumerated.</param>
         /// <param name="separator">The separator span to be used to split the provided span.</param>
         /// <returns>Returns a <see cref="SpanSplitEnumerator{T}"/>.</returns>
-        public static SpanSplitEnumerator<T> Split<T>(this ReadOnlySpan<T> source, ReadOnlySpan<T> separator) where T : IEquatable<T> =>
+        public static SpanSplitEnumerator<T> Split<[DefaultEqualityUsage] T>(this ReadOnlySpan<T> source, ReadOnlySpan<T> separator) where T : IEquatable<T> =>
             new SpanSplitEnumerator<T>(source, separator, treatAsSingleSeparator: true);
 
         /// <summary>
@@ -3389,7 +3389,7 @@ namespace System
         /// or when <see cref="SplitAny(ReadOnlySpan{char}, Span{Range}, ReadOnlySpan{char}, StringSplitOptions)"/>
         /// is used with an empty separator span.
         /// </remarks>
-        public static SpanSplitEnumerator<T> SplitAny<T>(this ReadOnlySpan<T> source, [UnscopedRef] params ReadOnlySpan<T> separators) where T : IEquatable<T> =>
+        public static SpanSplitEnumerator<T> SplitAny<[DefaultEqualityUsage] T>(this ReadOnlySpan<T> source, [UnscopedRef] params ReadOnlySpan<T> separators) where T : IEquatable<T> =>
             new SpanSplitEnumerator<T>(source, separators);
 
         /// <summary>
@@ -3406,7 +3406,7 @@ namespace System
         /// whereas <see cref="SplitAny{T}(ReadOnlySpan{T}, ReadOnlySpan{T})"/> will use all Unicode whitespace characters as separators if <paramref name="separators"/> is
         /// empty and <typeparamref name="T"/> is <see cref="char"/>.
         /// </remarks>
-        public static SpanSplitEnumerator<T> SplitAny<T>(this ReadOnlySpan<T> source, SearchValues<T> separators) where T : IEquatable<T> =>
+        public static SpanSplitEnumerator<T> SplitAny<[DefaultEqualityUsage] T>(this ReadOnlySpan<T> source, SearchValues<T> separators) where T : IEquatable<T> =>
             new SpanSplitEnumerator<T>(source, separators);
 
         /// <summary>
@@ -4030,7 +4030,7 @@ namespace System
         /// Enables enumerating each split within a <see cref="ReadOnlySpan{T}"/> that has been divided using one or more separators.
         /// </summary>
         /// <typeparam name="T">The type of items in the <see cref="SpanSplitEnumerator{T}"/>.</typeparam>
-        public ref struct SpanSplitEnumerator<T> where T : IEquatable<T>
+        public ref struct SpanSplitEnumerator<[DefaultEqualityUsage] T> where T : IEquatable<T>
         {
             /// <summary>The input span being split.</summary>
             private readonly ReadOnlySpan<T> _span;

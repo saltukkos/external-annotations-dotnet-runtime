@@ -257,6 +257,7 @@ namespace System.Collections.Immutable
             /// Performs the specified action on each element of the list.
             /// </summary>
             /// <param name="action">The System.Action&lt;T&gt; delegate to perform on each element of the list.</param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void ForEach(Action<T> action)
             {
                 Requires.NotNull(action, nameof(action));
@@ -276,6 +277,7 @@ namespace System.Collections.Immutable
             /// copied from ImmutableList&lt;T&gt;. The System.Array must have
             /// zero-based indexing.
             /// </param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void CopyTo(T[] array) => _root.CopyTo(array);
 
             /// <summary>
@@ -308,6 +310,7 @@ namespace System.Collections.Immutable
             /// </param>
             /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
             /// <param name="count">The number of elements to copy.</param>
+            [CollectionAccess(CollectionAccessType.Read)]
             public void CopyTo(int index, T[] array, int arrayIndex, int count) => _root.CopyTo(index, array, arrayIndex, count);
 
             /// <summary>
@@ -323,6 +326,7 @@ namespace System.Collections.Immutable
             /// <returns>
             /// A shallow copy of a range of elements in the source ImmutableList&lt;T&gt;.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableList<T> GetRange(int index, int count)
             {
                 Requires.Range(index >= 0, nameof(index));
@@ -346,6 +350,7 @@ namespace System.Collections.Immutable
             /// A ImmutableList&lt;T&gt; of the target type containing the converted
             /// elements from the current ImmutableList&lt;T&gt;.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableList<TOutput> ConvertAll<TOutput>(Func<T, TOutput> converter)
             {
                 Requires.NotNull(converter, nameof(converter));
@@ -365,6 +370,7 @@ namespace System.Collections.Immutable
             /// that match the conditions defined by the specified predicate; otherwise,
             /// false.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool Exists(Predicate<T> match) => _root.Exists(match);
 
             /// <summary>
@@ -379,6 +385,7 @@ namespace System.Collections.Immutable
             /// The first element that matches the conditions defined by the specified predicate,
             /// if found; otherwise, the default value for type T.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public T? Find(Predicate<T> match) => _root.Find(match);
 
             /// <summary>
@@ -394,6 +401,7 @@ namespace System.Collections.Immutable
             /// the conditions defined by the specified predicate, if found; otherwise, an
             /// empty ImmutableList&lt;T&gt;.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public ImmutableList<T> FindAll(Predicate<T> match) => _root.FindAll(match);
 
             /// <summary>
@@ -409,6 +417,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the first occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindIndex(Predicate<T> match) => _root.FindIndex(match);
 
             /// <summary>
@@ -423,6 +432,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the first occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindIndex(int startIndex, Predicate<T> match) => _root.FindIndex(startIndex, match);
 
             /// <summary>
@@ -438,6 +448,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the first occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindIndex(int startIndex, int count, Predicate<T> match) => _root.FindIndex(startIndex, count, match);
 
             /// <summary>
@@ -452,6 +463,7 @@ namespace System.Collections.Immutable
             /// The last element that matches the conditions defined by the specified predicate,
             /// if found; otherwise, the default value for type T.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public T? FindLast(Predicate<T> match) => _root.FindLast(match);
 
             /// <summary>
@@ -467,6 +479,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the last occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindLastIndex(Predicate<T> match) => _root.FindLastIndex(match);
 
             /// <summary>
@@ -482,6 +495,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the last occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindLastIndex(int startIndex, Predicate<T> match) => _root.FindLastIndex(startIndex, match);
 
             /// <summary>
@@ -500,6 +514,7 @@ namespace System.Collections.Immutable
             /// The zero-based index of the last occurrence of an element that matches the
             /// conditions defined by match, if found; otherwise, -1.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int FindLastIndex(int startIndex, int count, Predicate<T> match) => _root.FindLastIndex(startIndex, count, match);
 
             /// <summary>
@@ -687,6 +702,7 @@ namespace System.Collections.Immutable
             /// conditions defined by the specified predicate; otherwise, false. If the list
             /// has no elements, the return value is true.
             /// </returns>
+            [CollectionAccess(CollectionAccessType.Read)]
             public bool TrueForAll(Predicate<T> match) => _root.TrueForAll(match);
 
             #endregion
@@ -964,6 +980,7 @@ namespace System.Collections.Immutable
             /// find an implementation of the System.IComparable&lt;T&gt; generic interface or
             /// the System.IComparable interface for type T.
             /// </exception>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int BinarySearch(T item)
             {
                 return this.BinarySearch(item, null);
@@ -989,6 +1006,7 @@ namespace System.Collections.Immutable
             /// cannot find an implementation of the System.IComparable&lt;T&gt; generic interface
             /// or the System.IComparable interface for type T.
             /// </exception>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int BinarySearch(T item, IComparer<T>? comparer)
             {
                 return this.BinarySearch(0, this.Count, item, comparer);
@@ -1023,6 +1041,7 @@ namespace System.Collections.Immutable
             /// cannot find an implementation of the System.IComparable&lt;T&gt; generic interface
             /// or the System.IComparable interface for type T.
             /// </exception>
+            [CollectionAccess(CollectionAccessType.Read)]
             public int BinarySearch(int index, int count, T item, IComparer<T>? comparer)
             {
                 return this.Root.BinarySearch(index, count, item, comparer);

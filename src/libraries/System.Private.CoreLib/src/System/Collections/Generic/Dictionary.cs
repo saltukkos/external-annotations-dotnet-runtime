@@ -654,6 +654,7 @@ namespace System.Collections.Generic
         /// The dictionary must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternateKey, TKey}"/> with
         /// <typeparamref name="TAlternateKey"/> and <typeparamref name="TKey"/>. If it doesn't, an exception will be thrown.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public AlternateLookup<TAlternateKey> GetAlternateLookup<TAlternateKey>()
             where TAlternateKey : notnull, allows ref struct
         {
@@ -676,6 +677,7 @@ namespace System.Collections.Generic
         /// The dictionary must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternateKey, TKey}"/> with
         /// <typeparamref name="TAlternateKey"/> and <typeparamref name="TKey"/>. If it doesn't, the method will return false.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryGetAlternateLookup<TAlternateKey>(
             out AlternateLookup<TAlternateKey> lookup)
             where TAlternateKey : notnull, allows ref struct

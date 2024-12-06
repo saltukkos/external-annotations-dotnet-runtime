@@ -142,6 +142,7 @@ namespace System.Collections.Immutable
             /// When changing the comparer in such a way as would introduce collisions, the conflicting elements are dropped,
             /// leaving only one of each matching pair in the collection.
             /// </remarks>
+            [CollectionAccess(CollectionAccessType.None)]
             public IComparer<T> KeyComparer
             {
                 get

@@ -379,6 +379,7 @@ namespace System.Collections.Generic
         /// The set must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternate, T}"/> with
         /// <typeparamref name="TAlternate"/> and <typeparamref name="T"/>. If it doesn't, an exception will be thrown.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public AlternateLookup<TAlternate> GetAlternateLookup<TAlternate>()
             where TAlternate : allows ref struct
         {
@@ -401,6 +402,7 @@ namespace System.Collections.Generic
         /// The set must be using a comparer that implements <see cref="IAlternateEqualityComparer{TAlternate, T}"/> with
         /// <typeparamref name="TAlternate"/> and <typeparamref name="T"/>. If it doesn't, the method returns false.
         /// </remarks>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryGetAlternateLookup<TAlternate>(out AlternateLookup<TAlternate> lookup)
             where TAlternate : allows ref struct
         {

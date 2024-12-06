@@ -6231,6 +6231,7 @@ namespace System.Threading.Tasks
         /// <exception cref="ArgumentException">
         /// The <paramref name="tasks"/> collection contained a null task.
         /// </exception>
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<TResult[]> WhenAll<TResult>(IEnumerable<Task<TResult>> tasks)
         {
             // Take a more efficient route if tasks is actually an array
@@ -6314,6 +6315,7 @@ namespace System.Threading.Tasks
         /// <exception cref="ArgumentException">
         /// The <paramref name="tasks"/> array contained a null task.
         /// </exception>
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<TResult[]> WhenAll<TResult>(params Task<TResult>[] tasks)
         {
             if (tasks is null)
@@ -6352,6 +6354,7 @@ namespace System.Threading.Tasks
         /// <exception cref="ArgumentException">
         /// The <paramref name="tasks"/> array contained a null task.
         /// </exception>
+        // ReSharper disable once CollectionAccessAnnotationMissing -- R# TODO, support await
         public static Task<TResult[]> WhenAll<TResult>(params ReadOnlySpan<Task<TResult>> tasks)
         {
             if (tasks.IsEmpty)

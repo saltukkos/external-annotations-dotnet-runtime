@@ -507,6 +507,7 @@ namespace System.Collections.Generic
         /// <param name="index">The index of the added or existing <paramref name="key"/>. This is always a valid index into the dictionary.</param>
         /// <exception cref="ArgumentNullException">key is null.</exception>
         /// <returns>true if the key didn't exist and the key and value were added to the dictionary; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public bool TryAdd(TKey key, TValue value, out int index)
         {
             ThrowIfNull(key);
@@ -936,6 +937,7 @@ namespace System.Collections.Generic
         /// </param>
         /// <param name="index">The index of <paramref name="key"/> if found; otherwise, -1.</param>
         /// <returns>true if the <see cref="OrderedDictionary{TKey, TValue}"/> contains an element with the specified key; otherwise, false.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value, out int index)
         {
             ThrowIfNull(key);

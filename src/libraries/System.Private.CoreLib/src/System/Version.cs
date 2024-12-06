@@ -354,6 +354,7 @@ namespace System
             return result is not null;
         }
 
+        // ReSharper disable TypeParameterEqualityUsage -- only chars
         private static Version? ParseVersion<TChar>(ReadOnlySpan<TChar> input, bool throwOnFailure)
             where TChar : unmanaged, IUtfChar<TChar>
         {
@@ -439,6 +440,7 @@ namespace System
             Number.ParsingStatus parseStatus = Number.TryParseBinaryIntegerStyle(component, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out parsedComponent);
             return parseStatus == Number.ParsingStatus.OK && parsedComponent >= 0;
         }
+        // ReSharper restore TypeParameterEqualityUsage
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Version? v1, Version? v2)

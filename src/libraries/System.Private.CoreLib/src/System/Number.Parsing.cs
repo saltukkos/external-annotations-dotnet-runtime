@@ -231,7 +231,7 @@ namespace System
         }
 
         /// <summary>Parses int limited to styles that make up NumberStyles.Integer.</summary>
-        internal static ParsingStatus TryParseBinaryIntegerStyle<[DefaultEqualityUsage] TChar, TInteger>(ReadOnlySpan<TChar> value, NumberStyles styles, NumberFormatInfo info, out TInteger result)
+        internal static ParsingStatus TryParseBinaryIntegerStyle<TChar, TInteger>(ReadOnlySpan<TChar> value, NumberStyles styles, NumberFormatInfo info, out TInteger result)
             where TChar : unmanaged, IUtfChar<TChar>
             where TInteger : unmanaged, IBinaryIntegerParseAndFormatInfo<TInteger>
         {
@@ -308,6 +308,7 @@ namespace System
                     ReadOnlySpan<TChar> positiveSign = info.PositiveSignTChar<TChar>();
                     ReadOnlySpan<TChar> negativeSign = info.NegativeSignTChar<TChar>();
 
+                    // ReSharper disable once TypeParameterEqualityUsage -- only chars
                     if (!positiveSign.IsEmpty && value.StartsWith(positiveSign))
                     {
                         index += positiveSign.Length;
@@ -318,6 +319,7 @@ namespace System
                         }
                         num = TChar.CastToUInt32(value[index]);
                     }
+                    // ReSharper disable once TypeParameterEqualityUsage -- only chars
                     else if (!negativeSign.IsEmpty && value.StartsWith(negativeSign))
                     {
                         isNegative = true;
