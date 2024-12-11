@@ -45,6 +45,7 @@ namespace System.Text.Json.Serialization.Converters
             if (jsonTypeInfo.CreateObject is null && Type.IsAssignableFrom(typeof(Dictionary<TKey, TValue>)))
             {
                 Debug.Assert(Type.IsInterface);
+                // ReSharper disable once TypeParameterEqualityUsage -- dictionary already exist
                 jsonTypeInfo.CreateObject = () => new Dictionary<TKey, TValue>();
             }
         }

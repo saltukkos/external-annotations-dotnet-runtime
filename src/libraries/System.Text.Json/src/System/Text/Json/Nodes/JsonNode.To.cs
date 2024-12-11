@@ -76,6 +76,7 @@ namespace System.Text.Json.Nodes
         ///   The <paramref name="writer"/> parameter is <see langword="null"/>.
         /// </exception>
         /// <param name="options">Options to control the serialization behavior.</param>
+        [CollectionAccess(CollectionAccessType.Read)]
         public abstract void WriteTo(Utf8JsonWriter writer, JsonSerializerOptions? options = null);
     }
 }

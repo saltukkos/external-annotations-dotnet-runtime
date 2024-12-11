@@ -58,6 +58,7 @@ namespace System.Text.Json.Nodes
         /// <exception cref="InvalidOperationException">
         ///   The node is not a <see cref="JsonArray"/>.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)]
         public JsonArray AsArray()
         {
             JsonArray? jArray = this as JsonArray;
@@ -79,6 +80,7 @@ namespace System.Text.Json.Nodes
         /// <exception cref="InvalidOperationException">
         ///   The node is not a <see cref="JsonObject"/>.
         /// </exception>
+        // ReSharper disable once CollectionAccessAnnotationMissing
         public JsonObject AsObject()
         {
             JsonObject? jObject = this as JsonObject;

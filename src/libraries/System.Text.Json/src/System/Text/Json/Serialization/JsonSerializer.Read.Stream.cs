@@ -41,7 +41,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static ValueTask<TValue?> DeserializeAsync<TValue>(
+        public static ValueTask<TValue?> DeserializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonSerializerOptions? options = null,
             CancellationToken cancellationToken = default)
@@ -77,7 +77,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static TValue? Deserialize<TValue>(
+        public static TValue? Deserialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonSerializerOptions? options = null)
         {
@@ -117,7 +117,7 @@ namespace System.Text.Json
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
         public static ValueTask<object?> DeserializeAsync(
             Stream utf8Json,
-            Type returnType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type returnType,
             JsonSerializerOptions? options = null,
             CancellationToken cancellationToken = default)
         {
@@ -158,7 +158,7 @@ namespace System.Text.Json
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
         public static object? Deserialize(
             Stream utf8Json,
-            Type returnType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type returnType,
             JsonSerializerOptions? options = null)
         {
             if (utf8Json is null)
@@ -193,7 +193,7 @@ namespace System.Text.Json
         /// <typeparamref name="TValue"/> is not compatible with the JSON,
         /// or when there is remaining data in the Stream.
         /// </exception>
-        public static ValueTask<TValue?> DeserializeAsync<TValue>(
+        public static ValueTask<TValue?> DeserializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonTypeInfo<TValue> jsonTypeInfo,
             CancellationToken cancellationToken = default)
@@ -228,6 +228,7 @@ namespace System.Text.Json
         /// The JSON is invalid,
         /// or when there is remaining data in the Stream.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static ValueTask<object?> DeserializeAsync(
             Stream utf8Json,
             JsonTypeInfo jsonTypeInfo,
@@ -262,7 +263,7 @@ namespace System.Text.Json
         /// <typeparamref name="TValue"/> is not compatible with the JSON,
         /// or when there is remaining data in the Stream.
         /// </exception>
-        public static TValue? Deserialize<TValue>(
+        public static TValue? Deserialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonTypeInfo<TValue> jsonTypeInfo)
         {
@@ -293,6 +294,7 @@ namespace System.Text.Json
         /// The JSON is invalid,
         /// or when there is remaining data in the Stream.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static object? Deserialize(
             Stream utf8Json,
             JsonTypeInfo jsonTypeInfo)
@@ -339,7 +341,7 @@ namespace System.Text.Json
         /// </exception>
         public static ValueTask<object?> DeserializeAsync(
             Stream utf8Json,
-            Type returnType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type returnType,
             JsonSerializerContext context,
             CancellationToken cancellationToken = default)
         {
@@ -386,7 +388,7 @@ namespace System.Text.Json
         /// </exception>
         public static object? Deserialize(
             Stream utf8Json,
-            Type returnType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type returnType,
             JsonSerializerContext context)
         {
             if (utf8Json is null)
@@ -420,7 +422,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonSerializerOptions? options = null,
             CancellationToken cancellationToken = default)
@@ -449,7 +451,7 @@ namespace System.Text.Json
         /// </remarks>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             bool topLevelValues,
             JsonSerializerOptions? options = null,
@@ -476,7 +478,7 @@ namespace System.Text.Json
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="utf8Json"/> or <paramref name="jsonTypeInfo"/> is <see langword="null"/>.
         /// </exception>
-        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonTypeInfo<TValue> jsonTypeInfo,
             CancellationToken cancellationToken = default)
@@ -503,7 +505,7 @@ namespace System.Text.Json
         /// When <paramref name="topLevelValues"/> is set to <see langword="false" />, treats the stream as a JSON array and
         /// attempts to serialize each element into <typeparamref name="TValue"/>.
         /// </remarks>
-        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> DeserializeAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             JsonTypeInfo<TValue> jsonTypeInfo,
             bool topLevelValues,

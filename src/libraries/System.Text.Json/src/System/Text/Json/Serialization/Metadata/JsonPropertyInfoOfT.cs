@@ -446,12 +446,14 @@ namespace System.Text.Json.Serialization.Metadata
             static bool ShouldSerializeIgnoreConditionAlways(object _, T? value) => false;
             static bool ShouldSerializeIgnoreWhenWritingDefault(object _, T? value)
             {
+                // ReSharper disable once TypeParameterEqualityUsage -- yes, it could use default equality but only when 'WhenWritingDefault', not worth the effort
                 return default(T) is null ? value is not null : !EqualityComparer<T>.Default.Equals(default, value);
             }
         }
 
         private static bool IsDefaultValue(T? value)
         {
+            // ReSharper disable once TypeParameterEqualityUsage -- yes, it could use default equality but only when 'WhenWritingDefault', not worth the effort
             return default(T) is null ? value is null : EqualityComparer<T>.Default.Equals(default, value);
         }
     }

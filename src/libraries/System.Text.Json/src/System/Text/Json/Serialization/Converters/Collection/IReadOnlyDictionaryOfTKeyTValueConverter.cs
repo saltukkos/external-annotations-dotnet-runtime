@@ -26,6 +26,7 @@ namespace System.Text.Json.Serialization.Converters
                 ThrowHelper.ThrowNotSupportedException_CannotPopulateCollection(Type, ref reader, ref state);
             }
 
+            // ReSharper disable once TypeParameterEqualityUsage -- dictionary already exist
             state.Current.ReturnValue = new Dictionary<TKey, TValue>();
         }
     }

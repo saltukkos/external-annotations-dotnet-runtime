@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 namespace System.Text.Json.Nodes
 {
+    // ReSharper disable CollectionAccessAnnotationMissing -- ignore members from the base class, treat as full access
     public sealed partial class JsonArray : JsonNode, IList<JsonNode?>
+    // ReSharper restore CollectionAccessAnnotationMissing
     {
         /// <summary>
         ///   Gets the number of elements contained in the <see cref="JsonArray"/>.
@@ -122,6 +124,7 @@ namespace System.Text.Json.Nodes
         /// <exception cref="ArgumentNullException">
         ///   <paramref name="match"/> is <see langword="null"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent | CollectionAccessType.Read)]
         public int RemoveAll(Func<JsonNode?, bool> match)
         {
             if (match == null)
@@ -154,6 +157,7 @@ namespace System.Text.Json.Nodes
         /// <exception cref="ArgumentException">
         ///   <paramref name="index"/> and <paramref name="count"/> do not denote a valid range of elements in the <see cref="JsonArray"/>.
         /// </exception>
+        [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
         public void RemoveRange(int index, int count)
         {
             if (index < 0)

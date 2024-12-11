@@ -24,7 +24,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="utf8Json"/> is <see langword="null"/>.
         /// </exception>
-        public static Task SerializeAsync<TValue>(
+        public static Task SerializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             PipeWriter utf8Json,
             TValue value,
             JsonTypeInfo<TValue> jsonTypeInfo,
@@ -61,7 +61,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static Task SerializeAsync<TValue>(
+        public static Task SerializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             PipeWriter utf8Json,
             TValue value,
             JsonSerializerOptions? options = null,
@@ -90,6 +90,7 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static Task SerializeAsync(
             PipeWriter utf8Json,
             object? value,
@@ -132,7 +133,7 @@ namespace System.Text.Json
         public static Task SerializeAsync(
                 PipeWriter utf8Json,
                 object? value,
-                Type inputType,
+                [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
                 JsonSerializerContext context,
                 CancellationToken cancellationToken = default)
         {
@@ -176,7 +177,7 @@ namespace System.Text.Json
         public static Task SerializeAsync(
                 PipeWriter utf8Json,
                 object? value,
-                Type inputType,
+                [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
                 JsonSerializerOptions? options = null,
                 CancellationToken cancellationToken = default)
         {

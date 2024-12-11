@@ -25,7 +25,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static void Serialize<TValue>(
+        public static void Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Utf8JsonWriter writer,
             TValue value,
             JsonSerializerOptions? options = null)
@@ -61,7 +61,7 @@ namespace System.Text.Json
         public static void Serialize(
             Utf8JsonWriter writer,
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerOptions? options = null)
         {
             if (writer is null)
@@ -84,7 +84,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         ///   <paramref name="writer"/> or <paramref name="jsonTypeInfo"/> is <see langword="null"/>.
         /// </exception>
-        public static void Serialize<TValue>(Utf8JsonWriter writer, TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
+        public static void Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(Utf8JsonWriter writer, TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
         {
             if (writer is null)
             {
@@ -111,6 +111,7 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static void Serialize(Utf8JsonWriter writer, object? value, JsonTypeInfo jsonTypeInfo)
         {
             if (writer is null)
@@ -147,7 +148,7 @@ namespace System.Text.Json
         /// The <see cref="JsonSerializerContext.GetTypeInfo(Type)"/> method of the provided
         /// <paramref name="context"/> returns <see langword="null"/> for the type to convert.
         /// </exception>
-        public static void Serialize(Utf8JsonWriter writer, object? value, Type inputType, JsonSerializerContext context)
+        public static void Serialize(Utf8JsonWriter writer, object? value, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType, JsonSerializerContext context)
         {
             if (writer is null)
             {

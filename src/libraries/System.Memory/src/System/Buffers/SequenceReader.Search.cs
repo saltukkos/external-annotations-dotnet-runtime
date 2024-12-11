@@ -3,6 +3,7 @@
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+// ReSharper disable TypeParameterEqualityUsage -- 'where T : unmanaged, IEquatable<T>', nothing interesting for us
 
 namespace System.Buffers
 {

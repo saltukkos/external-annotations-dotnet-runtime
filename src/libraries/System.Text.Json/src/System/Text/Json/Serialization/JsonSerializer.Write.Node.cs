@@ -24,7 +24,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static JsonNode? SerializeToNode<TValue>(TValue value, JsonSerializerOptions? options = null)
+        public static JsonNode? SerializeToNode<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(TValue value, JsonSerializerOptions? options = null)
         {
             JsonTypeInfo<TValue> jsonTypeInfo = GetTypeInfo<TValue>(options);
             return WriteNode(value, jsonTypeInfo);
@@ -49,7 +49,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static JsonNode? SerializeToNode(object? value, Type inputType, JsonSerializerOptions? options = null)
+        public static JsonNode? SerializeToNode(object? value, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType, JsonSerializerOptions? options = null)
         {
             ValidateInputType(value, inputType);
             JsonTypeInfo typeInfo = GetTypeInfo(options, inputType);
@@ -66,7 +66,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="jsonTypeInfo"/> is <see langword="null"/>.
         /// </exception>
-        public static JsonNode? SerializeToNode<TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
+        public static JsonNode? SerializeToNode<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
             {
@@ -89,6 +89,7 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static JsonNode? SerializeToNode(object? value, JsonTypeInfo jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
@@ -118,7 +119,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="inputType"/> or <paramref name="context"/> is <see langword="null"/>.
         /// </exception>
-        public static JsonNode? SerializeToNode(object? value, Type inputType, JsonSerializerContext context)
+        public static JsonNode? SerializeToNode(object? value, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType, JsonSerializerContext context)
         {
             if (context is null)
             {

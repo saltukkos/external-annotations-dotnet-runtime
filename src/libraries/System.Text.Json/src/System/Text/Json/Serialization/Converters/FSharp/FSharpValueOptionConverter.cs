@@ -52,6 +52,7 @@ namespace System.Text.Json.Serialization.Converters
 
         internal override bool OnTryWrite(Utf8JsonWriter writer, TValueOption value, JsonSerializerOptions options, ref WriteStack state)
         {
+            // ReSharper disable once TypeParameterEqualityUsage -- IEquatable and only for comparison with default
             if (value.Equals(default))
             {
                 // Write `ValueNone` values as null
@@ -70,6 +71,7 @@ namespace System.Text.Json.Serialization.Converters
 
         public override void Write(Utf8JsonWriter writer, TValueOption value, JsonSerializerOptions options)
         {
+            // ReSharper disable once TypeParameterEqualityUsage -- IEquatable and only for comparison with default
             if (value.Equals(default))
             {
                 // Write `ValueNone` values as null

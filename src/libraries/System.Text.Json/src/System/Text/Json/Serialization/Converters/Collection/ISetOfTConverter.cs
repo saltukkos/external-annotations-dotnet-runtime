@@ -40,6 +40,7 @@ namespace System.Text.Json.Serialization.Converters
             if (jsonTypeInfo.CreateObject is null && Type.IsAssignableFrom(typeof(HashSet<TElement>)))
             {
                 Debug.Assert(Type.IsInterface);
+                // ReSharper disable once TypeParameterEqualityUsage -- hashset already exist
                 jsonTypeInfo.CreateObject = () => new HashSet<TElement>();
             }
         }

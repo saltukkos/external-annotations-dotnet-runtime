@@ -18,7 +18,9 @@ namespace System.Text.Json.Nodes
     /// </remarks>
     [DebuggerDisplay("JsonArray[{List.Count}]")]
     [DebuggerTypeProxy(typeof(DebugView))]
+    // ReSharper disable CollectionAccessAnnotationMissing -- ignore members from the base class, treat as full access
     public sealed partial class JsonArray : JsonNode
+    // ReSharper restore CollectionAccessAnnotationMissing
     {
         private JsonElement? _jsonElement;
         private List<JsonNode?>? _list;
@@ -138,6 +140,7 @@ namespace System.Text.Json.Nodes
         /// </summary>
         /// <typeparam name="T">The type of the value to obtain from the <see cref="JsonValue"/>.</typeparam>
         /// <returns>An enumerable iterating over values of the array.</returns>
+        [CollectionAccess(CollectionAccessType.Read)]
         public IEnumerable<T> GetValues<T>()
         {
             foreach (JsonNode? item in List)
@@ -190,6 +193,7 @@ namespace System.Text.Json.Nodes
         /// <exception cref="InvalidOperationException">
         ///   The <paramref name="element"/> is not a <see cref="JsonValueKind.Array"/>.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static JsonArray? Create(JsonElement element, JsonNodeOptions? options = null)
         {
             return element.ValueKind switch
@@ -215,6 +219,7 @@ namespace System.Text.Json.Nodes
         /// </param>
         [RequiresUnreferencedCode(JsonValue.CreateUnreferencedCodeMessage)]
         [RequiresDynamicCode(JsonValue.CreateDynamicCodeMessage)]
+        [CollectionAccess(CollectionAccessType.UpdatedContent)]
         public void Add<T>(T? value)
         {
             JsonNode? nodeToAdd = ConvertFromValue(value, Options);

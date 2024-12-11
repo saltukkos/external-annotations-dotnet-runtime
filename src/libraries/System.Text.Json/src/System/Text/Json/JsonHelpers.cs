@@ -252,7 +252,7 @@ namespace System.Text.Json
         /// <summary>
         /// Emulates Dictionary(IEnumerable{KeyValuePair}) on netstandard.
         /// </summary>
-        public static Dictionary<TKey, TValue> CreateDictionaryFromCollection<TKey, TValue>(
+        public static Dictionary<TKey, TValue> CreateDictionaryFromCollection<[DefaultEqualityUsage] TKey, TValue>(
             IEnumerable<KeyValuePair<TKey, TValue>> collection,
             IEqualityComparer<TKey> comparer)
             where TKey : notnull

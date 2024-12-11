@@ -283,6 +283,7 @@ namespace System.Text.Json
         /// The JSON string contains data outside of the expected Base64 range, or if it contains invalid/more than two padding characters,
         /// or is incomplete (i.e. the JSON string length is not a multiple of 4).
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public byte[] GetBytesFromBase64()
         {
             if (!TryGetBytesFromBase64(out byte[]? value))

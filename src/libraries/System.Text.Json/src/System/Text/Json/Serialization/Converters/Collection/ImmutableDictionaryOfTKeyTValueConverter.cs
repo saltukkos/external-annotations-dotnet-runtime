@@ -22,6 +22,7 @@ namespace System.Text.Json.Serialization.Converters
         internal override bool SupportsCreateObjectDelegate => false;
         protected sealed override void CreateCollection(ref Utf8JsonReader reader, scoped ref ReadStack state)
         {
+            // ReSharper disable once TypeParameterEqualityUsage -- dictionary already exist
             state.Current.ReturnValue = new Dictionary<TKey, TValue>();
         }
 

@@ -8,6 +8,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace System.Text.Json
 {
+    [CheckForPublicUnannotatedMembersInternal("Serialize", "JetBrains.Annotations.MeansImplicitUseAttribute")]
     public static partial class JsonSerializer
     {
         /// <summary>
@@ -22,7 +23,8 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static byte[] SerializeToUtf8Bytes<TValue>(
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
+        public static byte[] SerializeToUtf8Bytes<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             TValue value,
             JsonSerializerOptions? options = null)
         {
@@ -49,9 +51,10 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] SerializeToUtf8Bytes(
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerOptions? options = null)
         {
             ValidateInputType(value, inputType);
@@ -68,7 +71,8 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="jsonTypeInfo"/> is <see langword="null"/>.
         /// </exception>
-        public static byte[] SerializeToUtf8Bytes<TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
+        public static byte[] SerializeToUtf8Bytes<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
             {
@@ -91,6 +95,8 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static byte[] SerializeToUtf8Bytes(object? value, JsonTypeInfo jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
@@ -123,7 +129,8 @@ namespace System.Text.Json
         /// The <see cref="JsonSerializerContext.GetTypeInfo(Type)"/> method of the provided
         /// <paramref name="context"/> returns <see langword="null"/> for the type to convert.
         /// </exception>
-        public static byte[] SerializeToUtf8Bytes(object? value, Type inputType, JsonSerializerContext context)
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
+        public static byte[] SerializeToUtf8Bytes(object? value, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType, JsonSerializerContext context)
         {
             if (context is null)
             {

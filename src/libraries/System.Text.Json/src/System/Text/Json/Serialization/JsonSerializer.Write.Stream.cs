@@ -38,7 +38,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static Task SerializeAsync<TValue>(
+        public static Task SerializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             TValue value,
             JsonSerializerOptions? options = null,
@@ -69,7 +69,7 @@ namespace System.Text.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static void Serialize<TValue>(
+        public static void Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             TValue value,
             JsonSerializerOptions? options = null)
@@ -107,7 +107,7 @@ namespace System.Text.Json
         public static Task SerializeAsync(
             Stream utf8Json,
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerOptions? options = null,
             CancellationToken cancellationToken = default)
         {
@@ -143,7 +143,7 @@ namespace System.Text.Json
         public static void Serialize(
             Stream utf8Json,
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerOptions? options = null)
         {
             if (utf8Json is null)
@@ -168,7 +168,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="utf8Json"/> is <see langword="null"/>.
         /// </exception>
-        public static Task SerializeAsync<TValue>(
+        public static Task SerializeAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             TValue value,
             JsonTypeInfo<TValue> jsonTypeInfo,
@@ -197,7 +197,7 @@ namespace System.Text.Json
         /// <exception cref="ArgumentNullException">
         /// <paramref name="utf8Json"/> is <see langword="null"/>.
         /// </exception>
-        public static void Serialize<TValue>(
+        public static void Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             Stream utf8Json,
             TValue value,
             JsonTypeInfo<TValue> jsonTypeInfo)
@@ -229,6 +229,7 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static Task SerializeAsync(
             Stream utf8Json,
             object? value,
@@ -260,6 +261,7 @@ namespace System.Text.Json
         /// <exception cref="InvalidCastException">
         /// <paramref name="value"/> does not match the type of <paramref name="jsonTypeInfo"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static void Serialize(
             Stream utf8Json,
             object? value,
@@ -300,7 +302,7 @@ namespace System.Text.Json
         public static Task SerializeAsync(
             Stream utf8Json,
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerContext context,
             CancellationToken cancellationToken = default)
         {
@@ -338,7 +340,7 @@ namespace System.Text.Json
         public static void Serialize(
             Stream utf8Json,
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerContext context)
         {
             if (utf8Json is null)

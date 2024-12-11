@@ -139,6 +139,7 @@ namespace System.Text
         /// <returns>A <see cref="byte"/> array which represents the encoded contents of <paramref name="chars"/>.</returns>
         /// <exception cref="EncoderFallbackException">Thrown if <paramref name="chars"/> contains data that cannot be encoded and <paramref name="encoding"/> is configured
         /// to throw an exception when such data is seen.</exception>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static byte[] GetBytes(this Encoding encoding, in ReadOnlySequence<char> chars)
         {
             ArgumentNullException.ThrowIfNull(encoding);

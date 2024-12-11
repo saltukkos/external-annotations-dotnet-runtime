@@ -427,6 +427,7 @@ namespace System.Text.Json
         ///   The parent <see cref="JsonDocument"/> has been disposed.
         /// </exception>
         /// <seealso cref="ToString"/>
+        [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public byte[] GetBytesFromBase64()
         {
             if (!TryGetBytesFromBase64(out byte[]? value))

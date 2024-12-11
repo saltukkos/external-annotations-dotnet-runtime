@@ -27,7 +27,7 @@ namespace System.Text.Json
         /// </remarks>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
-        public static string Serialize<TValue>(TValue value, JsonSerializerOptions? options = null)
+        public static string Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(TValue value, JsonSerializerOptions? options = null)
         {
             JsonTypeInfo<TValue> jsonTypeInfo = GetTypeInfo<TValue>(options);
             return WriteString(value, jsonTypeInfo);
@@ -58,7 +58,7 @@ namespace System.Text.Json
         [RequiresDynamicCode(SerializationRequiresDynamicCodeMessage)]
         public static string Serialize(
             object? value,
-            Type inputType,
+            [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType,
             JsonSerializerOptions? options = null)
         {
             ValidateInputType(value, inputType);
@@ -80,7 +80,7 @@ namespace System.Text.Json
         /// encoding since the implementation internally uses UTF-8. See also <see cref="SerializeToUtf8Bytes{TValue}(TValue, JsonTypeInfo{TValue})"/>
         /// and <see cref="SerializeAsync{TValue}(IO.Stream, TValue, JsonTypeInfo{TValue}, Threading.CancellationToken)"/>.
         /// </remarks>
-        public static string Serialize<TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
+        public static string Serialize<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(TValue value, JsonTypeInfo<TValue> jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
             {
@@ -107,6 +107,7 @@ namespace System.Text.Json
         /// encoding since the implementation internally uses UTF-8. See also <see cref="SerializeToUtf8Bytes(object?, JsonTypeInfo)"/>
         /// and <see cref="SerializeAsync(IO.Stream, object?, JsonTypeInfo, Threading.CancellationToken)"/>.
         /// </remarks>
+        // ReSharper disable once RequiredAttributeMissing -- can't annotate, no type
         public static string Serialize(object? value, JsonTypeInfo jsonTypeInfo)
         {
             if (jsonTypeInfo is null)
@@ -140,7 +141,7 @@ namespace System.Text.Json
         /// encoding since the implementation internally uses UTF-8. See also <see cref="SerializeToUtf8Bytes(object?, Type, JsonSerializerContext)"/>
         /// and <see cref="SerializeAsync(IO.Stream, object?, Type, JsonSerializerContext, Threading.CancellationToken)"/>.
         /// </remarks>
-        public static string Serialize(object? value, Type inputType, JsonSerializerContext context)
+        public static string Serialize(object? value, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type inputType, JsonSerializerContext context)
         {
             if (context is null)
             {

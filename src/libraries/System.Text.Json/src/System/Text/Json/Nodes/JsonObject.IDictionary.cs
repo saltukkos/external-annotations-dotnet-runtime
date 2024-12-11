@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json.Serialization.Converters;
 using System.Threading;
+// ReSharper disable CollectionAccessAnnotationMissing -- not a normal collection
 
 namespace System.Text.Json.Nodes
 {

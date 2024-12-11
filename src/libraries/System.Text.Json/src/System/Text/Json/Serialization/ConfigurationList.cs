@@ -68,7 +68,7 @@ namespace System.Text.Json.Serialization
             OnCollectionModified();
         }
 
-        public bool Contains(TItem item)
+        public bool Contains([DefaultEqualityUsage] TItem item)
         {
             return _list.Contains(item);
         }
@@ -101,7 +101,7 @@ namespace System.Text.Json.Serialization
             OnCollectionModified();
         }
 
-        public bool Remove(TItem item)
+        public bool Remove([DefaultEqualityUsage] TItem item)
         {
             OnCollectionModifying();
             bool removed = _list.Remove(item);

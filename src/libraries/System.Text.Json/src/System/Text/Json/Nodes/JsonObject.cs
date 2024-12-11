@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+// ReSharper disable CollectionAccessAnnotationMissing -- not exactly a collection
 
 namespace System.Text.Json.Nodes
 {
@@ -26,6 +27,7 @@ namespace System.Text.Json.Nodes
         ///   Initializes a new instance of the <see cref="JsonObject"/> class that is empty.
         /// </summary>
         /// <param name="options">Options to control the behavior.</param>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // note: to treat it as fully accessed, do not want to produce any warnings
         public JsonObject(JsonNodeOptions? options = null) : base(options) { }
 
         /// <summary>
@@ -33,6 +35,7 @@ namespace System.Text.Json.Nodes
         /// </summary>
         /// <param name="properties">The properties to be added.</param>
         /// <param name="options">Options to control the behavior.</param>
+        [CollectionAccess(CollectionAccessType.UpdatedContent | CollectionAccessType.Read)] // note: to treat it as fully accessed, do not want to produce any warnings
         public JsonObject(IEnumerable<KeyValuePair<string, JsonNode?>> properties, JsonNodeOptions? options = null) : this(options)
         {
             int capacity = properties is ICollection<KeyValuePair<string, JsonNode?>> propertiesCollection ? propertiesCollection.Count : 0;

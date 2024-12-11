@@ -6,7 +6,7 @@
     <Compile Include="System.Text.RegularExpressions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\System.Runtime\ref\System.Runtime.csproj" />
+    <ProjectReference Include="$(CoreLibProject)" />
     <!-- Required for CompileToAssembly API -->
     <ProjectReference Include="..\..\System.Reflection.Emit.ILGeneration\ref\System.Reflection.Emit.ILGeneration.csproj" />
   </ItemGroup>

@@ -582,6 +582,7 @@ namespace System.Text.Json
 
                 return hc.ToHashCode();
 
+                [DefaultEqualityUsageInternal(nameof(TValue))]
                 static void AddListHashCode<TValue>(ref HashCode hc, ConfigurationList<TValue>? list)
                 {
                     // equates null with empty lists
@@ -595,6 +596,7 @@ namespace System.Text.Json
                     }
                 }
 
+                [DefaultEqualityUsageInternal(nameof(TValue))]
                 static void AddHashCode<TValue>(ref HashCode hc, TValue? value)
                 {
                     if (typeof(TValue).IsSealed)

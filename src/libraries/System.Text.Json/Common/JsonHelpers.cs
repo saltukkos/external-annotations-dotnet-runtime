@@ -88,7 +88,7 @@ namespace System.Text.Json
         /// <summary>
         /// Traverses a DAG and returns its nodes applying topological sorting to the result.
         /// </summary>
-        public static T[] TraverseGraphWithTopologicalSort<T>(T entryNode, Func<T, ICollection<T>> getChildren, IEqualityComparer<T>? comparer = null)
+        public static T[] TraverseGraphWithTopologicalSort<[DefaultEqualityUsage] T>(T entryNode, Func<T, ICollection<T>> getChildren, IEqualityComparer<T>? comparer = null)
             where T : notnull
         {
             comparer ??= EqualityComparer<T>.Default;

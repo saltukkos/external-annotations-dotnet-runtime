@@ -33,6 +33,8 @@ namespace System.Text.Json.Nodes
             {
                 // Because TValue is equatable and otherNode returns a matching
                 // type we can short circuit the comparison in this case.
+
+                // ReSharper disable once TypeParameterEqualityUsage -- only for well-known primitives
                 return EqualityComparer<TValue>.Default.Equals(Value, v);
             }
 
