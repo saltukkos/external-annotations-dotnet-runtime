@@ -79,7 +79,7 @@
     <Compile Include="$(LibrariesProjectRoot)System.ComponentModel.TypeConverter\ref\System.ComponentModel.TypeConverter.cs" />
     <Compile Include="$(LibrariesProjectRoot)System.Resources.Writer\ref\System.Resources.Writer.cs" />
     <!-- Too much dependencies for now <ProjectReference Include="$(LibrariesProjectRoot)System.Text.RegularExpressions\src\System.Text.RegularExpressions.csproj" /> -->
-    <Compile Include="$(LibrariesProjectRoot)System.Text.RegularExpressions\ref\System.Text.RegularExpressions.cs" />
+    <ProjectReference Include="$(LibrariesProjectRoot)System.Text.RegularExpressions\ref\System.Text.RegularExpressions.csproj" />
   </ItemGroup>
 
 </Project>

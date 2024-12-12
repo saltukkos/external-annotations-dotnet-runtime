@@ -54,6 +54,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Text.RegularExpressi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{7D805EB2-AD03-45E3-B71A-6293C6373A35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Runtime.InteropServices", "System.Runtime.InteropServices\src\System.Runtime.InteropServices.csproj", "{F3ED4CFD-245D-467B-B8FC-878523405F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Net.Primitives", "System.Net.Primitives\ref\System.Net.Primitives.csproj", "{EC910BC3-9D6B-4AF3-9FAC-CA0A4407F49D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Net.Http", "System.Net.Http\ref\System.Net.Http.csproj", "{B8EB8DF1-701F-4AC9-A0AA-831882DCEFAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Net.Http.Json", "System.Net.Http.Json\src\System.Net.Http.Json.csproj", "{A567C0DA-3B23-4CF3-901F-2B6F286CDF8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Formats.Asn1", "System.Formats.Asn1\ref\System.Formats.Asn1.csproj", "{C42568C0-1749-44C6-BF5B-F5068937D387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Runtime.Numerics", "System.Runtime.Numerics\ref\System.Runtime.Numerics.csproj", "{D7CCA9F3-4A2D-419F-B1F4-4F6E1BD81031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Security.Cryptography", "System.Security.Cryptography\ref\System.Security.Cryptography.csproj", "{61F9C121-3F66-41F6-9E58-311F81CE01B8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{CEDB81BB-E627-4385-85A6-935212FA6C25}*SharedItemsImports = 5
@@ -75,6 +89,11 @@ Global
 		{C6F4837B-74A1-4542-B431-F6EEEB030980} = {4EA2B193-176C-41BD-ACAA-540361DD0F58}
 		{3965FE3A-3E76-40E8-855B-A8EB5D519533} = {4EA2B193-176C-41BD-ACAA-540361DD0F58}
 		{477BC671-065C-41CA-8DB5-0BE8F1F1C9DE} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{EC910BC3-9D6B-4AF3-9FAC-CA0A4407F49D} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{B8EB8DF1-701F-4AC9-A0AA-831882DCEFAC} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{C42568C0-1749-44C6-BF5B-F5068937D387} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{D7CCA9F3-4A2D-419F-B1F4-4F6E1BD81031} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{61F9C121-3F66-41F6-9E58-311F81CE01B8} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
