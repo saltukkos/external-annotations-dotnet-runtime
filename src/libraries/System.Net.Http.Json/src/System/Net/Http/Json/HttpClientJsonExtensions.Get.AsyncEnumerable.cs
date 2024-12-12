@@ -28,7 +28,7 @@ namespace System.Net.Http.Json
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
         [RequiresUnreferencedCode(HttpContentJsonExtensions.SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(HttpContentJsonExtensions.SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
             JsonSerializerOptions? options,
@@ -48,7 +48,7 @@ namespace System.Net.Http.Json
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
         [RequiresUnreferencedCode(HttpContentJsonExtensions.SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(HttpContentJsonExtensions.SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             Uri? requestUri,
             JsonSerializerOptions? options,
@@ -66,7 +66,7 @@ namespace System.Net.Http.Json
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>An <see cref="IAsyncEnumerable{TValue}"/> that represents the deserialized response body.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
             JsonTypeInfo<TValue> jsonTypeInfo,
@@ -84,7 +84,7 @@ namespace System.Net.Http.Json
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>An <see cref="IAsyncEnumerable{TValue}"/> that represents the deserialized response body.</returns>
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             Uri? requestUri,
             JsonTypeInfo<TValue> jsonTypeInfo,
@@ -103,7 +103,7 @@ namespace System.Net.Http.Json
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
         [RequiresUnreferencedCode(HttpContentJsonExtensions.SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(HttpContentJsonExtensions.SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             [StringSyntax(StringSyntaxAttribute.Uri)] string? requestUri,
             CancellationToken cancellationToken = default) =>
@@ -121,7 +121,7 @@ namespace System.Net.Http.Json
         /// <exception cref="ArgumentNullException">The <paramref name="client"/> is <see langword="null"/>.</exception>
         [RequiresUnreferencedCode(HttpContentJsonExtensions.SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(HttpContentJsonExtensions.SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> GetFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpClient client,
             Uri? requestUri,
             CancellationToken cancellationToken = default) =>

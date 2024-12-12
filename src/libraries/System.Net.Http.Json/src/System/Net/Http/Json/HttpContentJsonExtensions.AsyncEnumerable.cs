@@ -27,7 +27,7 @@ namespace System.Net.Http.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpContent content,
             CancellationToken cancellationToken = default) =>
             ReadFromJsonAsAsyncEnumerable<TValue>(content, options: null, cancellationToken: cancellationToken);
@@ -47,7 +47,7 @@ namespace System.Net.Http.Json
         /// </exception>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpContent content,
             JsonSerializerOptions? options,
             CancellationToken cancellationToken = default)
@@ -72,7 +72,7 @@ namespace System.Net.Http.Json
         /// <exception cref="ArgumentNullException">
         /// The <paramref name="content"/> is <see langword="null"/>.
         /// </exception>
-        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<TValue>(
+        public static IAsyncEnumerable<TValue?> ReadFromJsonAsAsyncEnumerable<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] TValue>(
             this HttpContent content,
             JsonTypeInfo<TValue> jsonTypeInfo,
             CancellationToken cancellationToken = default)

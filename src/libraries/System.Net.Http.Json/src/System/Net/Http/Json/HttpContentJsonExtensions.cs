@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace System.Net.Http.Json
 {
+    [CheckForPublicUnannotatedMembersInternal("Json", "JetBrains.Annotations.MeansImplicitUseAttribute")]
     public static partial class HttpContentJsonExtensions
     {
         internal const string SerializationUnreferencedCodeMessage = "JSON serialization and deserialization might require types that cannot be statically analyzed. Use the overload that takes a JsonTypeInfo or JsonSerializerContext, or make sure all of the required types are preserved.";
@@ -27,7 +28,7 @@ namespace System.Net.Http.Json
         /// <returns>The task object representing the asynchronous operation.</returns>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static Task<object?> ReadFromJsonAsync(this HttpContent content, Type type, JsonSerializerOptions? options, CancellationToken cancellationToken = default)
+        public static Task<object?> ReadFromJsonAsync(this HttpContent content, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type type, JsonSerializerOptions? options, CancellationToken cancellationToken = default)
         {
             if (content is null)
             {
@@ -46,7 +47,7 @@ namespace System.Net.Http.Json
         /// <returns>The task object representing the asynchronous operation.</returns>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static Task<object?> ReadFromJsonAsync(this HttpContent content, Type type, CancellationToken cancellationToken = default)
+        public static Task<object?> ReadFromJsonAsync(this HttpContent content, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type type, CancellationToken cancellationToken = default)
         {
             return ReadFromJsonAsync(content, type, options: null, cancellationToken: cancellationToken);
         }
@@ -61,7 +62,7 @@ namespace System.Net.Http.Json
         /// <returns>The task object representing the asynchronous operation.</returns>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static Task<T?> ReadFromJsonAsync<T>(this HttpContent content, JsonSerializerOptions? options, CancellationToken cancellationToken = default)
+        public static Task<T?> ReadFromJsonAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] T>(this HttpContent content, JsonSerializerOptions? options, CancellationToken cancellationToken = default)
         {
             if (content is null)
             {
@@ -80,7 +81,7 @@ namespace System.Net.Http.Json
         /// <returns>The task object representing the asynchronous operation.</returns>
         [RequiresUnreferencedCode(SerializationUnreferencedCodeMessage)]
         [RequiresDynamicCode(SerializationDynamicCodeMessage)]
-        public static Task<T?> ReadFromJsonAsync<T>(this HttpContent content, CancellationToken cancellationToken = default)
+        public static Task<T?> ReadFromJsonAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] T>(this HttpContent content, CancellationToken cancellationToken = default)
         {
             return ReadFromJsonAsync<T>(content, options: null, cancellationToken: cancellationToken);
         }
@@ -105,7 +106,7 @@ namespace System.Net.Http.Json
             }
         }
 
-        public static Task<object?> ReadFromJsonAsync(this HttpContent content, Type type, JsonSerializerContext context, CancellationToken cancellationToken = default)
+        public static Task<object?> ReadFromJsonAsync(this HttpContent content, [MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] Type type, JsonSerializerContext context, CancellationToken cancellationToken = default)
         {
             if (content is null)
             {
@@ -115,7 +116,7 @@ namespace System.Net.Http.Json
             return ReadFromJsonAsyncCore(content, type, context, cancellationToken);
         }
 
-        public static Task<T?> ReadFromJsonAsync<T>(this HttpContent content, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default)
+        public static Task<T?> ReadFromJsonAsync<[MeansImplicitUse(ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, ImplicitUseTargetFlags.WithMembers)] T>(this HttpContent content, JsonTypeInfo<T> jsonTypeInfo, CancellationToken cancellationToken = default)
         {
             if (content is null)
             {
