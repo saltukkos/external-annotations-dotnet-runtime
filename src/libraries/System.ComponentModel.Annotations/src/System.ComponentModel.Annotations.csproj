@@ -75,10 +75,8 @@
     <ProjectReference Include="$(LibrariesProjectRoot)System.ComponentModel.Primitives\src\System.ComponentModel.Primitives.csproj" />
     <ProjectReference Include="$(LibrariesProjectRoot)System.Linq\src\System.Linq.csproj" />
     <ProjectReference Include="$(LibrariesProjectRoot)System.ObjectModel\src\System.ObjectModel.csproj" />
-    <!-- Too much dependencies for now <ProjectReference Include="$(LibrariesProjectRoot)System.ComponentModel.TypeConverter\src\System.ComponentModel.TypeConverter.csproj" />-->
-    <Compile Include="$(LibrariesProjectRoot)System.ComponentModel.TypeConverter\ref\System.ComponentModel.TypeConverter.cs" />
-    <Compile Include="$(LibrariesProjectRoot)System.Resources.Writer\ref\System.Resources.Writer.cs" />
-    <!-- Too much dependencies for now <ProjectReference Include="$(LibrariesProjectRoot)System.Text.RegularExpressions\src\System.Text.RegularExpressions.csproj" /> -->
+    <ProjectReference Include="$(LibrariesProjectRoot)System.ComponentModel.TypeConverter\ref\System.ComponentModel.TypeConverter.csproj" />
+    <ProjectReference Include="$(LibrariesProjectRoot)System.Resources.Writer\ref\System.Resources.Writer.csproj" />
     <ProjectReference Include="$(LibrariesProjectRoot)System.Text.RegularExpressions\ref\System.Text.RegularExpressions.csproj" />
   </ItemGroup>
 

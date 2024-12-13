@@ -83,6 +83,7 @@ namespace System.Runtime.InteropServices
             return _innerEventInfo.GetCustomAttributes(inherit);
         }
 
+        // ReSharper disable once CollectionAccessAnnotationMissing -- it's actually readonly
         public override IList<CustomAttributeData> GetCustomAttributesData() => _innerEventInfo.GetCustomAttributesData();
 
         public override bool IsDefined(Type attributeType, bool inherit)

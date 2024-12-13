@@ -68,6 +68,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Runtime.Numerics", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Security.Cryptography", "System.Security.Cryptography\ref\System.Security.Cryptography.csproj", "{61F9C121-3F66-41F6-9E58-311F81CE01B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.ComponentModel.TypeConverter", "System.ComponentModel.TypeConverter\ref\System.ComponentModel.TypeConverter.csproj", "{64BC3A03-9F59-4C50-8D69-7EC6473DFDF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Resources.Writer", "System.Resources.Writer\ref\System.Resources.Writer.csproj", "{5D7F2948-9126-4778-B46D-B0747CE8CD37}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		System.Private.CoreLib\src\System.Private.CoreLib.Shared.projitems*{CEDB81BB-E627-4385-85A6-935212FA6C25}*SharedItemsImports = 5
@@ -94,6 +98,8 @@ Global
 		{C42568C0-1749-44C6-BF5B-F5068937D387} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
 		{D7CCA9F3-4A2D-419F-B1F4-4F6E1BD81031} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
 		{61F9C121-3F66-41F6-9E58-311F81CE01B8} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{64BC3A03-9F59-4C50-8D69-7EC6473DFDF8} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
+		{5D7F2948-9126-4778-B46D-B0747CE8CD37} = {7D805EB2-AD03-45E3-B71A-6293C6373A35}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
