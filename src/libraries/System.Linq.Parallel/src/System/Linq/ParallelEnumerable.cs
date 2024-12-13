@@ -101,6 +101,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> AsParallel<TSource>(this IEnumerable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -123,6 +124,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> AsParallel<TSource>(this Partitioner<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -150,6 +152,7 @@ namespace System.Linq
         /// unless AsOrdered is applied or there is an explicit OrderBy operator in the query.
         /// </remarks>
         /// <returns>The source sequence which will maintain ordering in the query.</returns>
+        [LinqTunnel]
         public static ParallelQuery<TSource> AsOrdered<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -190,6 +193,7 @@ namespace System.Linq
         /// is applied or there is an explicit OrderBy operator in the query.
         /// </remarks>
         /// <returns>The source sequence which will maintain ordering in the query.</returns>
+        [LinqTunnel]
         public static ParallelQuery AsOrdered(this ParallelQuery source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -216,6 +220,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> AsUnordered<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -235,6 +240,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery AsParallel(this IEnumerable source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -262,6 +268,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static IEnumerable<TSource> AsSequential<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -294,6 +301,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// <paramref name="degreeOfParallelism"/> is less than 1 or greater than 512.
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> WithDegreeOfParallelism<TSource>(this ParallelQuery<TSource> source, int degreeOfParallelism)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -322,6 +330,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// WithCancellation is used multiple times in the query.
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> WithCancellation<TSource>(this ParallelQuery<TSource> source, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -350,6 +359,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// WithExecutionMode is used multiple times in the query.
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> WithExecutionMode<TSource>(this ParallelQuery<TSource> source, ParallelExecutionMode executionMode)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -383,6 +393,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// WithMergeOptions is used multiple times in the query.
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> WithMergeOptions<TSource>(this ParallelQuery<TSource> source, ParallelMergeOptions mergeOptions)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -418,6 +429,7 @@ namespace System.Linq
         /// -or-
         /// <paramref name="start"/> + <paramref name="count"/> - 1 is larger than <see cref="int.MaxValue"/>.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- not a tunnel
         public static ParallelQuery<int> Range(int start, int count)
         {
             if (count < 0 || (count > 0 && int.MaxValue - (count - 1) < start)) throw new ArgumentOutOfRangeException(nameof(count));
@@ -438,6 +450,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// <paramref name="count"/> is less than 0.
         /// </exception>
+        // ReSharper disable once RequiredAttributeMissing -- not a tunnel
         public static ParallelQuery<TResult> Repeat<TResult>(TResult element, int count)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -455,6 +468,7 @@ namespace System.Linq
         /// <typeparam name="TResult">The type to assign to the type parameter of the returned
         /// generic sequence.</typeparam>
         /// <returns>An empty sequence whose type argument is <typeparamref name="TResult"/>.</returns>
+        // ReSharper disable once RequiredAttributeMissing -- not a tunnel
         public static ParallelQuery<TResult> Empty<TResult>()
         {
             return System.Linq.Parallel.EmptyEnumerable<TResult>.Instance;
@@ -528,6 +542,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Where<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -546,6 +561,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Where<TSource>(this ParallelQuery<TSource> source, Func<TSource, int, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -571,6 +587,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Select<TSource, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TResult> selector)
         {
@@ -592,6 +609,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Select<TSource, TResult>(
              this ParallelQuery<TSource> source, Func<TSource, int, TResult> selector)
         {
@@ -622,6 +640,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Zip<TFirst, TSecond, TResult>(
             this ParallelQuery<TFirst> first, ParallelQuery<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
         {
@@ -650,6 +669,7 @@ namespace System.Linq
         /// <see cref="System.Linq.ParallelQuery{TFirst}"/> and a right data source of type <see cref="System.Collections.Generic.IEnumerable{TSecond}"/>.
         /// Otherwise, the Zip operator would appear to be bind to the parallel implementation, but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TResult> Zip<TFirst, TSecond, TResult>(
             this ParallelQuery<TFirst> first, IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> resultSelector)
@@ -683,6 +703,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
@@ -712,6 +733,7 @@ namespace System.Linq
         /// <see cref="System.Linq.ParallelQuery{TOuter}"/> and a right data source of type <see cref="System.Collections.Generic.IEnumerable{TInner}"/>.
         /// Otherwise, the Join operator would appear to be binding to the parallel implementation, but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TResult> Join<TOuter, TInner, TKey, TResult>(
             this ParallelQuery<TOuter> outer, IEnumerable<TInner> inner,
@@ -743,6 +765,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
@@ -779,6 +802,7 @@ namespace System.Linq
         /// <see cref="System.Linq.ParallelQuery{TOuter}"/> and a right data source of type <see cref="System.Collections.Generic.IEnumerable{TInner}"/>.
         /// Otherwise, the Join operator would appear to be binding to the parallel implementation, but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TResult> Join<TOuter, TInner, TKey, TResult>(
             this ParallelQuery<TOuter> outer, IEnumerable<TInner> inner,
@@ -815,6 +839,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
@@ -845,6 +870,7 @@ namespace System.Linq
         /// Otherwise, the GroupJoin operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         ///</remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(
             this ParallelQuery<TOuter> outer, IEnumerable<TInner> inner,
@@ -877,6 +903,7 @@ namespace System.Linq
         /// <paramref name="outer"/> or <paramref name="inner"/> or <paramref name="outerKeySelector"/> or
         /// <paramref name="innerKeySelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TOuter> outer, ParallelQuery<TInner> inner,
             Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
@@ -914,6 +941,7 @@ namespace System.Linq
         /// Otherwise, the GroupJoin operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(
             this ParallelQuery<TOuter> outer, IEnumerable<TInner> inner,
@@ -942,6 +970,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> SelectMany<TSource, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
         {
@@ -965,6 +994,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> SelectMany<TSource, TResult>(
              this ParallelQuery<TSource> source, Func<TSource, int, IEnumerable<TResult>> selector)
         {
@@ -994,6 +1024,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="collectionSelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> SelectMany<TSource, TCollection, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
@@ -1030,6 +1061,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="collectionSelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> SelectMany<TSource, TCollection, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector,
             Func<TSource, TCollection, TResult> resultSelector)
@@ -1065,6 +1097,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> OrderBy<TSource, TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -1093,6 +1126,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> OrderBy<TSource, TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
@@ -1120,6 +1154,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> OrderByDescending<TSource, TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -1147,6 +1182,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> OrderByDescending<TSource, TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
@@ -1177,6 +1213,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
 
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> ThenBy<TSource, TKey>(
             this OrderedParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -1208,6 +1245,7 @@ namespace System.Linq
         /// </exception>
         ///
 
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> ThenBy<TSource, TKey>(
             this OrderedParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
@@ -1238,6 +1276,7 @@ namespace System.Linq
         /// </exception>
         ///
 
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> ThenByDescending<TSource, TKey>(
             this OrderedParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -1269,6 +1308,7 @@ namespace System.Linq
         /// </exception>
         ///
 
+        [LinqTunnel]
         public static OrderedParallelQuery<TSource> ThenByDescending<TSource, TKey>(
             this OrderedParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
@@ -1297,6 +1337,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/>
         /// is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector)
         {
@@ -1316,6 +1357,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="keySelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -1343,6 +1385,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
         {
@@ -1369,6 +1412,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -1408,6 +1452,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector)
 
@@ -1436,6 +1481,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -1466,6 +1512,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector)
         {
@@ -1497,6 +1544,7 @@ namespace System.Linq
         /// <paramref name="source"/> or <paramref name="keySelector"/> or
         /// <paramref name="elementSelector"/> or <paramref name="resultSelector"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(
             this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -4102,6 +4150,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Take<TSource>(this ParallelQuery<TSource> source, int count)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4134,6 +4183,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> TakeWhile<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4159,6 +4209,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> TakeWhile<TSource>(this ParallelQuery<TSource> source, Func<TSource, int, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4184,6 +4235,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Skip<TSource>(this ParallelQuery<TSource> source, int count)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4216,6 +4268,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> SkipWhile<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4243,6 +4296,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> or <paramref name="predicate"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> SkipWhile<TSource>(this ParallelQuery<TSource> source, Func<TSource, int, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -4269,6 +4323,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Concat<TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             ArgumentNullException.ThrowIfNull(first);
@@ -4292,6 +4347,7 @@ namespace System.Linq
         /// Otherwise, the Concat operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Concat<TSource>(this ParallelQuery<TSource> first, IEnumerable<TSource> second)
         {
@@ -4472,6 +4528,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Distinct<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> source)
         {
@@ -4489,6 +4546,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Distinct<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> source, IEqualityComparer<TSource>? comparer)
         {
@@ -4511,6 +4569,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Union<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
@@ -4532,6 +4591,7 @@ namespace System.Linq
         /// Otherwise, the Union operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Union<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second)
@@ -4550,6 +4610,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Union<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
@@ -4575,6 +4636,7 @@ namespace System.Linq
         /// Otherwise, the Union operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Union<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
@@ -4601,6 +4663,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Intersect<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
@@ -4622,6 +4685,7 @@ namespace System.Linq
         /// Otherwise, the Intersect operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Intersect<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second)
@@ -4645,6 +4709,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Intersect<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
@@ -4670,6 +4735,7 @@ namespace System.Linq
         /// Otherwise, the Intersect operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Intersect<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
@@ -4698,6 +4764,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Except<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
@@ -4719,6 +4786,7 @@ namespace System.Linq
         /// Otherwise, the Except operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Except<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second)
@@ -4741,6 +4809,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="first"/> or <paramref name="second"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Except<[DefaultEqualityUsage] TSource>(
             this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
@@ -4766,6 +4835,7 @@ namespace System.Linq
         /// Otherwise, the Except operator would appear to be binding to the parallel implementation,
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
+        [LinqTunnel]
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
         public static ParallelQuery<TSource> Except<TSource>(
             this ParallelQuery<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
@@ -4792,6 +4862,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static IEnumerable<TSource> AsEnumerable<TSource>(this ParallelQuery<TSource> source)
         {
             return AsSequential(source);
@@ -5277,6 +5348,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> Reverse<TSource>(this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5299,6 +5371,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> OfType<TResult>(this ParallelQuery source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5317,6 +5390,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TResult> Cast<TResult>(this ParallelQuery source)
         {
             ArgumentNullException.ThrowIfNull(source);
@@ -5863,6 +5937,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource?> DefaultIfEmpty<TSource>(this ParallelQuery<TSource> source)
         {
             return DefaultIfEmpty<TSource>(source, default!)!;
@@ -5881,6 +5956,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source"/> is a null reference (Nothing in Visual Basic).
         /// </exception>
+        [LinqTunnel]
         public static ParallelQuery<TSource> DefaultIfEmpty<TSource>(this ParallelQuery<TSource> source, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
