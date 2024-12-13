@@ -53,6 +53,10 @@ namespace System.Linq
     /// ParallelQuery{TSource}.  This is the parallel equivalent of
     /// <see cref="System.Linq.Enumerable"/>.
     /// </summary>
+    // method returns new ParallelQuery -- probably LinqTunnel
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.LinqTunnelAttribute", ReturnTypeRegex = "(Query|IEnumerable)", PreferredAttributeLocation = PreferredAttributeLocation.Method)]
+    // return type is not ParallelQuery -- probably InstantHandle
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.InstantHandleAttribute", ReturnTypeRegex = "^(?!.*(Query|IEnumerable))", PreferredAttributeLocation = PreferredAttributeLocation.FirstParameterAndAllDelegates)]
     public static class ParallelEnumerable
     {
         // We pass this string constant to an attribute constructor. Unfortunately, we cannot access resources from
@@ -492,7 +496,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static void ForAll<TSource>(this ParallelQuery<TSource> source, Action<TSource> action)
+        public static void ForAll<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Action<TSource> action)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(action);
@@ -1609,7 +1613,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static TSource Aggregate<TSource>(
-            this ParallelQuery<TSource> source, Func<TSource, TSource, TSource> func)
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TSource, TSource> func)
         {
             return Aggregate<TSource>(source, func, QueryAggregationOptions.AssociativeCommutative);
         }
@@ -1657,7 +1661,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static TAccumulate Aggregate<TSource, TAccumulate>(
-            this ParallelQuery<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func)
+            [InstantHandle] this ParallelQuery<TSource> source, TAccumulate seed, [InstantHandle] Func<TAccumulate, TSource, TAccumulate> func)
         {
             return Aggregate<TSource, TAccumulate>(source, seed, func, QueryAggregationOptions.AssociativeCommutative);
         }
@@ -1697,8 +1701,8 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static TResult Aggregate<TSource, TAccumulate, TResult>(
-            this ParallelQuery<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func,
-            Func<TAccumulate, TResult> resultSelector)
+            [InstantHandle] this ParallelQuery<TSource> source, TAccumulate seed, [InstantHandle] Func<TAccumulate, TSource, TAccumulate> func,
+            [InstantHandle] Func<TAccumulate, TResult> resultSelector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(func);
@@ -1753,8 +1757,8 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static TResult Aggregate<TSource, TAccumulate, TResult>(
-            this ParallelQuery<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> updateAccumulatorFunc,
-            Func<TAccumulate, TAccumulate, TAccumulate> combineAccumulatorsFunc, Func<TAccumulate, TResult> resultSelector)
+            [InstantHandle] this ParallelQuery<TSource> source, TAccumulate seed, [InstantHandle] Func<TAccumulate, TSource, TAccumulate> updateAccumulatorFunc,
+            [InstantHandle] Func<TAccumulate, TAccumulate, TAccumulate> combineAccumulatorsFunc, [InstantHandle] Func<TAccumulate, TResult> resultSelector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(updateAccumulatorFunc);
@@ -1806,11 +1810,11 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static TResult Aggregate<TSource, TAccumulate, TResult>(
-            this ParallelQuery<TSource> source,
-            Func<TAccumulate> seedFactory,
-            Func<TAccumulate, TSource, TAccumulate> updateAccumulatorFunc,
-            Func<TAccumulate, TAccumulate, TAccumulate> combineAccumulatorsFunc,
-            Func<TAccumulate, TResult> resultSelector)
+            [InstantHandle] this ParallelQuery<TSource> source,
+            [InstantHandle] Func<TAccumulate> seedFactory,
+            [InstantHandle] Func<TAccumulate, TSource, TAccumulate> updateAccumulatorFunc,
+            [InstantHandle] Func<TAccumulate, TAccumulate, TAccumulate> combineAccumulatorsFunc,
+            [InstantHandle] Func<TAccumulate, TResult> resultSelector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(seedFactory);
@@ -1845,7 +1849,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Count<TSource>(this ParallelQuery<TSource> source)
+        public static int Count<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1887,7 +1891,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Count<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static int Count<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1916,7 +1920,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long LongCount<TSource>(this ParallelQuery<TSource> source)
+        public static long LongCount<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1954,7 +1958,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long LongCount<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static long LongCount<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1983,7 +1987,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Sum(this ParallelQuery<int> source)
+        public static int Sum([InstantHandle] this ParallelQuery<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2006,7 +2010,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Sum(this ParallelQuery<int?> source)
+        public static int? Sum([InstantHandle] this ParallelQuery<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2029,7 +2033,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Sum(this ParallelQuery<long> source)
+        public static long Sum([InstantHandle] this ParallelQuery<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2052,7 +2056,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Sum(this ParallelQuery<long?> source)
+        public static long? Sum([InstantHandle] this ParallelQuery<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2073,7 +2077,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Sum(this ParallelQuery<float> source)
+        public static float Sum([InstantHandle] this ParallelQuery<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2094,7 +2098,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Sum(this ParallelQuery<float?> source)
+        public static float? Sum([InstantHandle] this ParallelQuery<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2115,7 +2119,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Sum(this ParallelQuery<double> source)
+        public static double Sum([InstantHandle] this ParallelQuery<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2136,7 +2140,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Sum(this ParallelQuery<double?> source)
+        public static double? Sum([InstantHandle] this ParallelQuery<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2159,7 +2163,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Sum(this ParallelQuery<decimal> source)
+        public static decimal Sum([InstantHandle] this ParallelQuery<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2182,7 +2186,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Sum(this ParallelQuery<decimal?> source)
+        public static decimal? Sum([InstantHandle] this ParallelQuery<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2207,7 +2211,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, int> selector)
+        public static int Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2231,7 +2235,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, int?> selector)
+        public static int? Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int?> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2255,7 +2259,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, long> selector)
+        public static long Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2279,7 +2283,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, long?> selector)
+        public static long? Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long?> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2301,7 +2305,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, float> selector)
+        public static float Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2323,7 +2327,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, float?> selector)
+        public static float? Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float?> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2345,7 +2349,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, double> selector)
+        public static double Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2367,31 +2371,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, double?> selector)
-        {
-            return source.Select(selector).Sum();
-        }
-
-        /// <summary>
-        /// Computes in parallel the sum of the sequence of values that are obtained
-        /// by invoking a transform function on each element of the input sequence.
-        /// </summary>
-        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
-        /// <param name="source">A sequence of values to calculate the sum of.</param>
-        /// <param name="selector">A transform function to apply to each element.</param>
-        /// <returns>The sum of the values in the sequence.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
-        /// </exception>
-        /// <exception cref="System.AggregateException">
-        /// The sum is larger than <see cref="decimal.MaxValue"/>.
-        /// -or-
-        /// One or more exceptions occurred during the evaluation of the query.
-        /// </exception>
-        /// <exception cref="System.OperationCanceledException">
-        /// The query was canceled.
-        /// </exception>
-        public static decimal Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal> selector)
+        public static double? Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double?> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2415,7 +2395,31 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Sum<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal?> selector)
+        public static decimal Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
+        {
+            return source.Select(selector).Sum();
+        }
+
+        /// <summary>
+        /// Computes in parallel the sum of the sequence of values that are obtained
+        /// by invoking a transform function on each element of the input sequence.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
+        /// <param name="source">A sequence of values to calculate the sum of.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The sum of the values in the sequence.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
+        /// </exception>
+        /// <exception cref="System.AggregateException">
+        /// The sum is larger than <see cref="decimal.MaxValue"/>.
+        /// -or-
+        /// One or more exceptions occurred during the evaluation of the query.
+        /// </exception>
+        /// <exception cref="System.OperationCanceledException">
+        /// The query was canceled.
+        /// </exception>
+        public static decimal? Sum<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             return source.Select(selector).Sum();
         }
@@ -2451,7 +2455,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Min(this ParallelQuery<int> source)
+        public static int Min([InstantHandle] this ParallelQuery<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2472,7 +2476,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Min(this ParallelQuery<int?> source)
+        public static int? Min([InstantHandle] this ParallelQuery<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2496,7 +2500,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Min(this ParallelQuery<long> source)
+        public static long Min([InstantHandle] this ParallelQuery<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2517,7 +2521,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Min(this ParallelQuery<long?> source)
+        public static long? Min([InstantHandle] this ParallelQuery<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2541,7 +2545,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Min(this ParallelQuery<float> source)
+        public static float Min([InstantHandle] this ParallelQuery<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2562,7 +2566,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Min(this ParallelQuery<float?> source)
+        public static float? Min([InstantHandle] this ParallelQuery<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2586,7 +2590,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Min(this ParallelQuery<double> source)
+        public static double Min([InstantHandle] this ParallelQuery<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2607,7 +2611,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Min(this ParallelQuery<double?> source)
+        public static double? Min([InstantHandle] this ParallelQuery<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2631,7 +2635,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Min(this ParallelQuery<decimal> source)
+        public static decimal Min([InstantHandle] this ParallelQuery<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2652,7 +2656,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Min(this ParallelQuery<decimal?> source)
+        public static decimal? Min([InstantHandle] this ParallelQuery<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2677,7 +2681,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? Min<TSource>(this ParallelQuery<TSource> source)
+        public static TSource? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2704,7 +2708,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, int> selector)
+        public static int Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int> selector)
         {
             return source.Select<TSource, int>(selector).Min<int>();
         }
@@ -2726,7 +2730,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, int?> selector)
+        public static int? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int?> selector)
         {
             return source.Select<TSource, int?>(selector).Min<int?>();
         }
@@ -2751,7 +2755,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, long> selector)
+        public static long Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long> selector)
         {
             return source.Select<TSource, long>(selector).Min<long>();
         }
@@ -2773,7 +2777,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, long?> selector)
+        public static long? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long?> selector)
         {
             return source.Select<TSource, long?>(selector).Min<long?>();
         }
@@ -2798,7 +2802,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, float> selector)
+        public static float Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float> selector)
         {
             return source.Select<TSource, float>(selector).Min<float>();
         }
@@ -2820,7 +2824,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, float?> selector)
+        public static float? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float?> selector)
         {
             return source.Select<TSource, float?>(selector).Min<float?>();
         }
@@ -2845,7 +2849,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, double> selector)
+        public static double Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double> selector)
         {
             return source.Select<TSource, double>(selector).Min<double>();
         }
@@ -2867,7 +2871,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, double?> selector)
+        public static double? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double?> selector)
         {
             return source.Select<TSource, double?>(selector).Min<double?>();
         }
@@ -2892,7 +2896,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal> selector)
+        public static decimal Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
         {
             return source.Select<TSource, decimal>(selector).Min<decimal>();
         }
@@ -2914,7 +2918,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Min<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal?> selector)
+        public static decimal? Min<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             return source.Select<TSource, decimal?>(selector).Min<decimal?>();
         }
@@ -2940,7 +2944,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TResult? Min<TSource, TResult>(this ParallelQuery<TSource> source, Func<TSource, TResult> selector)
+        public static TResult? Min<TSource, TResult>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TResult> selector)
         {
             return source.Select<TSource, TResult>(selector).Min<TResult>();
         }
@@ -2966,7 +2970,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Max(this ParallelQuery<int> source)
+        public static int Max([InstantHandle] this ParallelQuery<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2987,7 +2991,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Max(this ParallelQuery<int?> source)
+        public static int? Max([InstantHandle] this ParallelQuery<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3011,7 +3015,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Max(this ParallelQuery<long> source)
+        public static long Max([InstantHandle] this ParallelQuery<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3032,7 +3036,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Max(this ParallelQuery<long?> source)
+        public static long? Max([InstantHandle] this ParallelQuery<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3056,7 +3060,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Max(this ParallelQuery<float> source)
+        public static float Max([InstantHandle] this ParallelQuery<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3077,7 +3081,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Max(this ParallelQuery<float?> source)
+        public static float? Max([InstantHandle] this ParallelQuery<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3101,7 +3105,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Max(this ParallelQuery<double> source)
+        public static double Max([InstantHandle] this ParallelQuery<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3122,7 +3126,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Max(this ParallelQuery<double?> source)
+        public static double? Max([InstantHandle] this ParallelQuery<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3146,7 +3150,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Max(this ParallelQuery<decimal> source)
+        public static decimal Max([InstantHandle] this ParallelQuery<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3167,7 +3171,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Max(this ParallelQuery<decimal?> source)
+        public static decimal? Max([InstantHandle] this ParallelQuery<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3191,7 +3195,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? Max<TSource>(this ParallelQuery<TSource> source)
+        public static TSource? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3218,7 +3222,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, int> selector)
+        public static int Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int> selector)
         {
             return source.Select<TSource, int>(selector).Max<int>();
         }
@@ -3240,7 +3244,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static int? Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, int?> selector)
+        public static int? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int?> selector)
         {
             return source.Select<TSource, int?>(selector).Max<int?>();
         }
@@ -3265,7 +3269,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, long> selector)
+        public static long Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long> selector)
         {
             return source.Select<TSource, long>(selector).Max<long>();
         }
@@ -3287,7 +3291,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static long? Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, long?> selector)
+        public static long? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long?> selector)
         {
             return source.Select<TSource, long?>(selector).Max<long?>();
         }
@@ -3312,7 +3316,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, float> selector)
+        public static float Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float> selector)
         {
             return source.Select<TSource, float>(selector).Max<float>();
         }
@@ -3334,7 +3338,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, float?> selector)
+        public static float? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float?> selector)
         {
             return source.Select<TSource, float?>(selector).Max<float?>();
         }
@@ -3359,7 +3363,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, double> selector)
+        public static double Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double> selector)
         {
             return source.Select<TSource, double>(selector).Max<double>();
         }
@@ -3381,7 +3385,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, double?> selector)
+        public static double? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double?> selector)
         {
             return source.Select<TSource, double?>(selector).Max<double?>();
         }
@@ -3406,7 +3410,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal> selector)
+        public static decimal Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
         {
             return source.Select<TSource, decimal>(selector).Max<decimal>();
         }
@@ -3428,7 +3432,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Max<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal?> selector)
+        public static decimal? Max<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             return source.Select<TSource, decimal?>(selector).Max<decimal?>();
         }
@@ -3454,7 +3458,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TResult? Max<TSource, TResult>(this ParallelQuery<TSource> source, Func<TSource, TResult> selector)
+        public static TResult? Max<TSource, TResult>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TResult> selector)
         {
             return source.Select<TSource, TResult>(selector).Max<TResult>();
         }
@@ -3482,7 +3486,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Average(this ParallelQuery<int> source)
+        public static double Average([InstantHandle] this ParallelQuery<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3505,7 +3509,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Average(this ParallelQuery<int?> source)
+        public static double? Average([InstantHandle] this ParallelQuery<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3531,7 +3535,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Average(this ParallelQuery<long> source)
+        public static double Average([InstantHandle] this ParallelQuery<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3554,7 +3558,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Average(this ParallelQuery<long?> source)
+        public static double? Average([InstantHandle] this ParallelQuery<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3578,7 +3582,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Average(this ParallelQuery<float> source)
+        public static float Average([InstantHandle] this ParallelQuery<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3599,7 +3603,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Average(this ParallelQuery<float?> source)
+        public static float? Average([InstantHandle] this ParallelQuery<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3623,7 +3627,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Average(this ParallelQuery<double> source)
+        public static double Average([InstantHandle] this ParallelQuery<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3644,7 +3648,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Average(this ParallelQuery<double?> source)
+        public static double? Average([InstantHandle] this ParallelQuery<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3668,7 +3672,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Average(this ParallelQuery<decimal> source)
+        public static decimal Average([InstantHandle] this ParallelQuery<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3689,7 +3693,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Average(this ParallelQuery<decimal?> source)
+        public static decimal? Average([InstantHandle] this ParallelQuery<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -3718,7 +3722,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, int> selector)
+        public static double Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3742,7 +3746,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, int?> selector)
+        public static double? Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, int?> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3769,7 +3773,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, long> selector)
+        public static double Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3793,7 +3797,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static double? Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, long?> selector)
+        public static double? Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, long?> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3818,7 +3822,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, float> selector)
+        public static float Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3840,54 +3844,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static float? Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, float?> selector)
-        {
-            return source.Select(selector).Average();
-        }
-
-        /// <summary>
-        /// Computes in parallel the average of a sequence of values that are obtained
-        /// by invoking a transform function on each element of the input sequence.
-        /// </summary>
-        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
-        /// <param name="source">A sequence of values that are used to calculate an average.</param>
-        /// <param name="selector">A transform function to apply to each element.</param>
-        /// <returns>The average of the sequence of values.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
-        /// </exception>
-        /// <exception cref="System.InvalidOperationException">
-        /// <paramref name="source"/> contains no elements.
-        /// </exception>
-        /// <exception cref="System.AggregateException">
-        /// One or more exceptions occurred during the evaluation of the query.
-        /// </exception>
-        /// <exception cref="System.OperationCanceledException">
-        /// The query was canceled.
-        /// </exception>
-        public static double Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, double> selector)
-        {
-            return source.Select(selector).Average();
-        }
-
-        /// <summary>
-        /// Computes in parallel the average of a sequence of values that are obtained
-        /// by invoking a transform function on each element of the input sequence.
-        /// </summary>
-        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
-        /// <param name="source">A sequence of values that are used to calculate an average.</param>
-        /// <param name="selector">A transform function to apply to each element.</param>
-        /// <returns>The average of the sequence of values.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
-        /// </exception>
-        /// <exception cref="System.AggregateException">
-        /// One or more exceptions occurred during the evaluation of the query.
-        /// </exception>
-        /// <exception cref="System.OperationCanceledException">
-        /// The query was canceled.
-        /// </exception>
-        public static double? Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, double?> selector)
+        public static float? Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, float?> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3912,7 +3869,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal> selector)
+        public static double Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3934,7 +3891,54 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static decimal? Average<TSource>(this ParallelQuery<TSource> source, Func<TSource, decimal?> selector)
+        public static double? Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, double?> selector)
+        {
+            return source.Select(selector).Average();
+        }
+
+        /// <summary>
+        /// Computes in parallel the average of a sequence of values that are obtained
+        /// by invoking a transform function on each element of the input sequence.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
+        /// <param name="source">A sequence of values that are used to calculate an average.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The average of the sequence of values.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">
+        /// <paramref name="source"/> contains no elements.
+        /// </exception>
+        /// <exception cref="System.AggregateException">
+        /// One or more exceptions occurred during the evaluation of the query.
+        /// </exception>
+        /// <exception cref="System.OperationCanceledException">
+        /// The query was canceled.
+        /// </exception>
+        public static decimal Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
+        {
+            return source.Select(selector).Average();
+        }
+
+        /// <summary>
+        /// Computes in parallel the average of a sequence of values that are obtained
+        /// by invoking a transform function on each element of the input sequence.
+        /// </summary>
+        /// <typeparam name="TSource">The type of elements of <paramref name="source"/>.</typeparam>
+        /// <param name="source">A sequence of values that are used to calculate an average.</param>
+        /// <param name="selector">A transform function to apply to each element.</param>
+        /// <returns>The average of the sequence of values.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="source"/> or <paramref name="selector"/> is a null reference (Nothing in Visual Basic).
+        /// </exception>
+        /// <exception cref="System.AggregateException">
+        /// One or more exceptions occurred during the evaluation of the query.
+        /// </exception>
+        /// <exception cref="System.OperationCanceledException">
+        /// The query was canceled.
+        /// </exception>
+        public static decimal? Average<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             return source.Select(selector).Average();
         }
@@ -3961,7 +3965,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Any<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static bool Any<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -3984,7 +3988,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Any<TSource>(this ParallelQuery<TSource> source)
+        public static bool Any<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -4013,7 +4017,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool All<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static bool All<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -4044,7 +4048,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Contains<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> source, TSource value)
+        public static bool Contains<[DefaultEqualityUsage] TSource>([InstantHandle] this ParallelQuery<TSource> source, TSource value)
         {
             return Contains(source, value, null);
         }
@@ -4069,7 +4073,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool Contains<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> source, TSource value, IEqualityComparer<TSource>? comparer)
+        public static bool Contains<[DefaultEqualityUsage] TSource>([InstantHandle] this ParallelQuery<TSource> source, TSource value, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -4318,7 +4322,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>([InstantHandle] this ParallelQuery<TSource> first, ParallelQuery<TSource> second)
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
@@ -4342,7 +4346,7 @@ namespace System.Linq
         /// but would in reality bind to the sequential implementation.
         /// </remarks>
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
-        public static bool SequenceEqual<TSource>(this ParallelQuery<TSource> first, IEnumerable<TSource> second)
+        public static bool SequenceEqual<TSource>([InstantHandle] this ParallelQuery<TSource> first, IEnumerable<TSource> second)
         {
             throw new NotSupportedException(SR.ParallelEnumerable_BinaryOpMustUseAsParallel);
         }
@@ -4368,7 +4372,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>([InstantHandle] this ParallelQuery<TSource> first, ParallelQuery<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(first);
             ArgumentNullException.ThrowIfNull(second);
@@ -4449,7 +4453,7 @@ namespace System.Linq
         /// but would in reality bind to sequential implementation.
         /// </remarks>
         [Obsolete(RIGHT_SOURCE_NOT_PARALLEL_STR)]
-        public static bool SequenceEqual<TSource>(this ParallelQuery<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
+        public static bool SequenceEqual<TSource>([InstantHandle] this ParallelQuery<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             throw new NotSupportedException(SR.ParallelEnumerable_BinaryOpMustUseAsParallel);
         }
@@ -4814,7 +4818,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static TSource[] ToArray<TSource>(this ParallelQuery<TSource> source)
+        public static TSource[] ToArray<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -4847,7 +4851,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static List<TSource> ToList<TSource>(this ParallelQuery<TSource> source)
+        public static List<TSource> ToList<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -4930,7 +4934,7 @@ namespace System.Linq
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return ToDictionary(source, keySelector, EqualityComparer<TKey>.Default);
         }
@@ -4960,7 +4964,7 @@ namespace System.Linq
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -5023,7 +5027,7 @@ namespace System.Linq
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             return ToDictionary(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
         }
@@ -5059,7 +5063,7 @@ namespace System.Linq
         /// </exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
         public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -5116,7 +5120,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) where TKey : notnull
         {
             return ToLookup(source, keySelector, EqualityComparer<TKey>.Default);
         }
@@ -5141,7 +5145,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -5195,7 +5199,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector) where TKey : notnull
         {
             return ToLookup(source, keySelector, elementSelector, EqualityComparer<TKey>.Default);
         }
@@ -5227,7 +5231,7 @@ namespace System.Linq
         /// The query was canceled.
         /// </exception>
         public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(
-            this ParallelQuery<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+            [InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -5398,7 +5402,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource First<TSource>(this ParallelQuery<TSource> source)
+        public static TSource First<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5441,7 +5445,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource First<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource First<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5480,7 +5484,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? FirstOrDefault<TSource>(this ParallelQuery<TSource> source)
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5526,7 +5530,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? FirstOrDefault<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5574,7 +5578,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource Last<TSource>(this ParallelQuery<TSource> source)
+        public static TSource Last<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5617,7 +5621,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource Last<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource Last<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5658,7 +5662,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? LastOrDefault<TSource>(this ParallelQuery<TSource> source)
+        public static TSource? LastOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5700,7 +5704,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? LastOrDefault<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource? LastOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5748,7 +5752,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource Single<TSource>(this ParallelQuery<TSource> source)
+        public static TSource Single<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5777,7 +5781,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource Single<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource Single<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5804,7 +5808,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? SingleOrDefault<TSource>(this ParallelQuery<TSource> source)
+        public static TSource? SingleOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5834,7 +5838,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? SingleOrDefault<TSource>(this ParallelQuery<TSource> source, Func<TSource, bool> predicate)
+        public static TSource? SingleOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -5909,7 +5913,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource ElementAt<TSource>(this ParallelQuery<TSource> source, int index)
+        public static TSource ElementAt<TSource>([InstantHandle] this ParallelQuery<TSource> source, int index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -5949,7 +5953,7 @@ namespace System.Linq
         /// <exception cref="System.OperationCanceledException">
         /// The query was canceled.
         /// </exception>
-        public static TSource? ElementAtOrDefault<TSource>(this ParallelQuery<TSource> source, int index)
+        public static TSource? ElementAtOrDefault<TSource>([InstantHandle] this ParallelQuery<TSource> source, int index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
