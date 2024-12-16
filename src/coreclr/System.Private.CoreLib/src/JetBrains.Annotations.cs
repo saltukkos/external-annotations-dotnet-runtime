@@ -34,14 +34,38 @@ namespace JetBrains.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public sealed class CheckForPublicUnannotatedMembersInternalAttribute : Attribute
+    public sealed class CheckForPublicUnannotatedMembersInternalAttribute(string requiredAttributeFqn) : Attribute
     {
-        public CheckForPublicUnannotatedMembersInternalAttribute(
-            [StringSyntax(StringSyntaxAttribute.Regex)] string memberNameRegex,
-            string requiredAttributeFqn)
-        {
-        }
+        public string RequiredAttributeFqn { get; } = requiredAttributeFqn;
+
+        [StringSyntax(StringSyntaxAttribute.Regex)]
+        public string? MemberNameRegex { get; set; }
+
+        [StringSyntax(StringSyntaxAttribute.Regex)]
+        public string? ReturnTypeRegex { get; set; }
+
+        public PreferredAttributeLocation PreferredAttributeLocation { get; set; }
     }
+
+    public enum PreferredAttributeLocation
+    {
+        Method,
+        FirstParameter,
+        FirstParameterAndAllDelegates,
+    }
+
+    [AttributeUsage(AttributeTargets.Parameter)]
+    public sealed class InstantHandleAttribute : Attribute
+    {
+        /// <summary>
+        /// Requires the method invocation to be used under the <c>await</c> expression for this attribute to take effect.
+        /// Can be used for delegate/enumerable parameters of <c>async</c> methods.
+        /// </summary>
+        public bool RequireAwait { get; set; }
+    }
+
+    [AttributeUsage(AttributeTargets.Method)]
+    public sealed class LinqTunnelAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.GenericParameter | AttributeTargets.Parameter)]
     public sealed class MeansImplicitUseAttribute : Attribute

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace System.Text.Json
 {
-    [CheckForPublicUnannotatedMembersInternal("Serialize", "JetBrains.Annotations.MeansImplicitUseAttribute")]
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.MeansImplicitUseAttribute", MemberNameRegex = "(?i)serialize")]
     public static partial class JsonSerializer
     {
         /// <summary>

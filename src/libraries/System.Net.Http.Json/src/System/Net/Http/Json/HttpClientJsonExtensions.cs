@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace System.Net.Http.Json
 {
-    [CheckForPublicUnannotatedMembersInternal("Json", "JetBrains.Annotations.MeansImplicitUseAttribute")]
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.MeansImplicitUseAttribute", MemberNameRegex = "Json")]
     public static partial class HttpClientJsonExtensions
     {
         [RequiresUnreferencedCode(HttpContentJsonExtensions.SerializationUnreferencedCodeMessage)]
