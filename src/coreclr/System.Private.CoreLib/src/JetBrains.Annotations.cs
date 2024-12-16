@@ -49,8 +49,19 @@ namespace JetBrains.Annotations
 
     public enum PreferredAttributeLocation
     {
+        /// <summary>
+        /// Member itself
+        /// </summary>
         Method,
+
+        /// <summary>
+        /// First parameter of a member in case it's ArgumentsOwner
+        /// </summary>
         FirstParameter,
+
+        /// <summary>
+        /// First parameter of ArgumentsOwner + all delegate parameters + expressions of delegates
+        /// </summary>
         FirstParameterAndAllDelegates,
     }
 

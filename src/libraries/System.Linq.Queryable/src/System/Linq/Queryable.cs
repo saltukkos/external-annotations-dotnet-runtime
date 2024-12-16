@@ -8,11 +8,16 @@ using System.Linq.Expressions;
 
 namespace System.Linq
 {
+    // method returns new Queryable or Enumerable -- probably LinqTunnel
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.LinqTunnelAttribute", ReturnTypeRegex = "(Queryable|Enumerable)", PreferredAttributeLocation = PreferredAttributeLocation.Method)]
+    // return type is not Queryable or Enumerable -- probably LinqTunnel
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.InstantHandleAttribute", ReturnTypeRegex = "^(?!.*(Queryable|Enumerable))", PreferredAttributeLocation = PreferredAttributeLocation.FirstParameterAndAllDelegates)]
     public static class Queryable
     {
         internal const string InMemoryQueryableExtensionMethodsRequiresUnreferencedCode = "Enumerating in-memory collections as IQueryable can require unreferenced code because expressions referencing IQueryable extension methods can get rebound to IEnumerable extension methods. The IEnumerable extension methods could be trimmed causing the application to fail at runtime.";
         internal const string InMemoryQueryableExtensionMethodsRequiresDynamicCode = "Enumerating in-memory collections as IQueryable can require creating new generic types or methods, which requires creating code at runtime. This may not work when AOT compiling.";
 
+        [LinqTunnel]
         [RequiresUnreferencedCode(InMemoryQueryableExtensionMethodsRequiresUnreferencedCode)]
         [RequiresDynamicCode(InMemoryQueryableExtensionMethodsRequiresDynamicCode)]
         public static IQueryable<TElement> AsQueryable<TElement>(this IEnumerable<TElement> source)
@@ -22,6 +27,7 @@ namespace System.Linq
             return source as IQueryable<TElement> ?? new EnumerableQuery<TElement>(source);
         }
 
+        [LinqTunnel]
         [RequiresUnreferencedCode(InMemoryQueryableExtensionMethodsRequiresUnreferencedCode)]
         [RequiresDynamicCode(InMemoryQueryableExtensionMethodsRequiresDynamicCode)]
         public static IQueryable AsQueryable(this IEnumerable source)
@@ -42,6 +48,7 @@ namespace System.Linq
             return EnumerableQuery.Create(enumType.GenericTypeArguments[0], source);
         }
 
+        [LinqTunnel]
         [DynamicDependency("Where`1", typeof(Enumerable))]
         public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
         {
@@ -55,6 +62,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Where`1", typeof(Enumerable))]
         public static IQueryable<TSource> Where<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int, bool>> predicate)
         {
@@ -68,6 +76,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("OfType`1", typeof(Enumerable))]
         public static IQueryable<TResult> OfType<TResult>(this IQueryable source)
         {
@@ -80,6 +89,7 @@ namespace System.Linq
                     source.Expression));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Cast`1", typeof(Enumerable))]
         public static IQueryable<TResult> Cast<TResult>(this IQueryable source)
         {
@@ -92,6 +102,7 @@ namespace System.Linq
                     source.Expression));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Select`2", typeof(Enumerable))]
         public static IQueryable<TResult> Select<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TResult>> selector)
         {
@@ -105,6 +116,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(selector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Select`2", typeof(Enumerable))]
         public static IQueryable<TResult> Select<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, int, TResult>> selector)
         {
@@ -118,6 +130,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(selector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SelectMany`2", typeof(Enumerable))]
         public static IQueryable<TResult> SelectMany<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, IEnumerable<TResult>>> selector)
         {
@@ -131,6 +144,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(selector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SelectMany`2", typeof(Enumerable))]
         public static IQueryable<TResult> SelectMany<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, int, IEnumerable<TResult>>> selector)
         {
@@ -144,6 +158,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(selector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SelectMany`3", typeof(Enumerable))]
         public static IQueryable<TResult> SelectMany<TSource, TCollection, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, int, IEnumerable<TCollection>>> collectionSelector, Expression<Func<TSource, TCollection, TResult>> resultSelector)
         {
@@ -158,6 +173,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(collectionSelector), Expression.Quote(resultSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SelectMany`3", typeof(Enumerable))]
         public static IQueryable<TResult> SelectMany<TSource, TCollection, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, IEnumerable<TCollection>>> collectionSelector, Expression<Func<TSource, TCollection, TResult>> resultSelector)
         {
@@ -178,6 +194,7 @@ namespace System.Linq
             return q != null ? q.Expression : Expression.Constant(source, typeof(IEnumerable<TSource>));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Join`4", typeof(Enumerable))]
         public static IQueryable<TResult> Join<TOuter, TInner, TKey, TResult>(this IQueryable<TOuter> outer, IEnumerable<TInner> inner, Expression<Func<TOuter, TKey>> outerKeySelector, Expression<Func<TInner, TKey>> innerKeySelector, Expression<Func<TOuter, TInner, TResult>> resultSelector)
         {
@@ -194,6 +211,7 @@ namespace System.Linq
                     outer.Expression, GetSourceExpression(inner), Expression.Quote(outerKeySelector), Expression.Quote(innerKeySelector), Expression.Quote(resultSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Join`4", typeof(Enumerable))]
         public static IQueryable<TResult> Join<TOuter, TInner, TKey, TResult>(this IQueryable<TOuter> outer, IEnumerable<TInner> inner, Expression<Func<TOuter, TKey>> outerKeySelector, Expression<Func<TInner, TKey>> innerKeySelector, Expression<Func<TOuter, TInner, TResult>> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -210,6 +228,7 @@ namespace System.Linq
                     outer.Expression, GetSourceExpression(inner), Expression.Quote(outerKeySelector), Expression.Quote(innerKeySelector), Expression.Quote(resultSelector), Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupJoin`4", typeof(Enumerable))]
         public static IQueryable<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IQueryable<TOuter> outer, IEnumerable<TInner> inner, Expression<Func<TOuter, TKey>> outerKeySelector, Expression<Func<TInner, TKey>> innerKeySelector, Expression<Func<TOuter, IEnumerable<TInner>, TResult>> resultSelector)
         {
@@ -226,6 +245,7 @@ namespace System.Linq
                     outer.Expression, GetSourceExpression(inner), Expression.Quote(outerKeySelector), Expression.Quote(innerKeySelector), Expression.Quote(resultSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupJoin`4", typeof(Enumerable))]
         public static IQueryable<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IQueryable<TOuter> outer, IEnumerable<TInner> inner, Expression<Func<TOuter, TKey>> outerKeySelector, Expression<Func<TInner, TKey>> innerKeySelector, Expression<Func<TOuter, IEnumerable<TInner>, TResult>> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -266,6 +286,7 @@ namespace System.Linq
         /// depends on the implementation of the <paramref name="source"/> parameter.
         /// The expected behavior is that it sorts the elements of <paramref name="source"/> by itself.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("Order`1", typeof(Enumerable))]
         public static IOrderedQueryable<T> Order<T>(this IQueryable<T> source)
         {
@@ -303,6 +324,7 @@ namespace System.Linq
         /// depends on the implementation of the <paramref name="source"/> parameter.
         /// The expected behavior is that it sorts the elements of <paramref name="source"/> by itself.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("Order`1", typeof(Enumerable))]
         public static IOrderedQueryable<T> Order<T>(this IQueryable<T> source, IComparer<T> comparer)
         {
@@ -315,6 +337,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(comparer, typeof(IComparer<T>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("OrderBy`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> OrderBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -328,6 +351,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("OrderBy`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> OrderBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TKey>? comparer)
         {
@@ -365,6 +389,7 @@ namespace System.Linq
         /// depends on the implementation of the <paramref name="source"/> parameter.
         /// The expected behavior is that it sorts the elements of <paramref name="source"/> by itself.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("OrderDescending`1", typeof(Enumerable))]
         public static IOrderedQueryable<T> OrderDescending<T>(this IQueryable<T> source)
         {
@@ -402,6 +427,7 @@ namespace System.Linq
         /// depends on the implementation of the <paramref name="source"/> parameter.
         /// The expected behavior is that it sorts the elements of <paramref name="source"/> by itself.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("OrderDescending`1", typeof(Enumerable))]
         public static IOrderedQueryable<T> OrderDescending<T>(this IQueryable<T> source, IComparer<T> comparer)
         {
@@ -414,6 +440,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(comparer, typeof(IComparer<T>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("OrderByDescending`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> OrderByDescending<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -427,6 +454,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("OrderByDescending`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> OrderByDescending<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TKey>? comparer)
         {
@@ -440,6 +468,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Constant(comparer, typeof(IComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("ThenBy`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(this IOrderedQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -453,6 +482,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("ThenBy`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> ThenBy<TSource, TKey>(this IOrderedQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TKey>? comparer)
         {
@@ -466,6 +496,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Constant(comparer, typeof(IComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("ThenByDescending`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> ThenByDescending<TSource, TKey>(this IOrderedQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -479,6 +510,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("ThenByDescending`2", typeof(Enumerable))]
         public static IOrderedQueryable<TSource> ThenByDescending<TSource, TKey>(this IOrderedQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TKey>? comparer)
         {
@@ -492,6 +524,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Constant(comparer, typeof(IComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Take`1", typeof(Enumerable))]
         public static IQueryable<TSource> Take<TSource>(this IQueryable<TSource> source, int count)
         {
@@ -510,6 +543,7 @@ namespace System.Linq
         /// <param name="range">The range of elements to return, which has start and end indexes either from the start or the end.</param>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <returns>An <see cref="IQueryable{T}" /> that contains the specified <paramref name="range" /> of elements from the <paramref name="source" /> sequence.</returns>
+        [LinqTunnel]
         [DynamicDependency("Take`1", typeof(Enumerable))]
         public static IQueryable<TSource> Take<TSource>(this IQueryable<TSource> source, Range range)
         {
@@ -522,6 +556,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(range)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("TakeWhile`1", typeof(Enumerable))]
         public static IQueryable<TSource> TakeWhile<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
         {
@@ -535,6 +570,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("TakeWhile`1", typeof(Enumerable))]
         public static IQueryable<TSource> TakeWhile<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int, bool>> predicate)
         {
@@ -548,6 +584,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Skip`1", typeof(Enumerable))]
         public static IQueryable<TSource> Skip<TSource>(this IQueryable<TSource> source, int count)
         {
@@ -560,6 +597,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(count)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SkipWhile`1", typeof(Enumerable))]
         public static IQueryable<TSource> SkipWhile<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
         {
@@ -573,6 +611,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SkipWhile`1", typeof(Enumerable))]
         public static IQueryable<TSource> SkipWhile<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int, bool>> predicate)
         {
@@ -586,6 +625,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(predicate)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`2", typeof(Enumerable))]
         public static IQueryable<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -599,6 +639,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`3", typeof(Enumerable))]
         public static IQueryable<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TSource, TElement>> elementSelector)
         {
@@ -613,6 +654,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(elementSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`2", typeof(Enumerable))]
         public static IQueryable<IGrouping<TKey, TSource>> GroupBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -626,6 +668,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`3", typeof(Enumerable))]
         public static IQueryable<IGrouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TSource, TElement>> elementSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -640,6 +683,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(elementSelector), Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`4", typeof(Enumerable))]
         public static IQueryable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TSource, TElement>> elementSelector, Expression<Func<TKey, IEnumerable<TElement>, TResult>> resultSelector)
         {
@@ -655,6 +699,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(elementSelector), Expression.Quote(resultSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`3", typeof(Enumerable))]
         public static IQueryable<TResult> GroupBy<TSource, TKey, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TKey, IEnumerable<TSource>, TResult>> resultSelector)
         {
@@ -669,6 +714,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(resultSelector)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`3", typeof(Enumerable))]
         public static IQueryable<TResult> GroupBy<TSource, TKey, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TKey, IEnumerable<TSource>, TResult>> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -683,6 +729,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(resultSelector), Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("GroupBy`4", typeof(Enumerable))]
         public static IQueryable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TSource, TElement>> elementSelector, Expression<Func<TKey, IEnumerable<TElement>, TResult>> resultSelector, IEqualityComparer<TKey>? comparer)
         {
@@ -698,6 +745,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(elementSelector), Expression.Quote(resultSelector), Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Distinct`1", typeof(Enumerable))]
         public static IQueryable<TSource> Distinct<TSource>(this IQueryable<TSource> source)
         {
@@ -710,6 +758,7 @@ namespace System.Linq
                     source.Expression));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Distinct`1", typeof(Enumerable))]
         public static IQueryable<TSource> Distinct<TSource>(this IQueryable<TSource> source, IEqualityComparer<TSource>? comparer)
         {
@@ -729,6 +778,7 @@ namespace System.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <returns>An <see cref="IQueryable{T}" /> that contains distinct elements from the source sequence.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("DistinctBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> DistinctBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -750,6 +800,7 @@ namespace System.Linq
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}" /> to compare keys.</param>
         /// <returns>An <see cref="IQueryable{T}" /> that contains distinct elements from the source sequence.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("DistinctBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> DistinctBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -774,6 +825,7 @@ namespace System.Linq
         /// <para>Every chunk except the last will be of size <paramref name="size"/>.</para>
         /// <para>The last chunk will contain the remaining elements and may be of a smaller size.</para>
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("Chunk`1", typeof(Enumerable))]
         public static IQueryable<TSource[]> Chunk<TSource>(this IQueryable<TSource> source, int size)
         {
@@ -786,6 +838,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(size)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Concat`1", typeof(Enumerable))]
         public static IQueryable<TSource> Concat<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2)
         {
@@ -799,6 +852,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Zip`2", typeof(Enumerable))]
         public static IQueryable<(TFirst First, TSecond Second)> Zip<TFirst, TSecond>(this IQueryable<TFirst> source1, IEnumerable<TSecond> source2)
         {
@@ -812,6 +866,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Zip`3", typeof(Enumerable))]
         public static IQueryable<TResult> Zip<TFirst, TSecond, TResult>(this IQueryable<TFirst> source1, IEnumerable<TSecond> source2, Expression<Func<TFirst, TSecond, TResult>> resultSelector)
         {
@@ -836,6 +891,7 @@ namespace System.Linq
         /// <param name="source2">The second sequence to merge.</param>
         /// <param name="source3">The third sequence to merge.</param>
         /// <returns>A sequence of tuples with elements taken from the first, second and third sequences, in that order.</returns>
+        [LinqTunnel]
         [DynamicDependency("Zip`3", typeof(Enumerable))]
         public static IQueryable<(TFirst First, TSecond Second, TThird Third)> Zip<TFirst, TSecond, TThird>(this IQueryable<TFirst> source1, IEnumerable<TSecond> source2, IEnumerable<TThird> source3)
         {
@@ -850,6 +906,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2), GetSourceExpression(source3)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Union`1", typeof(Enumerable))]
         public static IQueryable<TSource> Union<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2)
         {
@@ -863,6 +920,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Union`1", typeof(Enumerable))]
         public static IQueryable<TSource> Union<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, IEqualityComparer<TSource>? comparer)
         {
@@ -886,6 +944,7 @@ namespace System.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <returns>An <see cref="IQueryable{T}" /> that contains the elements from both input sequences, excluding duplicates.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source1" /> or <paramref name="source2" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("UnionBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> UnionBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -909,6 +968,7 @@ namespace System.Linq
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> to compare values.</param>
         /// <returns>An <see cref="IQueryable{T}" /> that contains the elements from both input sequences, excluding duplicates.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source1" /> or <paramref name="source2" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("UnionBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> UnionBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -931,6 +991,7 @@ namespace System.Linq
         /// <param name="source">An <see cref="IQueryable{T}" /> to return an element from.</param>
         /// <returns>An enumerable that incorporates each element index into a tuple.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("Index`1", typeof(Enumerable))]
         public static IQueryable<(int Index, TSource Item)> Index<TSource>(this IQueryable<TSource> source)
         {
@@ -943,6 +1004,7 @@ namespace System.Linq
                     source.Expression));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Intersect`1", typeof(Enumerable))]
         public static IQueryable<TSource> Intersect<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2)
         {
@@ -956,6 +1018,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Intersect`1", typeof(Enumerable))]
         public static IQueryable<TSource> Intersect<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, IEqualityComparer<TSource>? comparer)
         {
@@ -979,6 +1042,7 @@ namespace System.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <returns>A sequence that contains the elements that form the set intersection of two sequences.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source1" /> or <paramref name="source2" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("IntersectBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> IntersectBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TKey> source2, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -1004,6 +1068,7 @@ namespace System.Linq
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}" /> to compare keys.</param>
         /// <returns>A sequence that contains the elements that form the set intersection of two sequences.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source1" /> or <paramref name="source2" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("IntersectBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> IntersectBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TKey> source2, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -1021,6 +1086,7 @@ namespace System.Linq
                     Expression.Constant(comparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Except`1", typeof(Enumerable))]
         public static IQueryable<TSource> Except<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2)
         {
@@ -1034,6 +1100,7 @@ namespace System.Linq
                     source1.Expression, GetSourceExpression(source2)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Except`1", typeof(Enumerable))]
         public static IQueryable<TSource> Except<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, IEqualityComparer<TSource>? comparer)
         {
@@ -1058,6 +1125,7 @@ namespace System.Linq
         /// <param name="source2">An <see cref="IEnumerable{TKey}" /> whose keys that also occur in the first sequence will cause those elements to be removed from the returned sequence.</param>
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <returns>A <see cref="IQueryable{TSource}" /> that contains the set difference of the elements of two sequences.</returns>
+        [LinqTunnel]
         [DynamicDependency("ExceptBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> ExceptBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TKey> source2, Expression<Func<TSource, TKey>> keySelector)
         {
@@ -1084,6 +1152,7 @@ namespace System.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}" /> to compare keys.</param>
         /// <returns>A <see cref="IQueryable{TSource}" /> that contains the set difference of the elements of two sequences.</returns>
+        [LinqTunnel]
         [DynamicDependency("ExceptBy`2", typeof(Enumerable))]
         public static IQueryable<TSource> ExceptBy<TSource, TKey>(this IQueryable<TSource> source1, IEnumerable<TKey> source2, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer)
         {
@@ -1102,7 +1171,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("First`1", typeof(Enumerable))]
-        public static TSource First<TSource>(this IQueryable<TSource> source)
+        public static TSource First<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1114,7 +1183,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("First`1", typeof(Enumerable))]
-        public static TSource First<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource First<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1127,7 +1196,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("FirstOrDefault`1", typeof(Enumerable))]
-        public static TSource? FirstOrDefault<TSource>(this IQueryable<TSource> source)
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1145,7 +1214,7 @@ namespace System.Linq
         /// <returns><paramref name="defaultValue" /> if <paramref name="source" /> is empty; otherwise, the first element in <paramref name="source" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         [DynamicDependency("FirstOrDefault`1", typeof(Enumerable))]
-        public static TSource FirstOrDefault<TSource>(this IQueryable<TSource> source, TSource defaultValue)
+        public static TSource FirstOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1157,7 +1226,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("FirstOrDefault`1", typeof(Enumerable))]
-        public static TSource? FirstOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1177,7 +1246,7 @@ namespace System.Linq
         /// <returns><paramref name="defaultValue" /> if <paramref name="source" /> is empty or if no element passes the test specified by <paramref name="predicate" />; otherwise, the first element in <paramref name="source" /> that passes the test specified by <paramref name="predicate" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <see langword="null" />.</exception>
         [DynamicDependency("FirstOrDefault`1", typeof(Enumerable))]
-        public static TSource FirstOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate, TSource defaultValue)
+        public static TSource FirstOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1190,7 +1259,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Last`1", typeof(Enumerable))]
-        public static TSource Last<TSource>(this IQueryable<TSource> source)
+        public static TSource Last<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1202,7 +1271,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Last`1", typeof(Enumerable))]
-        public static TSource Last<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource Last<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1215,7 +1284,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("LastOrDefault`1", typeof(Enumerable))]
-        public static TSource? LastOrDefault<TSource>(this IQueryable<TSource> source)
+        public static TSource? LastOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1233,7 +1302,7 @@ namespace System.Linq
         /// <returns><paramref name="defaultValue" /> if the source sequence is empty; otherwise, the last element in the <see cref="IEnumerable{T}" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         [DynamicDependency("LastOrDefault`1", typeof(Enumerable))]
-        public static TSource LastOrDefault<TSource>(this IQueryable<TSource> source, TSource defaultValue)
+        public static TSource LastOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1245,7 +1314,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("LastOrDefault`1", typeof(Enumerable))]
-        public static TSource? LastOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource? LastOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1265,7 +1334,7 @@ namespace System.Linq
         /// <returns><paramref name="defaultValue" /> if the sequence is empty or if no elements pass the test in the predicate function; otherwise, the last element that passes the test in the predicate function.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <see langword="null" />.</exception>
         [DynamicDependency("LastOrDefault`1", typeof(Enumerable))]
-        public static TSource LastOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate, TSource defaultValue)
+        public static TSource LastOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1279,7 +1348,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Single`1", typeof(Enumerable))]
-        public static TSource Single<TSource>(this IQueryable<TSource> source)
+        public static TSource Single<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1291,7 +1360,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Single`1", typeof(Enumerable))]
-        public static TSource Single<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource Single<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1304,7 +1373,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("SingleOrDefault`1", typeof(Enumerable))]
-        public static TSource? SingleOrDefault<TSource>(this IQueryable<TSource> source)
+        public static TSource? SingleOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1323,7 +1392,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="InvalidOperationException">The input sequence contains more than one element.</exception>
         [DynamicDependency("SingleOrDefault`1", typeof(Enumerable))]
-        public static TSource SingleOrDefault<TSource>(this IQueryable<TSource> source, TSource defaultValue)
+        public static TSource SingleOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1335,7 +1404,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("SingleOrDefault`1", typeof(Enumerable))]
-        public static TSource? SingleOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static TSource? SingleOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1356,7 +1425,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <see langword="null" />.</exception>
         /// <exception cref="InvalidOperationException">More than one element satisfies the condition in <paramref name="predicate" />.</exception>
         [DynamicDependency("SingleOrDefault`1", typeof(Enumerable))]
-        public static TSource SingleOrDefault<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate, TSource defaultValue)
+        public static TSource SingleOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate, TSource defaultValue)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1369,7 +1438,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("ElementAt`1", typeof(Enumerable))]
-        public static TSource ElementAt<TSource>(this IQueryable<TSource> source, int index)
+        public static TSource ElementAt<TSource>([InstantHandle] this IQueryable<TSource> source, int index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1391,7 +1460,7 @@ namespace System.Linq
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index" /> is outside the bounds of the <paramref name="source" /> sequence.</exception>
         /// <returns>The element at the specified position in the <paramref name="source" /> sequence.</returns>
         [DynamicDependency("ElementAt`1", typeof(Enumerable))]
-        public static TSource ElementAt<TSource>(this IQueryable<TSource> source, Index index)
+        public static TSource ElementAt<TSource>([InstantHandle] this IQueryable<TSource> source, Index index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1406,7 +1475,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("ElementAtOrDefault`1", typeof(Enumerable))]
-        public static TSource? ElementAtOrDefault<TSource>(this IQueryable<TSource> source, int index)
+        public static TSource? ElementAtOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, int index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1424,7 +1493,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <returns><see langword="default" /> if <paramref name="index" /> is outside the bounds of the <paramref name="source" /> sequence; otherwise, the element at the specified position in the <paramref name="source" /> sequence.</returns>
         [DynamicDependency("ElementAtOrDefault`1", typeof(Enumerable))]
-        public static TSource? ElementAtOrDefault<TSource>(this IQueryable<TSource> source, Index index)
+        public static TSource? ElementAtOrDefault<TSource>([InstantHandle] this IQueryable<TSource> source, Index index)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1435,6 +1504,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(index)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("DefaultIfEmpty`1", typeof(Enumerable))]
         public static IQueryable<TSource?> DefaultIfEmpty<TSource>(this IQueryable<TSource> source)
         {
@@ -1447,6 +1517,7 @@ namespace System.Linq
                     source.Expression));
         }
 
+        [LinqTunnel]
         [DynamicDependency("DefaultIfEmpty`1", typeof(Enumerable))]
         public static IQueryable<TSource> DefaultIfEmpty<TSource>(this IQueryable<TSource> source, TSource defaultValue)
         {
@@ -1460,7 +1531,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Contains`1", typeof(Enumerable))]
-        public static bool Contains<TSource>(this IQueryable<TSource> source, TSource item)
+        public static bool Contains<TSource>([InstantHandle] this IQueryable<TSource> source, TSource item)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1472,7 +1543,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Contains`1", typeof(Enumerable))]
-        public static bool Contains<TSource>(this IQueryable<TSource> source, TSource item, IEqualityComparer<TSource>? comparer)
+        public static bool Contains<TSource>([InstantHandle] this IQueryable<TSource> source, TSource item, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1483,6 +1554,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(item, typeof(TSource)), Expression.Constant(comparer, typeof(IEqualityComparer<TSource>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Reverse`1", typeof(Enumerable))]
         public static IQueryable<TSource> Reverse<TSource>(this IQueryable<TSource> source)
         {
@@ -1496,7 +1568,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("SequenceEqual`1", typeof(Enumerable))]
-        public static bool SequenceEqual<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2)
+        public static bool SequenceEqual<TSource>([InstantHandle] this IQueryable<TSource> source1, [InstantHandle] IEnumerable<TSource> source2)
         {
             ArgumentNullException.ThrowIfNull(source1);
             ArgumentNullException.ThrowIfNull(source2);
@@ -1509,7 +1581,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("SequenceEqual`1", typeof(Enumerable))]
-        public static bool SequenceEqual<TSource>(this IQueryable<TSource> source1, IEnumerable<TSource> source2, IEqualityComparer<TSource>? comparer)
+        public static bool SequenceEqual<TSource>([InstantHandle] this IQueryable<TSource> source1, [InstantHandle] IEnumerable<TSource> source2, IEqualityComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source1);
             ArgumentNullException.ThrowIfNull(source2);
@@ -1524,7 +1596,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Any`1", typeof(Enumerable))]
-        public static bool Any<TSource>(this IQueryable<TSource> source)
+        public static bool Any<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1536,7 +1608,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Any`1", typeof(Enumerable))]
-        public static bool Any<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static bool Any<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1549,7 +1621,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("All`1", typeof(Enumerable))]
-        public static bool All<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static bool All<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1562,7 +1634,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Count`1", typeof(Enumerable))]
-        public static int Count<TSource>(this IQueryable<TSource> source)
+        public static int Count<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1574,7 +1646,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Count`1", typeof(Enumerable))]
-        public static int Count<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static int Count<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1594,6 +1666,7 @@ namespace System.Linq
         /// <param name="comparer">An <see cref="IEqualityComparer{TKey}" /> to compare keys.</param>
         /// <returns>An <see cref="IQueryable{T}" /> that contains count for each distinct elements from the source sequence as a <see cref="KeyValuePair{TKey, TValue}"/> object.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         [DynamicDependency("CountBy`2", typeof(Enumerable))]
         public static IQueryable<KeyValuePair<TKey, int>> CountBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
         {
@@ -1608,7 +1681,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("LongCount`1", typeof(Enumerable))]
-        public static long LongCount<TSource>(this IQueryable<TSource> source)
+        public static long LongCount<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1620,7 +1693,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("LongCount`1", typeof(Enumerable))]
-        public static long LongCount<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public static long LongCount<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, bool>> predicate)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(predicate);
@@ -1633,7 +1706,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Min`1", typeof(Enumerable))]
-        public static TSource? Min<TSource>(this IQueryable<TSource> source)
+        public static TSource? Min<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1652,7 +1725,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">No object in <paramref name="source" /> implements the <see cref="System.IComparable" /> or <see cref="System.IComparable{T}" /> interface.</exception>
         [DynamicDependency("Min`1", typeof(Enumerable))]
-        public static TSource? Min<TSource>(this IQueryable<TSource> source, IComparer<TSource>? comparer)
+        public static TSource? Min<TSource>([InstantHandle] this IQueryable<TSource> source, IComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1665,7 +1738,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Min`2", typeof(Enumerable))]
-        public static TResult? Min<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TResult>> selector)
+        public static TResult? Min<TSource, TResult>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TResult>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1686,7 +1759,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">No key extracted from <paramref name="source" /> implements the <see cref="IComparable" /> or <see cref="IComparable{TKey}" /> interface.</exception>
         [DynamicDependency("MinBy`2", typeof(Enumerable))]
-        public static TSource? MinBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
+        public static TSource? MinBy<TSource, TKey>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TKey>> keySelector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -1709,7 +1782,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">No key extracted from <paramref name="source" /> implements the <see cref="IComparable" /> or <see cref="IComparable{TKey}" /> interface.</exception>
         [DynamicDependency("MinBy`2", typeof(Enumerable))]
-        public static TSource? MinBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TSource>? comparer)
+        public static TSource? MinBy<TSource, TKey>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TKey>> keySelector, IComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -1724,7 +1797,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Max`1", typeof(Enumerable))]
-        public static TSource? Max<TSource>(this IQueryable<TSource> source)
+        public static TSource? Max<TSource>([InstantHandle] this IQueryable<TSource> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1742,7 +1815,7 @@ namespace System.Linq
         /// <returns>The maximum value in the sequence.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         [DynamicDependency("Max`1", typeof(Enumerable))]
-        public static TSource? Max<TSource>(this IQueryable<TSource> source, IComparer<TSource>? comparer)
+        public static TSource? Max<TSource>([InstantHandle] this IQueryable<TSource> source, IComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1755,7 +1828,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Max`2", typeof(Enumerable))]
-        public static TResult? Max<TSource, TResult>(this IQueryable<TSource> source, Expression<Func<TSource, TResult>> selector)
+        public static TResult? Max<TSource, TResult>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TResult>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1776,7 +1849,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">No key extracted from <paramref name="source" /> implements the <see cref="IComparable" /> or <see cref="IComparable{TKey}" /> interface.</exception>
         [DynamicDependency("MaxBy`2", typeof(Enumerable))]
-        public static TSource? MaxBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector)
+        public static TSource? MaxBy<TSource, TKey>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TKey>> keySelector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -1799,7 +1872,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">No key extracted from <paramref name="source" /> implements the <see cref="IComparable" /> or <see cref="IComparable{TKey}" /> interface.</exception>
         [DynamicDependency("MaxBy`2", typeof(Enumerable))]
-        public static TSource? MaxBy<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, IComparer<TSource>? comparer)
+        public static TSource? MaxBy<TSource, TKey>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TKey>> keySelector, IComparer<TSource>? comparer)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(keySelector);
@@ -1814,7 +1887,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static int Sum(this IQueryable<int> source)
+        public static int Sum([InstantHandle] this IQueryable<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1826,7 +1899,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static int? Sum(this IQueryable<int?> source)
+        public static int? Sum([InstantHandle] this IQueryable<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1838,7 +1911,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static long Sum(this IQueryable<long> source)
+        public static long Sum([InstantHandle] this IQueryable<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1850,7 +1923,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static long? Sum(this IQueryable<long?> source)
+        public static long? Sum([InstantHandle] this IQueryable<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1862,7 +1935,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static float Sum(this IQueryable<float> source)
+        public static float Sum([InstantHandle] this IQueryable<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1874,7 +1947,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static float? Sum(this IQueryable<float?> source)
+        public static float? Sum([InstantHandle] this IQueryable<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1886,7 +1959,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static double Sum(this IQueryable<double> source)
+        public static double Sum([InstantHandle] this IQueryable<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1898,7 +1971,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static double? Sum(this IQueryable<double?> source)
+        public static double? Sum([InstantHandle] this IQueryable<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1910,7 +1983,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static decimal Sum(this IQueryable<decimal> source)
+        public static decimal Sum([InstantHandle] this IQueryable<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1922,7 +1995,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum", typeof(Enumerable))]
-        public static decimal? Sum(this IQueryable<decimal?> source)
+        public static decimal? Sum([InstantHandle] this IQueryable<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -1934,7 +2007,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static int Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int>> selector)
+        public static int Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, int>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1947,7 +2020,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static int? Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int?>> selector)
+        public static int? Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, int?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1960,7 +2033,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static long Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, long>> selector)
+        public static long Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, long>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1973,7 +2046,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static long? Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, long?>> selector)
+        public static long? Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, long?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1986,7 +2059,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static float Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, float>> selector)
+        public static float Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, float>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -1999,7 +2072,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static float? Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, float?>> selector)
+        public static float? Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, float?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2012,7 +2085,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static double Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, double>> selector)
+        public static double Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, double>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2025,7 +2098,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static double? Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, double?>> selector)
+        public static double? Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, double?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2038,7 +2111,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static decimal Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, decimal>> selector)
+        public static decimal Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, decimal>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2051,7 +2124,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Sum`1", typeof(Enumerable))]
-        public static decimal? Sum<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, decimal?>> selector)
+        public static decimal? Sum<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, decimal?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2064,7 +2137,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double Average(this IQueryable<int> source)
+        public static double Average([InstantHandle] this IQueryable<int> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2076,7 +2149,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double? Average(this IQueryable<int?> source)
+        public static double? Average([InstantHandle] this IQueryable<int?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2088,7 +2161,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double Average(this IQueryable<long> source)
+        public static double Average([InstantHandle] this IQueryable<long> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2100,7 +2173,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double? Average(this IQueryable<long?> source)
+        public static double? Average([InstantHandle] this IQueryable<long?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2112,7 +2185,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static float Average(this IQueryable<float> source)
+        public static float Average([InstantHandle] this IQueryable<float> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2124,7 +2197,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static float? Average(this IQueryable<float?> source)
+        public static float? Average([InstantHandle] this IQueryable<float?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2136,7 +2209,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double Average(this IQueryable<double> source)
+        public static double Average([InstantHandle] this IQueryable<double> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2148,7 +2221,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static double? Average(this IQueryable<double?> source)
+        public static double? Average([InstantHandle] this IQueryable<double?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2160,7 +2233,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static decimal Average(this IQueryable<decimal> source)
+        public static decimal Average([InstantHandle] this IQueryable<decimal> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2172,7 +2245,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average", typeof(Enumerable))]
-        public static decimal? Average(this IQueryable<decimal?> source)
+        public static decimal? Average([InstantHandle] this IQueryable<decimal?> source)
         {
             ArgumentNullException.ThrowIfNull(source);
 
@@ -2184,7 +2257,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int>> selector)
+        public static double Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, int>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2197,7 +2270,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double? Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int?>> selector)
+        public static double? Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, int?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2210,7 +2283,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static float Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, float>> selector)
+        public static float Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, float>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2223,7 +2296,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static float? Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, float?>> selector)
+        public static float? Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, float?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2236,7 +2309,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, long>> selector)
+        public static double Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, long>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2249,7 +2322,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double? Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, long?>> selector)
+        public static double? Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, long?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2262,7 +2335,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, double>> selector)
+        public static double Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, double>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2275,7 +2348,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static double? Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, double?>> selector)
+        public static double? Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, double?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2288,7 +2361,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static decimal Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, decimal>> selector)
+        public static decimal Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, decimal>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2301,7 +2374,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Average`1", typeof(Enumerable))]
-        public static decimal? Average<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, decimal?>> selector)
+        public static decimal? Average<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, decimal?>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(selector);
@@ -2314,7 +2387,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Aggregate`1", typeof(Enumerable))]
-        public static TSource Aggregate<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, TSource, TSource>> func)
+        public static TSource Aggregate<TSource>([InstantHandle] this IQueryable<TSource> source, [InstantHandle] Expression<Func<TSource, TSource, TSource>> func)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(func);
@@ -2327,7 +2400,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Aggregate`2", typeof(Enumerable))]
-        public static TAccumulate Aggregate<TSource, TAccumulate>(this IQueryable<TSource> source, TAccumulate seed, Expression<Func<TAccumulate, TSource, TAccumulate>> func)
+        public static TAccumulate Aggregate<TSource, TAccumulate>([InstantHandle] this IQueryable<TSource> source, TAccumulate seed, [InstantHandle] Expression<Func<TAccumulate, TSource, TAccumulate>> func)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(func);
@@ -2340,7 +2413,7 @@ namespace System.Linq
         }
 
         [DynamicDependency("Aggregate`3", typeof(Enumerable))]
-        public static TResult Aggregate<TSource, TAccumulate, TResult>(this IQueryable<TSource> source, TAccumulate seed, Expression<Func<TAccumulate, TSource, TAccumulate>> func, Expression<Func<TAccumulate, TResult>> selector)
+        public static TResult Aggregate<TSource, TAccumulate, TResult>([InstantHandle] this IQueryable<TSource> source, TAccumulate seed, [InstantHandle] Expression<Func<TAccumulate, TSource, TAccumulate>> func, [InstantHandle] Expression<Func<TAccumulate, TResult>> selector)
         {
             ArgumentNullException.ThrowIfNull(source);
             ArgumentNullException.ThrowIfNull(func);
@@ -2369,6 +2442,7 @@ namespace System.Linq
         /// This method is comparable to the <see cref="GroupBy{TSource, TKey}(IQueryable{TSource}, Expression{Func{TSource, TKey}})"/> methods
         /// where each grouping is being aggregated into a single value as opposed to allocating a collection for each group.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("AggregateBy`3", typeof(Enumerable))]
         public static IQueryable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, TKey, TAccumulate>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, TAccumulate seed, Expression<Func<TAccumulate, TSource, TAccumulate>> func, IEqualityComparer<TKey>? keyComparer = null) where TKey : notnull
         {
@@ -2399,6 +2473,7 @@ namespace System.Linq
         /// This method is comparable to the <see cref="GroupBy{TSource, TKey}(IQueryable{TSource}, Expression{Func{TSource, TKey}})"/> methods
         /// where each grouping is being aggregated into a single value as opposed to allocating a collection for each group.
         /// </remarks>
+        [LinqTunnel]
         [DynamicDependency("AggregateBy`3", typeof(Enumerable))]
         public static IQueryable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, TKey, TAccumulate>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>> keySelector, Expression<Func<TKey, TAccumulate>> seedSelector, Expression<Func<TAccumulate, TSource, TAccumulate>> func, IEqualityComparer<TKey>? keyComparer = null) where TKey : notnull
         {
@@ -2414,6 +2489,7 @@ namespace System.Linq
                     source.Expression, Expression.Quote(keySelector), Expression.Quote(seedSelector), Expression.Quote(func), Expression.Constant(keyComparer, typeof(IEqualityComparer<TKey>))));
         }
 
+        [LinqTunnel]
         [DynamicDependency("SkipLast`1", typeof(Enumerable))]
         public static IQueryable<TSource> SkipLast<TSource>(this IQueryable<TSource> source, int count)
         {
@@ -2427,6 +2503,7 @@ namespace System.Linq
                     ));
         }
 
+        [LinqTunnel]
         [DynamicDependency("TakeLast`1", typeof(Enumerable))]
         public static IQueryable<TSource> TakeLast<TSource>(this IQueryable<TSource> source, int count)
         {
@@ -2439,6 +2516,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(count)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Append`1", typeof(Enumerable))]
         public static IQueryable<TSource> Append<TSource>(this IQueryable<TSource> source, TSource element)
         {
@@ -2451,6 +2529,7 @@ namespace System.Linq
                     source.Expression, Expression.Constant(element)));
         }
 
+        [LinqTunnel]
         [DynamicDependency("Prepend`1", typeof(Enumerable))]
         public static IQueryable<TSource> Prepend<TSource>(this IQueryable<TSource> source, TSource element)
         {
