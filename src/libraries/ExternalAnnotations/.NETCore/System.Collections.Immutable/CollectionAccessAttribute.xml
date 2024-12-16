@@ -377,6 +377,81 @@
       <argument>1</argument>
     </attribute>
   </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.ForEach(System.Action{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.CopyTo(`0[])">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.CopyTo(System.Int32,`0[],System.Int32,System.Int32)">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.GetRange(System.Int32,System.Int32)">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.ConvertAll``1(System.Func{`0,``0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.Exists(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.Find(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindAll(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindIndex(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindIndex(System.Int32,System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindIndex(System.Int32,System.Int32,System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindLast(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindLastIndex(System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindLastIndex(System.Int32,System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.FindLastIndex(System.Int32,System.Int32,System.Predicate{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
   <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.IndexOf(`0,System.Int32)">
     <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
       <argument>1</argument>
@@ -408,6 +483,11 @@
     </attribute>
   </member>
   <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.LastIndexOf(`0,System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.TrueForAll(System.Predicate{`0})">
     <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
       <argument>1</argument>
     </attribute>
@@ -485,6 +565,21 @@
   <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.Sort(System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})">
     <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
       <argument>2</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.BinarySearch(`0)">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.BinarySearch(`0,System.Collections.Generic.IComparer{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.BinarySearch(System.Int32,System.Int32,`0,System.Collections.Generic.IComparer{`0})">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>1</argument>
     </attribute>
   </member>
   <member name="M:System.Collections.Immutable.ImmutableList`1.Builder.ToImmutable">
@@ -614,6 +709,11 @@
   <member name="P:System.Collections.Immutable.ImmutableSortedSet`1.Builder.Min">
     <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
       <argument>1</argument>
+    </attribute>
+  </member>
+  <member name="P:System.Collections.Immutable.ImmutableSortedSet`1.Builder.KeyComparer">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>0</argument>
     </attribute>
   </member>
   <member name="M:System.Collections.Immutable.ImmutableSortedSet`1.Builder.GetEnumerator">
