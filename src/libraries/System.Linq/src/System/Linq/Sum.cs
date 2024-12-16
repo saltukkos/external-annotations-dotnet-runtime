@@ -11,15 +11,15 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static int Sum(this IEnumerable<int> source) => Sum<int, int>(source);
+        public static int Sum([InstantHandle] this IEnumerable<int> source) => Sum<int, int>(source);
 
-        public static long Sum(this IEnumerable<long> source) => Sum<long, long>(source);
+        public static long Sum([InstantHandle] this IEnumerable<long> source) => Sum<long, long>(source);
 
-        public static float Sum(this IEnumerable<float> source) => (float)Sum<float, double>(source);
+        public static float Sum([InstantHandle] this IEnumerable<float> source) => (float)Sum<float, double>(source);
 
-        public static double Sum(this IEnumerable<double> source) => Sum<double, double>(source);
+        public static double Sum([InstantHandle] this IEnumerable<double> source) => Sum<double, double>(source);
 
-        public static decimal Sum(this IEnumerable<decimal> source) => Sum<decimal, decimal>(source);
+        public static decimal Sum([InstantHandle] this IEnumerable<decimal> source) => Sum<decimal, decimal>(source);
 
         private static TResult Sum<TSource, TResult>(this IEnumerable<TSource> source)
             where TSource : struct, INumber<TSource>
@@ -190,15 +190,15 @@ namespace System.Linq
             return result;
         }
 
-        public static int? Sum(this IEnumerable<int?> source) => Sum<int, int>(source);
+        public static int? Sum([InstantHandle] this IEnumerable<int?> source) => Sum<int, int>(source);
 
-        public static long? Sum(this IEnumerable<long?> source) => Sum<long, long>(source);
+        public static long? Sum([InstantHandle] this IEnumerable<long?> source) => Sum<long, long>(source);
 
-        public static float? Sum(this IEnumerable<float?> source) => Sum<float, double>(source);
+        public static float? Sum([InstantHandle] this IEnumerable<float?> source) => Sum<float, double>(source);
 
-        public static double? Sum(this IEnumerable<double?> source) => Sum<double, double>(source);
+        public static double? Sum([InstantHandle] this IEnumerable<double?> source) => Sum<double, double>(source);
 
-        public static decimal? Sum(this IEnumerable<decimal?> source) => Sum<decimal, decimal>(source);
+        public static decimal? Sum([InstantHandle] this IEnumerable<decimal?> source) => Sum<decimal, decimal>(source);
 
         private static TSource? Sum<TSource, TAccumulator>(this IEnumerable<TSource?> source)
             where TSource : struct, INumber<TSource>
@@ -222,15 +222,15 @@ namespace System.Linq
         }
 
 
-        public static int Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector) => Sum<TSource, int, int>(source, selector);
+        public static int Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int> selector) => Sum<TSource, int, int>(source, selector);
 
-        public static long Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector) => Sum<TSource, long, long>(source, selector);
+        public static long Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long> selector) => Sum<TSource, long, long>(source, selector);
 
-        public static float Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector) => Sum<TSource, float, double>(source, selector);
+        public static float Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float> selector) => Sum<TSource, float, double>(source, selector);
 
-        public static double Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector) => Sum<TSource, double, double>(source, selector);
+        public static double Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double> selector) => Sum<TSource, double, double>(source, selector);
 
-        public static decimal Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector) => Sum<TSource, decimal, decimal>(source, selector);
+        public static decimal Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal> selector) => Sum<TSource, decimal, decimal>(source, selector);
 
         private static TResult Sum<TSource, TResult, TAccumulator>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
             where TResult : struct, INumber<TResult>
@@ -256,15 +256,15 @@ namespace System.Linq
         }
 
 
-        public static int? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector) => Sum<TSource, int, int>(source, selector);
+        public static int? Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int?> selector) => Sum<TSource, int, int>(source, selector);
 
-        public static long? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector) => Sum<TSource, long, long>(source, selector);
+        public static long? Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long?> selector) => Sum<TSource, long, long>(source, selector);
 
-        public static float? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector) => Sum<TSource, float, double>(source, selector);
+        public static float? Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float?> selector) => Sum<TSource, float, double>(source, selector);
 
-        public static double? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector) => Sum<TSource, double, double>(source, selector);
+        public static double? Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double?> selector) => Sum<TSource, double, double>(source, selector);
 
-        public static decimal? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector) => Sum<TSource, decimal, decimal>(source, selector);
+        public static decimal? Sum<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal?> selector) => Sum<TSource, decimal, decimal>(source, selector);
 
         private static TResult? Sum<TSource, TResult, TAccumulator>(this IEnumerable<TSource> source, Func<TSource, TResult?> selector)
             where TResult : struct, INumber<TResult>

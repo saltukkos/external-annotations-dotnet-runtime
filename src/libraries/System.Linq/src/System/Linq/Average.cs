@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static double Average(this IEnumerable<int> source)
+        public static double Average([InstantHandle] this IEnumerable<int> source)
         {
             if (source is null)
             {
@@ -71,13 +71,13 @@ namespace System.Linq
             }
         }
 
-        public static double Average(this IEnumerable<long> source) => Average<long, long, double>(source);
+        public static double Average([InstantHandle] this IEnumerable<long> source) => Average<long, long, double>(source);
 
-        public static float Average(this IEnumerable<float> source) => (float)Average<float, double, double>(source);
+        public static float Average([InstantHandle] this IEnumerable<float> source) => (float)Average<float, double, double>(source);
 
-        public static double Average(this IEnumerable<double> source) => Average<double, double, double>(source);
+        public static double Average([InstantHandle] this IEnumerable<double> source) => Average<double, double, double>(source);
 
-        public static decimal Average(this IEnumerable<decimal> source) => Average<decimal, decimal, decimal>(source);
+        public static decimal Average([InstantHandle] this IEnumerable<decimal> source) => Average<decimal, decimal, decimal>(source);
 
         private static TResult Average<TSource, TAccumulator, TResult>(this IEnumerable<TSource> source)
             where TSource : struct, INumber<TSource>
@@ -119,15 +119,15 @@ namespace System.Linq
         }
 
 
-        public static double? Average(this IEnumerable<int?> source) => Average<int, long, double>(source);
+        public static double? Average([InstantHandle] this IEnumerable<int?> source) => Average<int, long, double>(source);
 
-        public static double? Average(this IEnumerable<long?> source) => Average<long, long, double>(source);
+        public static double? Average([InstantHandle] this IEnumerable<long?> source) => Average<long, long, double>(source);
 
-        public static float? Average(this IEnumerable<float?> source) => Average<float, double, double>(source) is double result ? (float)result : null;
+        public static float? Average([InstantHandle] this IEnumerable<float?> source) => Average<float, double, double>(source) is double result ? (float)result : null;
 
-        public static double? Average(this IEnumerable<double?> source) => Average<double, double, double>(source);
+        public static double? Average([InstantHandle] this IEnumerable<double?> source) => Average<double, double, double>(source);
 
-        public static decimal? Average(this IEnumerable<decimal?> source) => Average<decimal, decimal, decimal>(source);
+        public static decimal? Average([InstantHandle] this IEnumerable<decimal?> source) => Average<decimal, decimal, decimal>(source);
 
         private static TResult? Average<TSource, TAccumulator, TResult>(this IEnumerable<TSource?> source)
             where TSource : struct, INumber<TSource>
@@ -168,15 +168,15 @@ namespace System.Linq
         }
 
 
-        public static double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector) => Average<TSource, int, long, double>(source, selector);
+        public static double Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int> selector) => Average<TSource, int, long, double>(source, selector);
 
-        public static double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector) => Average<TSource, long, long, double>(source, selector);
+        public static double Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long> selector) => Average<TSource, long, long, double>(source, selector);
 
-        public static float Average<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector) => (float)Average<TSource, float, double, double>(source, selector);
+        public static float Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float> selector) => (float)Average<TSource, float, double, double>(source, selector);
 
-        public static double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector) => Average<TSource, double, double, double>(source, selector);
+        public static double Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double> selector) => Average<TSource, double, double, double>(source, selector);
 
-        public static decimal Average<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector) => Average<TSource, decimal, decimal, decimal>(source, selector);
+        public static decimal Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal> selector) => Average<TSource, decimal, decimal, decimal>(source, selector);
 
         private static TResult Average<TSource, TSelector, TAccumulator, TResult>(this IEnumerable<TSource> source, Func<TSource, TSelector> selector)
             where TSelector : struct, INumber<TSelector>
@@ -214,15 +214,15 @@ namespace System.Linq
         }
 
 
-        public static double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector) => Average<TSource, int, long, double>(source, selector);
+        public static double? Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int?> selector) => Average<TSource, int, long, double>(source, selector);
 
-        public static double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector) => Average<TSource, long, long, double>(source, selector);
+        public static double? Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long?> selector) => Average<TSource, long, long, double>(source, selector);
 
-        public static float? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector) => Average<TSource, float, double, double>(source, selector) is double result ? (float)result : null;
+        public static float? Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float?> selector) => Average<TSource, float, double, double>(source, selector) is double result ? (float)result : null;
 
-        public static double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector) => Average<TSource, double, double, double>(source, selector);
+        public static double? Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double?> selector) => Average<TSource, double, double, double>(source, selector);
 
-        public static decimal? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector) => Average<TSource, decimal, decimal, decimal>(source, selector);
+        public static decimal? Average<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal?> selector) => Average<TSource, decimal, decimal, decimal>(source, selector);
 
         private static TResult? Average<TSource, TSelector, TAccumulator, TResult>(this IEnumerable<TSource> source, Func<TSource, TSelector?> selector)
             where TSelector : struct, INumber<TSelector>

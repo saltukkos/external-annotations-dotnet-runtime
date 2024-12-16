@@ -7,6 +7,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Skip<TSource>(this IEnumerable<TSource> source, int count)
         {
             if (source is null)
@@ -40,6 +41,7 @@ namespace System.Linq
             return SkipIterator(source, count);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> SkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source is null)
@@ -81,6 +83,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> SkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             if (source is null)
@@ -128,6 +131,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> SkipLast<TSource>(this IEnumerable<TSource> source, int count)
         {
             if (source is null)

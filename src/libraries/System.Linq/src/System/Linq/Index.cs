@@ -12,6 +12,7 @@ namespace System.Linq
         /// <param name="source">The source enumerable providing the elements.</param>
         /// <returns>An enumerable that incorporates each element index into a tuple.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
+        [LinqTunnel]
         public static IEnumerable<(int Index, TSource Item)> Index<TSource>(this IEnumerable<TSource> source)
         {
             if (source is null)

@@ -7,9 +7,11 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector) =>
             Join(outer, inner, outerKeySelector, innerKeySelector, resultSelector, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<TResult> Join<TOuter, TInner, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             if (outer is null)

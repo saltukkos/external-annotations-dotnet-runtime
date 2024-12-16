@@ -8,6 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Append<TSource>(this IEnumerable<TSource> source, TSource element)
         {
             if (source is null)
@@ -20,6 +21,7 @@ namespace System.Linq
                 : new AppendPrepend1Iterator<TSource>(source, element, appending: true);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> Prepend<TSource>(this IEnumerable<TSource> source, TSource element)
         {
             if (source is null)

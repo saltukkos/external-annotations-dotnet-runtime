@@ -7,11 +7,19 @@ using System.Runtime.InteropServices;
 
 namespace System.Linq
 {
+    // method returns new IEnumerable/IOrderedEnumerable, etc. -- probably LinqTunnel
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.LinqTunnelAttribute", ReturnTypeRegex = "Enumerable", PreferredAttributeLocation = PreferredAttributeLocation.Method)]
+    // return type is not IEnumerable -- probably InstantHandle
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.InstantHandleAttribute", ReturnTypeRegex = "^(?!.*Enumerable)", PreferredAttributeLocation = PreferredAttributeLocation.FirstParameterAndAllDelegates)]
+    // method is named To... (etc. ToList, ToArray) -- probably InstantHandle
+    [CheckForPublicUnannotatedMembersInternal("JetBrains.Annotations.InstantHandleAttribute", MemberNameRegex = @"\bTo", PreferredAttributeLocation = PreferredAttributeLocation.FirstParameterAndAllDelegates)]
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> AsEnumerable<TSource>(this IEnumerable<TSource> source) => source;
 
         /// <summary>Returns an empty <see cref="IEnumerable{TResult}"/>.</summary>
+        // ReSharper disable once RequiredAttributeMissing -- no need fot LinqTunnel here, no arguments
         public static IEnumerable<TResult> Empty<TResult>() =>
             Array.Empty<TResult>(); // explicitly not using [] in case the compiler ever changed to using Enumerable.Empty
 

@@ -33,6 +33,7 @@ namespace System.Linq
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="size"/> is below 1.
         /// </exception>
+        [LinqTunnel]
         public static IEnumerable<TSource[]> Chunk<TSource>(this IEnumerable<TSource> source, int size)
         {
             if (source is null)

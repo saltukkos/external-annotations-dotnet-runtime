@@ -11,6 +11,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        // ReSharper disable once RequiredAttributeMissing -- no items are passed
         public static IEnumerable<int> Range(int start, int count)
         {
             long max = ((long)start) + count - 1;

@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static TSource First<TSource>(this IEnumerable<TSource> source)
+        public static TSource First<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
             TSource? first = source.TryGetFirst(out bool found);
             if (!found)
@@ -19,7 +19,7 @@ namespace System.Linq
             return first!;
         }
 
-        public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static TSource First<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             TSource? first = source.TryGetFirst(predicate, out bool found);
             if (!found)
@@ -30,7 +30,7 @@ namespace System.Linq
             return first!;
         }
 
-        public static TSource? FirstOrDefault<TSource>(this IEnumerable<TSource> source) =>
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source) =>
             source.TryGetFirst(out _);
 
         /// <summary>Returns the first element of a sequence, or a default value if the sequence contains no elements.</summary>
@@ -39,13 +39,13 @@ namespace System.Linq
         /// <param name="defaultValue">The default value to return if the sequence is empty.</param>
         /// <returns><paramref name="defaultValue" /> if <paramref name="source" /> is empty; otherwise, the first element in <paramref name="source" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> is <see langword="null" />.</exception>
-        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue)
+        public static TSource FirstOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source, TSource defaultValue)
         {
             TSource? first = source.TryGetFirst(out bool found);
             return found ? first! : defaultValue;
         }
 
-        public static TSource? FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) =>
+        public static TSource? FirstOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate) =>
             source.TryGetFirst(predicate, out _);
 
         /// <summary>Returns the first element of the sequence that satisfies a condition or a default value if no such element is found.</summary>
@@ -55,7 +55,7 @@ namespace System.Linq
         /// <param name="defaultValue">The default value to return if the sequence is empty.</param>
         /// <returns><paramref name="defaultValue" /> if <paramref name="source" /> is empty or if no element passes the test specified by <paramref name="predicate" />; otherwise, the first element in <paramref name="source" /> that passes the test specified by <paramref name="predicate" />.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <see langword="null" />.</exception>
-        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, TSource defaultValue)
+        public static TSource FirstOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate, TSource defaultValue)
         {
             TSource? first = source.TryGetFirst(predicate, out bool found);
             return found ? first! : defaultValue;

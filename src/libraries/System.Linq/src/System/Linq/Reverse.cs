@@ -8,6 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Reverse<TSource>(this IEnumerable<TSource> source)
         {
             if (source is null)
@@ -23,6 +24,7 @@ namespace System.Linq
             return new ReverseIterator<TSource>(source);
         }
 
+        // ReSharper disable once RequiredAttributeMissing -- no need to annotate
         public static IEnumerable<TSource> Reverse<TSource>(this TSource[] source)
         {
             if (source is null)

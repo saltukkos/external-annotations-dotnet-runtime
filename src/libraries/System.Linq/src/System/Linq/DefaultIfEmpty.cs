@@ -8,9 +8,11 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource?> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source) =>
             DefaultIfEmpty(source, default);
 
+        [LinqTunnel]
         public static IEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source, TSource defaultValue)
         {
             if (source is null)

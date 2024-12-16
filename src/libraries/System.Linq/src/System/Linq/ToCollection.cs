@@ -10,7 +10,7 @@ namespace System.Linq
     public static partial class Enumerable
     {
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static TSource[] ToArray<TSource>(this IEnumerable<TSource> source)
+        public static TSource[] ToArray<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
 #if !OPTIMIZE_FOR_SIZE
             if (source is Iterator<TSource> iterator)
@@ -59,7 +59,7 @@ namespace System.Linq
         }
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static List<TSource> ToList<TSource>(this IEnumerable<TSource> source)
+        public static List<TSource> ToList<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
             if (source is null)
             {
@@ -86,7 +86,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is a null reference.</exception>
         /// <exception cref="ArgumentException"><paramref name="source"/> contains one or more duplicate keys.</exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source) where TKey : notnull =>
+        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>([InstantHandle] this IEnumerable<KeyValuePair<TKey, TValue>> source) where TKey : notnull =>
             source.ToDictionary(null);
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace System.Linq
         /// If <paramref name="comparer"/> is null, the default equality comparer <see cref="EqualityComparer{TKey}.Default"/> is used to compare keys.
         /// </remarks>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey>? comparer) where TKey : notnull
+        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>([InstantHandle] this IEnumerable<KeyValuePair<TKey, TValue>> source, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             if (source is null)
             {
@@ -123,7 +123,7 @@ namespace System.Linq
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is a null reference.</exception>
         /// <exception cref="ArgumentException"><paramref name="source"/> contains one or more duplicate keys.</exception>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>(this IEnumerable<(TKey Key, TValue Value)> source) where TKey : notnull =>
+        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>([InstantHandle] this IEnumerable<(TKey Key, TValue Value)> source) where TKey : notnull =>
             source.ToDictionary(null);
 
         /// <summary>
@@ -140,15 +140,15 @@ namespace System.Linq
         /// If <paramref name="comparer"/> is null, the default equality comparer <see cref="EqualityComparer{TKey}.Default"/> is used to compare keys.
         /// </remarks>
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>(this IEnumerable<(TKey Key, TValue Value)> source, IEqualityComparer<TKey>? comparer) where TKey : notnull =>
+        public static Dictionary<TKey, TValue> ToDictionary<[DefaultEqualityUsage] TKey, TValue>([InstantHandle] this IEnumerable<(TKey Key, TValue Value)> source, IEqualityComparer<TKey>? comparer) where TKey : notnull =>
             source.ToDictionary(vt => vt.Key, vt => vt.Value, comparer);
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : notnull =>
+        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) where TKey : notnull =>
             ToDictionary(source, keySelector, null);
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+        public static Dictionary<TKey, TSource> ToDictionary<TSource, [DefaultEqualityUsage] TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             if (source is null)
             {
@@ -199,11 +199,11 @@ namespace System.Linq
         }
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) where TKey : notnull =>
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector) where TKey : notnull =>
             ToDictionary(source, keySelector, elementSelector, null);
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, [DefaultEqualityUsage] TKey, TElement>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer) where TKey : notnull
         {
             if (source is null)
             {
@@ -259,10 +259,10 @@ namespace System.Linq
         }
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static HashSet<TSource> ToHashSet<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> source) => source.ToHashSet(comparer: null);
+        public static HashSet<TSource> ToHashSet<[DefaultEqualityUsage] TSource>([InstantHandle] this IEnumerable<TSource> source) => source.ToHashSet(comparer: null);
 
         [return: CollectionAccess(CollectionAccessType.UpdatedContent)]
-        public static HashSet<TSource> ToHashSet<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource>? comparer)
+        public static HashSet<TSource> ToHashSet<[DefaultEqualityUsage] TSource>([InstantHandle] this IEnumerable<TSource> source, IEqualityComparer<TSource>? comparer)
         {
             if (source is null)
             {

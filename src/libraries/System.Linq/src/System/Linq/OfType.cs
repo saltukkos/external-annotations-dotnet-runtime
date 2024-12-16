@@ -9,6 +9,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TResult> OfType<TResult>(this IEnumerable source)
         {
             if (source is null)

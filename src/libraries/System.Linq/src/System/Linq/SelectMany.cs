@@ -8,6 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
         {
             if (source is null)
@@ -28,6 +29,7 @@ namespace System.Linq
             return new SelectManySingleSelectorIterator<TSource, TResult>(source, selector);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, IEnumerable<TResult>> selector)
         {
             if (source is null)
@@ -65,6 +67,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
         {
             if (source is null)
@@ -107,6 +110,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
         {
             if (source is null)

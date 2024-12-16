@@ -9,9 +9,11 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
             GroupBy(source, keySelector, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<IGrouping<TKey, TSource>> GroupBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
@@ -32,9 +34,11 @@ namespace System.Linq
             return new GroupByIterator<TSource, TKey>(source, keySelector, comparer);
         }
 
+        [LinqTunnel]
         public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
             GroupBy(source, keySelector, elementSelector, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<IGrouping<TKey, TElement>> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
@@ -60,9 +64,11 @@ namespace System.Linq
             return new GroupByIterator<TSource, TKey, TElement>(source, keySelector, elementSelector, comparer);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) =>
             GroupBy(source, keySelector, resultSelector, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
@@ -88,9 +94,11 @@ namespace System.Linq
             return new GroupByResultIterator<TSource, TKey, TResult>(source, keySelector, resultSelector, comparer);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) =>
             GroupBy(source, keySelector, elementSelector, resultSelector, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<TResult> GroupBy<TSource, [DefaultEqualityUsage] TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)

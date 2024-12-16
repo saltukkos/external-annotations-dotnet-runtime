@@ -7,8 +7,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Intersect<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second) => Intersect(first, second, null);
 
+        [LinqTunnel]
         public static IEnumerable<TSource> Intersect<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             if (first is null)
@@ -38,6 +40,7 @@ namespace System.Linq
         /// <para>When the object returned by this method is enumerated, `Intersect` yields distinct elements occurring in both sequences in the order in which they appear in <paramref name="first" />.</para>
         /// <para>The default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> IntersectBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector) => IntersectBy(first, second, keySelector, null);
 
         /// <summary>Produces the set intersection of two sequences according to a specified key selector function.</summary>
@@ -55,6 +58,7 @@ namespace System.Linq
         /// <para>When the object returned by this method is enumerated, `Intersect` yields distinct elements occurring in both sequences in the order in which they appear in <paramref name="first" />.</para>
         /// <para>If <paramref name="comparer" /> is <see langword="null" />, the default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> IntersectBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> first, IEnumerable<TKey> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (first is null)

@@ -17,6 +17,7 @@ namespace System.Linq
         /// <param name="keySelector">A function to extract the key for each element.</param>
         /// <param name="keyComparer">An <see cref="IEqualityComparer{T}"/> to compare keys with.</param>
         /// <returns>An enumerable containing the frequencies of each key occurrence in <paramref name="source"/>.</returns>
+        [LinqTunnel]
         public static IEnumerable<KeyValuePair<TKey, int>> CountBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer = null) where TKey : notnull
         {
             if (source is null)

@@ -9,7 +9,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static TSource ElementAt<TSource>(this IEnumerable<TSource> source, int index)
+        public static TSource ElementAt<TSource>([InstantHandle] this IEnumerable<TSource> source, int index)
         {
             if (source is null)
             {
@@ -47,7 +47,7 @@ namespace System.Linq
         /// <para>If the type of <paramref name="source" /> implements <see cref="IList{T}" />, that implementation is used to obtain the element at the specified index. Otherwise, this method obtains the specified element.</para>
         /// <para>This method throws an exception if <paramref name="index" /> is out of range. To instead return a default value when the specified index is out of range, use the <see cref="O:Enumerable.ElementAtOrDefault" /> method.</para>
         /// </remarks>
-        public static TSource ElementAt<TSource>(this IEnumerable<TSource> source, Index index)
+        public static TSource ElementAt<TSource>([InstantHandle] this IEnumerable<TSource> source, Index index)
         {
             if (source is null)
             {
@@ -72,7 +72,7 @@ namespace System.Linq
             return element;
         }
 
-        public static TSource? ElementAtOrDefault<TSource>(this IEnumerable<TSource> source, int index)
+        public static TSource? ElementAtOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source, int index)
         {
             if (source is null)
             {
@@ -92,7 +92,7 @@ namespace System.Linq
         /// <para>If the type of <paramref name="source" /> implements <see cref="IList{T}" />, that implementation is used to obtain the element at the specified index. Otherwise, this method obtains the specified element.</para>
         /// <para>The default value for reference and nullable types is <see langword="null" />.</para>
         /// </remarks>
-        public static TSource? ElementAtOrDefault<TSource>(this IEnumerable<TSource> source, Index index)
+        public static TSource? ElementAtOrDefault<TSource>([InstantHandle] this IEnumerable<TSource> source, Index index)
         {
             if (source is null)
             {

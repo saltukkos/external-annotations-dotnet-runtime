@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static int Count<TSource>(this IEnumerable<TSource> source)
+        public static int Count<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
             if (source is null)
             {
@@ -47,7 +47,7 @@ namespace System.Linq
             return count;
         }
 
-        public static int Count<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static int Count<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             if (source is null)
             {
@@ -104,7 +104,7 @@ namespace System.Linq
         ///   The method is typically a constant-time operation, but ultimately this depends on the complexity
         ///   characteristics of the underlying collection implementation.
         /// </remarks>
-        public static bool TryGetNonEnumeratedCount<TSource>(this IEnumerable<TSource> source, out int count)
+        public static bool TryGetNonEnumeratedCount<TSource>([InstantHandle] this IEnumerable<TSource> source, out int count)
         {
             if (source is null)
             {
@@ -139,7 +139,7 @@ namespace System.Linq
             return false;
         }
 
-        public static long LongCount<TSource>(this IEnumerable<TSource> source)
+        public static long LongCount<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
             if (source is null)
             {
@@ -161,7 +161,7 @@ namespace System.Linq
             return count;
         }
 
-        public static long LongCount<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static long LongCount<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             if (source is null)
             {

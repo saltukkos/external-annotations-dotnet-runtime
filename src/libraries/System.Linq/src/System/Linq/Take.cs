@@ -8,6 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Take<TSource>(this IEnumerable<TSource> source, int count)
         {
             if (source is null)
@@ -30,6 +31,7 @@ namespace System.Linq
         /// <para>This method is implemented by using deferred execution. The immediate return value is an object that stores all the information that is required to perform the action. The query represented by this method is not executed until the object is enumerated either by calling its `GetEnumerator` method directly or by using `foreach` in Visual C# or `For Each` in Visual Basic.</para>
         /// <para><see cref="O:Enumerable.Take" /> enumerates <paramref name="source" /> and yields elements whose indices belong to the specified <paramref name="range"/>.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> Take<TSource>(this IEnumerable<TSource> source, Range range)
         {
             if (source is null)
@@ -187,6 +189,7 @@ namespace System.Linq
                 Math.Min(count, isEndIndexFromEnd ? count - endIndex : endIndex);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> TakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source is null)
@@ -220,6 +223,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> TakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             if (source is null)
@@ -259,6 +263,7 @@ namespace System.Linq
             }
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> TakeLast<TSource>(this IEnumerable<TSource> source, int count)
         {
             if (source is null)

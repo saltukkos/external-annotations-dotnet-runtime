@@ -9,10 +9,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) =>
             ToLookup(source, keySelector, comparer: null);
 
-        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
+        public static ILookup<TKey, TSource> ToLookup<TSource, [DefaultEqualityUsage] TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -32,10 +32,10 @@ namespace System.Linq
             return Lookup<TKey, TSource>.Create(source, keySelector, comparer);
         }
 
-        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) =>
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector) =>
             ToLookup(source, keySelector, elementSelector, comparer: null);
 
-        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
+        public static ILookup<TKey, TElement> ToLookup<TSource, [DefaultEqualityUsage] TKey, TElement>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, [InstantHandle] Func<TSource, TElement> elementSelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
             {

@@ -8,6 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        // ReSharper disable once RequiredAttributeMissing -- no need to annotate
         public static IEnumerable<TResult> Repeat<TResult>(TResult element, int count)
         {
             if (count < 0)

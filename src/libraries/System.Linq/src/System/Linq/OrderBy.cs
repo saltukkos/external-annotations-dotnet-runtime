@@ -23,6 +23,7 @@ namespace System.Linq
         ///
         /// This method compares elements by using the default comparer <see cref="Comparer{T}.Default"/>.
         /// </remarks>
+        [LinqTunnel]
         public static IOrderedEnumerable<T> Order<T>(this IEnumerable<T> source) =>
             Order(source, comparer: null);
 
@@ -42,14 +43,17 @@ namespace System.Linq
         ///
         /// If comparer is <see langword="null"/>, the default comparer <see cref="Comparer{T}.Default"/> is used to compare elements.
         /// </remarks>
+        [LinqTunnel]
         public static IOrderedEnumerable<T> Order<T>(this IEnumerable<T> source, IComparer<T>? comparer) =>
             TypeIsImplicitlyStable<T>() && (comparer is null || comparer == Comparer<T>.Default) ?
                 new ImplicitlyStableOrderedIterator<T>(source, descending: false) :
                 OrderBy(source, EnumerableSorter<T>.IdentityFunc, comparer);
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
             => new OrderedIterator<TSource, TKey>(source, keySelector, null, false, null);
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
             => new OrderedIterator<TSource, TKey>(source, keySelector, comparer, false, null);
 
@@ -68,6 +72,7 @@ namespace System.Linq
         ///
         /// This method compares elements by using the default comparer <see cref="Comparer{T}.Default"/>.
         /// </remarks>
+        [LinqTunnel]
         public static IOrderedEnumerable<T> OrderDescending<T>(this IEnumerable<T> source) =>
             OrderDescending(source, comparer: null);
 
@@ -87,17 +92,21 @@ namespace System.Linq
         ///
         /// If comparer is <see langword="null"/>, the default comparer <see cref="Comparer{T}.Default"/> is used to compare elements.
         /// </remarks>
+        [LinqTunnel]
         public static IOrderedEnumerable<T> OrderDescending<T>(this IEnumerable<T> source, IComparer<T>? comparer) =>
             TypeIsImplicitlyStable<T>() && (comparer is null || comparer == Comparer<T>.Default) ?
                 new ImplicitlyStableOrderedIterator<T>(source, descending: true) :
                 OrderByDescending(source, EnumerableSorter<T>.IdentityFunc, comparer);
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) =>
             new OrderedIterator<TSource, TKey>(source, keySelector, null, true, null);
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer) =>
             new OrderedIterator<TSource, TKey>(source, keySelector, comparer, true, null);
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             if (source is null)
@@ -108,6 +117,7 @@ namespace System.Linq
             return source.CreateOrderedEnumerable(keySelector, null, false);
         }
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
             if (source is null)
@@ -118,6 +128,7 @@ namespace System.Linq
             return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             if (source is null)
@@ -128,6 +139,7 @@ namespace System.Linq
             return source.CreateOrderedEnumerable(keySelector, null, true);
         }
 
+        [LinqTunnel]
         public static IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
             if (source is null)

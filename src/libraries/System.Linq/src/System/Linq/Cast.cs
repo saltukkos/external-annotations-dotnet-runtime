@@ -9,6 +9,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<
 #nullable disable // there's no way to annotate the connection of the nullability of TResult to that of the source
                 TResult

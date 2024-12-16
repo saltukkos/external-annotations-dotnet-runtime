@@ -9,8 +9,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Union<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second) => Union(first, second, comparer: null);
 
+        [LinqTunnel]
         public static IEnumerable<TSource> Union<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             if (first is null)
@@ -39,6 +41,7 @@ namespace System.Linq
         /// <para>The default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// <para>When the object returned by this method is enumerated, <see cref="O:Enumerable.UnionBy" /> enumerates <paramref name="first" /> and <paramref name="second" /> in that order and yields each element that has not already been yielded.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> UnionBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<TSource, TKey> keySelector) => UnionBy(first, second, keySelector, null);
 
         /// <summary>Produces the set union of two sequences according to a specified key selector function.</summary>
@@ -55,6 +58,7 @@ namespace System.Linq
         /// <para>If <paramref name="comparer" /> is <see langword="null" />, the default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// <para>When the object returned by this method is enumerated, <see cref="O:Enumerable.UnionBy" /> enumerates <paramref name="first" /> and <paramref name="second" /> in that order and yields each element that has not already been yielded.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> UnionBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> first, IEnumerable<TSource> second, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (first is null)

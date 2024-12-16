@@ -9,6 +9,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source is null)
@@ -44,6 +45,7 @@ namespace System.Linq
             return new IEnumerableWhereIterator<TSource>(source, predicate);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate)
         {
             if (source is null)

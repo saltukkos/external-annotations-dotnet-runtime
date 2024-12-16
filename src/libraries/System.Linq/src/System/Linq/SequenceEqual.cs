@@ -7,10 +7,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second) =>
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>([InstantHandle] this IEnumerable<TSource> first, [InstantHandle] IEnumerable<TSource> second) =>
             SequenceEqual(first, second, null);
 
-        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
+        public static bool SequenceEqual<[DefaultEqualityUsage] TSource>([InstantHandle] this IEnumerable<TSource> first, [InstantHandle] IEnumerable<TSource> second, IEqualityComparer<TSource>? comparer)
         {
             if (first is null)
             {

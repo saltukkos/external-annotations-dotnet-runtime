@@ -9,9 +9,9 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static int Max(this IEnumerable<int> source) => MinMaxInteger<int, MaxCalc<int>>(source);
+        public static int Max([InstantHandle] this IEnumerable<int> source) => MinMaxInteger<int, MaxCalc<int>>(source);
 
-        public static long Max(this IEnumerable<long> source) => MinMaxInteger<long, MaxCalc<long>>(source);
+        public static long Max([InstantHandle] this IEnumerable<long> source) => MinMaxInteger<long, MaxCalc<long>>(source);
 
         private readonly struct MaxCalc<T> : IMinMaxCalc<T> where T : struct, IBinaryInteger<T>
         {
@@ -21,9 +21,9 @@ namespace System.Linq
             public static Vector512<T> Compare(Vector512<T> left, Vector512<T> right) => Vector512.Max(left, right);
         }
 
-        public static int? Max(this IEnumerable<int?> source) => MaxInteger(source);
+        public static int? Max([InstantHandle] this IEnumerable<int?> source) => MaxInteger(source);
 
-        public static long? Max(this IEnumerable<long?> source) => MaxInteger(source);
+        public static long? Max([InstantHandle] this IEnumerable<long?> source) => MaxInteger(source);
 
         private static T? MaxInteger<T>(this IEnumerable<T?> source) where T : struct, IBinaryInteger<T>
         {
@@ -87,13 +87,13 @@ namespace System.Linq
             return value;
         }
 
-        public static double Max(this IEnumerable<double> source) => MaxFloat(source);
+        public static double Max([InstantHandle] this IEnumerable<double> source) => MaxFloat(source);
 
-        public static double? Max(this IEnumerable<double?> source) => MaxFloat(source);
+        public static double? Max([InstantHandle] this IEnumerable<double?> source) => MaxFloat(source);
 
-        public static float Max(this IEnumerable<float> source) => MaxFloat(source);
+        public static float Max([InstantHandle] this IEnumerable<float> source) => MaxFloat(source);
 
-        public static float? Max(this IEnumerable<float?> source) => MaxFloat(source);
+        public static float? Max([InstantHandle] this IEnumerable<float?> source) => MaxFloat(source);
 
         private static T MaxFloat<T>(this IEnumerable<T> source) where T : struct, IFloatingPointIeee754<T>
         {
@@ -219,7 +219,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal Max(this IEnumerable<decimal> source)
+        public static decimal Max([InstantHandle] this IEnumerable<decimal> source)
         {
             decimal value;
 
@@ -269,7 +269,7 @@ namespace System.Linq
         }
 
 
-        public static decimal? Max(this IEnumerable<decimal?> source)
+        public static decimal? Max([InstantHandle] this IEnumerable<decimal?> source)
         {
             if (source is null)
             {
@@ -306,7 +306,7 @@ namespace System.Linq
             return value;
         }
 
-        public static TSource? Max<TSource>(this IEnumerable<TSource> source) => Max(source, comparer: null);
+        public static TSource? Max<TSource>([InstantHandle] this IEnumerable<TSource> source) => Max(source, comparer: null);
 
         /// <summary>Returns the maximum value in a generic sequence.</summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
@@ -320,7 +320,7 @@ namespace System.Linq
         /// <para>If <typeparamref name="TSource" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// <para>In Visual Basic query expression syntax, an `Aggregate Into Max()` clause translates to an invocation of <see cref="O:Enumerable.Max" />.</para>
         /// </remarks>
-        public static TSource? Max<TSource>(this IEnumerable<TSource> source, IComparer<TSource>? comparer)
+        public static TSource? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, IComparer<TSource>? comparer)
         {
             if (source is null)
             {
@@ -416,7 +416,7 @@ namespace System.Linq
         /// <remarks>
         /// <para>If <typeparamref name="TKey" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// </remarks>
-        public static TSource? MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) => MaxBy(source, keySelector, null);
+        public static TSource? MaxBy<TSource, TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) => MaxBy(source, keySelector, null);
 
         /// <summary>Returns the maximum value in a generic sequence according to a specified key selector function.</summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
@@ -430,7 +430,7 @@ namespace System.Linq
         /// <remarks>
         /// <para>If <typeparamref name="TKey" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// </remarks>
-        public static TSource? MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
+        public static TSource? MaxBy<TSource, TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -525,13 +525,13 @@ namespace System.Linq
             return value;
         }
 
-        public static int Max<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector) => MaxInteger(source, selector);
+        public static int Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int> selector) => MaxInteger(source, selector);
 
-        public static int? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector) => MaxInteger(source, selector);
+        public static int? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int?> selector) => MaxInteger(source, selector);
 
-        public static long Max<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector) => MaxInteger(source, selector);
+        public static long Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long> selector) => MaxInteger(source, selector);
 
-        public static long? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector) => MaxInteger(source, selector);
+        public static long? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long?> selector) => MaxInteger(source, selector);
 
         private static TResult MaxInteger<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) where TResult : struct, IBinaryInteger<TResult>
         {
@@ -634,13 +634,13 @@ namespace System.Linq
             return value;
         }
 
-        public static float Max<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector) => MaxFloat(source, selector);
+        public static float Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float> selector) => MaxFloat(source, selector);
 
-        public static float? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector) => MaxFloat(source, selector);
+        public static float? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float?> selector) => MaxFloat(source, selector);
 
-        public static double Max<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector) => MaxFloat(source, selector);
+        public static double Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double> selector) => MaxFloat(source, selector);
 
-        public static double? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector) => MaxFloat(source, selector);
+        public static double? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double?> selector) => MaxFloat(source, selector);
 
         private static TResult MaxFloat<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) where TResult : struct, IFloatingPointIeee754<TResult>
         {
@@ -745,7 +745,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal Max<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector)
+        public static decimal Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
         {
             if (source is null)
             {
@@ -779,7 +779,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector)
+        public static decimal? Max<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             if (source is null)
             {
@@ -821,7 +821,7 @@ namespace System.Linq
             return value;
         }
 
-        public static TResult? Max<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static TResult? Max<TSource, TResult>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TResult> selector)
         {
             if (source is null)
             {

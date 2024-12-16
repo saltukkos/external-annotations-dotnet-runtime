@@ -24,6 +24,7 @@ namespace System.Linq
         /// This method is comparable to the <see cref="GroupBy{TSource, TKey}(IEnumerable{TSource}, Func{TSource, TKey})"/> methods
         /// where each grouping is being aggregated into a single value as opposed to allocating a collection for each group.
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
@@ -68,6 +69,7 @@ namespace System.Linq
         /// This method is comparable to the <see cref="GroupBy{TSource, TKey}(IEnumerable{TSource}, Func{TSource, TKey})"/> methods
         /// where each grouping is being aggregated into a single value as opposed to allocating a collection for each group.
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<KeyValuePair<TKey, TAccumulate>> AggregateBy<TSource, [DefaultEqualityUsage] TKey, TAccumulate>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,

@@ -8,7 +8,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static bool Any<TSource>(this IEnumerable<TSource> source)
+        public static bool Any<TSource>([InstantHandle] this IEnumerable<TSource> source)
         {
             if (source is null)
             {
@@ -43,7 +43,7 @@ namespace System.Linq
             return e.MoveNext();
         }
 
-        public static bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool Any<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             if (source is null)
             {
@@ -79,7 +79,7 @@ namespace System.Linq
             return false;
         }
 
-        public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        public static bool All<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, bool> predicate)
         {
             if (source is null)
             {

@@ -9,9 +9,9 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
-        public static int Min(this IEnumerable<int> source) => MinMaxInteger<int, MinCalc<int>>(source);
+        public static int Min([InstantHandle] this IEnumerable<int> source) => MinMaxInteger<int, MinCalc<int>>(source);
 
-        public static long Min(this IEnumerable<long> source) => MinMaxInteger<long, MinCalc<long>>(source);
+        public static long Min([InstantHandle] this IEnumerable<long> source) => MinMaxInteger<long, MinCalc<long>>(source);
 
         private readonly struct MinCalc<T> : IMinMaxCalc<T> where T : struct, IBinaryInteger<T>
         {
@@ -21,9 +21,9 @@ namespace System.Linq
             public static Vector512<T> Compare(Vector512<T> left, Vector512<T> right) => Vector512.Min(left, right);
         }
 
-        public static int? Min(this IEnumerable<int?> source) => MinInteger(source);
+        public static int? Min([InstantHandle] this IEnumerable<int?> source) => MinInteger(source);
 
-        public static long? Min(this IEnumerable<long?> source) => MinInteger(source);
+        public static long? Min([InstantHandle] this IEnumerable<long?> source) => MinInteger(source);
 
         private static T? MinInteger<T>(this IEnumerable<T?> source) where T : struct, IBinaryInteger<T>
         {
@@ -69,13 +69,13 @@ namespace System.Linq
             return value;
         }
 
-        public static float Min(this IEnumerable<float> source) => MinFloat(source);
+        public static float Min([InstantHandle] this IEnumerable<float> source) => MinFloat(source);
 
-        public static float? Min(this IEnumerable<float?> source) => MinFloat(source);
+        public static float? Min([InstantHandle] this IEnumerable<float?> source) => MinFloat(source);
 
-        public static double Min(this IEnumerable<double> source) => MinFloat(source);
+        public static double Min([InstantHandle] this IEnumerable<double> source) => MinFloat(source);
 
-        public static double? Min(this IEnumerable<double?> source) => MinFloat(source);
+        public static double? Min([InstantHandle] this IEnumerable<double?> source) => MinFloat(source);
 
         private static T MinFloat<T>(this IEnumerable<T> source) where T : struct, IFloatingPointIeee754<T>
         {
@@ -198,7 +198,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal Min(this IEnumerable<decimal> source)
+        public static decimal Min([InstantHandle] this IEnumerable<decimal> source)
         {
             decimal value;
 
@@ -247,7 +247,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal? Min(this IEnumerable<decimal?> source)
+        public static decimal? Min([InstantHandle] this IEnumerable<decimal?> source)
         {
             if (source is null)
             {
@@ -284,7 +284,7 @@ namespace System.Linq
             return value;
         }
 
-        public static TSource? Min<TSource>(this IEnumerable<TSource> source) => Min(source, comparer: null);
+        public static TSource? Min<TSource>([InstantHandle] this IEnumerable<TSource> source) => Min(source, comparer: null);
 
         /// <summary>Returns the minimum value in a generic sequence.</summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
@@ -298,7 +298,7 @@ namespace System.Linq
         /// <para>If <typeparamref name="TSource" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// <para>In Visual Basic query expression syntax, an `Aggregate Into Min()` clause translates to an invocation of <see cref="O:Enumerable.Min" />.</para>
         /// </remarks>
-        public static TSource? Min<TSource>(this IEnumerable<TSource> source, IComparer<TSource>? comparer)
+        public static TSource? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, IComparer<TSource>? comparer)
         {
             if (source is null)
             {
@@ -394,7 +394,7 @@ namespace System.Linq
         /// <remarks>
         /// <para>If <typeparamref name="TKey" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// </remarks>
-        public static TSource? MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) => MinBy(source, keySelector, comparer: null);
+        public static TSource? MinBy<TSource, TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector) => MinBy(source, keySelector, comparer: null);
 
         /// <summary>Returns the minimum value in a generic sequence according to a specified key selector function.</summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
@@ -408,7 +408,7 @@ namespace System.Linq
         /// <remarks>
         /// <para>If <typeparamref name="TKey" /> is a reference type and the source sequence is empty or contains only values that are <see langword="null" />, this method returns <see langword="null" />.</para>
         /// </remarks>
-        public static TSource? MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
+        public static TSource? MinBy<TSource, TKey>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TKey> keySelector, IComparer<TKey>? comparer)
         {
             if (source is null)
             {
@@ -503,13 +503,13 @@ namespace System.Linq
             return value;
         }
 
-        public static int Min<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector) => MinInteger(source, selector);
+        public static int Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int> selector) => MinInteger(source, selector);
 
-        public static int? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector) => MinInteger(source, selector);
+        public static int? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, int?> selector) => MinInteger(source, selector);
 
-        public static long Min<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector) => MinInteger(source, selector);
+        public static long Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long> selector) => MinInteger(source, selector);
 
-        public static long? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector) => MinInteger(source, selector);
+        public static long? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, long?> selector) => MinInteger(source, selector);
 
         private static TResult MinInteger<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) where TResult : struct, IBinaryInteger<TResult>
         {
@@ -594,13 +594,13 @@ namespace System.Linq
             return value;
         }
 
-        public static float Min<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector) => MinFloat(source, selector);
+        public static float Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float> selector) => MinFloat(source, selector);
 
-        public static float? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector) => MinFloat(source, selector);
+        public static float? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, float?> selector) => MinFloat(source, selector);
 
-        public static double Min<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector) => MinFloat(source, selector);
+        public static double Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double> selector) => MinFloat(source, selector);
 
-        public static double? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector) => MinFloat(source, selector);
+        public static double? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, double?> selector) => MinFloat(source, selector);
 
         private static TResult MinFloat<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) where TResult : struct, IFloatingPointIeee754<TResult>
         {
@@ -708,7 +708,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal Min<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector)
+        public static decimal Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal> selector)
         {
             if (source is null)
             {
@@ -742,7 +742,7 @@ namespace System.Linq
             return value;
         }
 
-        public static decimal? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector)
+        public static decimal? Min<TSource>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, decimal?> selector)
         {
             if (source is null)
             {
@@ -784,7 +784,7 @@ namespace System.Linq
             return value;
         }
 
-        public static TResult? Min<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        public static TResult? Min<TSource, TResult>([InstantHandle] this IEnumerable<TSource> source, [InstantHandle] Func<TSource, TResult> selector)
         {
             if (source is null)
             {

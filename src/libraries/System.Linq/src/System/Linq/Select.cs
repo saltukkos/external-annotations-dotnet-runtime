@@ -10,6 +10,7 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TResult> Select<TSource, TResult>(
             this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
@@ -51,6 +52,7 @@ namespace System.Linq
             return new IEnumerableSelectIterator<TSource, TResult>(source, selector);
         }
 
+        [LinqTunnel]
         public static IEnumerable<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
         {
             if (source is null)

@@ -8,8 +8,10 @@ namespace System.Linq
 {
     public static partial class Enumerable
     {
+        [LinqTunnel]
         public static IEnumerable<TSource> Distinct<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> source) => Distinct(source, null);
 
+        [LinqTunnel]
         public static IEnumerable<TSource> Distinct<[DefaultEqualityUsage] TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource>? comparer)
         {
             if (source is null)
@@ -36,6 +38,7 @@ namespace System.Linq
         /// <para>This method is implemented by using deferred execution. The immediate return value is an object that stores all the information that is required to perform the action. The query represented by this method is not executed until the object is enumerated either by calling its `GetEnumerator` method directly or by using `foreach` in Visual C# or `For Each` in Visual Basic.</para>
         /// <para>The <see cref="DistinctBy{TSource, TKey}(IEnumerable{TSource}, Func{TSource, TKey})" /> method returns an unordered sequence that contains no duplicate values. The default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> DistinctBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) => DistinctBy(source, keySelector, null);
 
         /// <summary>Returns distinct elements from a sequence according to a specified key selector function.</summary>
@@ -50,6 +53,7 @@ namespace System.Linq
         /// <para>This method is implemented by using deferred execution. The immediate return value is an object that stores all the information that is required to perform the action. The query represented by this method is not executed until the object is enumerated either by calling its `GetEnumerator` method directly or by using `foreach` in Visual C# or `For Each` in Visual Basic.</para>
         /// <para>The <see cref="DistinctBy{TSource, TKey}(IEnumerable{TSource}, Func{TSource, TKey}, IEqualityComparer{TKey}?)" /> method returns an unordered sequence that contains no duplicate values. If <paramref name="comparer" /> is <see langword="null" />, the default equality comparer, <see cref="EqualityComparer{T}.Default" />, is used to compare values.</para>
         /// </remarks>
+        [LinqTunnel]
         public static IEnumerable<TSource> DistinctBy<TSource, [DefaultEqualityUsage] TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? comparer)
         {
             if (source is null)
