@@ -193,6 +193,7 @@ namespace System.Collections
             {
                 return keys.Length;
             }
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 if (value < Count)

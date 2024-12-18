@@ -72,6 +72,7 @@ namespace System.Collections
         public virtual int Capacity
         {
             get => _items.Length;
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 if (value < _size)

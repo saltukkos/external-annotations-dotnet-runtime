@@ -110,6 +110,7 @@ namespace System.Collections.Immutable
                     return _equalityComparer;
                 }
 
+                [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
                 set
                 {
                     Requires.NotNull(value, nameof(value));

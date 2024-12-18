@@ -54,6 +54,7 @@ namespace System.Collections.Immutable
             public int Capacity
             {
                 get { return _elements.Length; }
+                [CollectionAccess(CollectionAccessType.None)]
                 set
                 {
                     if (value < _count)
@@ -95,6 +96,7 @@ namespace System.Collections.Immutable
                     return _count;
                 }
 
+                [CollectionAccess(CollectionAccessType.UpdatedContent)]
                 set
                 {
                     Requires.Range(value >= 0, nameof(value));

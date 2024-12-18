@@ -98,6 +98,7 @@ namespace System.Collections.Generic
         public int Capacity
         {
             get => _items.Length;
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 if (value < _size)

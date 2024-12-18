@@ -301,6 +301,7 @@ namespace System.Collections.Immutable
                     return _keyComparer;
                 }
 
+                [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
                 set
                 {
                     Requires.NotNull(value, nameof(value));
@@ -339,6 +340,7 @@ namespace System.Collections.Immutable
                     return _valueComparer;
                 }
 
+                [CollectionAccess(CollectionAccessType.None)]
                 set
                 {
                     Requires.NotNull(value, nameof(value));

@@ -210,6 +210,11 @@
       <argument>0</argument>
     </attribute>
   </member>
+  <member name="M:System.Collections.ArrayList.set_Capacity(System.Int32)">
+    <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">
+      <argument>0</argument>
+    </attribute>
+  </member>
   <member name="M:System.Collections.ArrayList.Adapter(System.Collections.IList)">
     <return>
       <attribute ctor="M:JetBrains.Annotations.CollectionAccessAttribute.#ctor(JetBrains.Annotations.CollectionAccessType)">

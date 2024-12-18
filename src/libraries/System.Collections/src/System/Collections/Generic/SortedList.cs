@@ -227,6 +227,7 @@ namespace System.Collections.Generic
             {
                 return keys.Length;
             }
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 if (value != keys.Length)

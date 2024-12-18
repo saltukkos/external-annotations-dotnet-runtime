@@ -47,6 +47,7 @@ namespace System.Collections
             {
                 return InnerList.Capacity;
             }
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 InnerList.Capacity = value;

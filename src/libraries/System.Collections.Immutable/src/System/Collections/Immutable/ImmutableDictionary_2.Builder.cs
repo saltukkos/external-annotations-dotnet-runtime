@@ -88,6 +88,7 @@ namespace System.Collections.Immutable
                     return _comparers.KeyComparer;
                 }
 
+                [CollectionAccess(CollectionAccessType.ModifyExistingContent)]
                 set
                 {
                     Requires.NotNull(value, nameof(value));
@@ -119,6 +120,7 @@ namespace System.Collections.Immutable
                     return _comparers.ValueComparer;
                 }
 
+                [CollectionAccess(CollectionAccessType.None)]
                 set
                 {
                     Requires.NotNull(value, nameof(value));

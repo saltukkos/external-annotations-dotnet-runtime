@@ -78,6 +78,7 @@ namespace System.Runtime.CompilerServices
         public int Capacity
         {
             get { return _items.Length; }
+            [CollectionAccess(CollectionAccessType.None)]
             set
             {
                 ArgumentOutOfRangeException.ThrowIfLessThan(value, _size);
